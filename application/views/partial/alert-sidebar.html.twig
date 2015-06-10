@@ -1,0 +1,104 @@
+    <div class="sidebar-content">
+    	<div style="padding:10px;">
+        	<a href="#">
+            	<img src="/assets_responsive/img/logo.png">
+			</a>
+    	</div>
+
+        <!-- Wrapper for scrolling functionality -->
+        <div class="sidebar-left-scroll">
+            
+
+{% if route == 'alert/history' or route == 'alert/list' %}
+
+        <ul class="nav nav-tabs push" data-toggle="tabs">
+            <li class="active" style="font-size:10px;"><a href="#tab-search" id="tab-search-link" style="padding:5px;">Search</a></li>
+            <li style="font-size:10px;"><a href="#tab-filter" id="tab-filter-link" style="padding:5px;">Filter</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-search">
+            	<form action="#" method="post" class="sidebar-search">
+                    <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+                </form>
+            </div>
+            <div class="tab-pane" id="tab-filter">
+
+    {% if route == 'alert/history' %}
+            	<div class="col-sm-12">
+            		<small>Triggered in the Last:</small>
+                    <select id="sidebar-alert-last" name="sidebar-alert-last" class="form-control" size="1">
+                        <option value="last-1-day">1 Day</option>
+                        <option value="last-3-days">3 Days</option>
+                        <option value="last-7-days">7 Days</option>
+                        <option value="last-30-days">30 Days</option>
+                        <option value="last-60-days">60 Days</option>
+                        <option value="last-90-days">90 Days</option>
+                    </select>
+            	</div>
+
+            	<div class="col-sm-12" style="margin-top:10px;">
+            		<small>Alert:</small>
+                    <select id="sidebar-alert-alert" name="sidebar-alert-alert" class="form-control" size="1">
+                        <option value="all">All</option>
+                        {% for a in alerts %}
+                        <option value="{{ a.alert_id }}">{{ a.alertname }}</option>
+                        {% endfor %}
+                    </select>
+            	</div>
+    {% endif %}
+
+            	<div class="col-sm-12" style="margin-top:10px;">
+            		<small>Alert Type:</small>
+                    <select id="sidebar-alert-type" name="sidebar-alert-type" class="form-control" size="1">
+                        <option value="all">All</option>
+                        {% for at in alerttypes %}
+                        <option value="{{ at.alerttype_id }}">{{ at.alerttypename }}</option>
+                        {% endfor %}
+                    </select>
+            	</div>
+
+            	<div class="col-sm-12" style="margin-top:10px;">
+            		<small>Vehicle Group:</small>
+                    <select id="sidebar-vehicle-group" name="sidebar-vehicle-group" class="form-control" size="1">
+                        <option value="all">All</option>
+                        {% for g in vehicle_groups %}
+                        <option value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</option>
+                        {% endfor %}
+                    </select>
+            	</div>
+
+            	<div class="col-sm-12" style="margin-top:10px;">
+            		<small>Contact Group:</small>
+                    <select id="sidebar-contact-group" name="sidebar-contact-group" class="form-control" size="1">
+                        <option value="all">All</option>
+                        {% for cg in contact_groups %}
+                        <option value="{{ cg.contactgroup_id }}">{{ cg.contactgroupname }}</option>
+                        {% endfor %}
+                    </select>
+            	</div>
+            </div>
+        </div>
+
+{% endif %}
+
+
+
+{% if route == 'alert/list' %}
+
+
+
+{% endif %}
+
+
+{% if route == 'alert/contact' %}
+
+
+
+{% endif %}
+
+
+
+
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
+    </div>

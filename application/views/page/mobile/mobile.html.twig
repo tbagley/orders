@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+    <head>
+        <title>Position Plus Mobile</title>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" href="/assets/media/icons/apple-touch-114-positionplus-mobile.png"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- jQuery Assets -->
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        
+    <!-- DataTables Assets -->
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script src="/assets/vendor/datatables/dataTables.bootstrap.js"></script>
+
+    <!-- Stylesheets -->
+	    <link rel="stylesheet" href="http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/mobile.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/map.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/plugins.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/themes.css" />
+    <!-- END Stylesheets -->
+        
+	    <script type="text/javascript" src="http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.js"></script>
+        <script src="/assets/js/mapbox.js"></script>
+        <script src="/assets/js/gmap.js"></script>
+        <script src="/assets/js/map.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="/assets_responsive/js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+        <script src="/assets_responsive/js/vendor/bootstrap.min.js"></script>
+        <script src="/assets_responsive/js/plugins.js"></script>
+        <script src="/assets/js/mobile.js"></script>
+    </head>
+    <body data-environment="{{ environment }}" data-context="{{ context }}" data-map-api="{{ map_api }}" data-decarta-api-key="{{ decarta_api_key }}" data-session-timeout="{{ session_timeout }}" onResize="Mobile.resize();">
+	
+{% if loggedin == 0 %}
+		<div id="div-login" class="div-navigation div-1 active">
+			{% include('page/mobile/login.html.twig') %}
+		</div>
+		<div id="div-forgotusername" class="div-navigation div-1">
+			{% include('page/mobile/forgotusername.html.twig') %}
+		</div>
+		<div id="div-forgotpassword" class="div-navigation div-1">
+			{% include('page/mobile/forgotpassword.html.twig') %}
+		</div>
+{% else %}
+		<div id="div-tools" class="div-navigation div-1 active">
+			{% include('page/mobile/tools.html.twig') %}
+		</div>
+        <div id="div-logout" class="div-navigation div-1">
+            {% include('page/mobile/logout.html.twig') %}
+        </div>
+{% endif %}
+
+	</body>
+</html>

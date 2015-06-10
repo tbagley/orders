@@ -1,0 +1,100 @@
+{% set anyResults = 0 %}
+{% set repeat_header_at_row_count = 30 %}
+{% set replace_in = '"' %}
+{% set replace_out = '\\\"' %}
+{% for unit in units %}
+    {% set hasResults = 0 %}
+    {% for rdk, rdv in unit.report_data %}
+        {% set anyResults = 1 %}
+        {% set hasResults = 1 %}
+    {% endfor %}
+    {% if ( (hasResults > 0) and (report.report_type != "Landmark" or (report.report_type == "Landmark" and unit.report_data|length > 0) ) ) %}
+        <div class="report-master">
+            <h2>
+                {% if unit.report_title is defined %}
+                    {{ unit.report_title }}
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </h2>
+            <table class="table table-condensed table-hover table-striped table-curved">
+                <thead>
+                    <tr>
+                        <th class="text-grey">&nbsp;#&nbsp;</th>
+                        {% for column in report.columns %}
+                            {% if column == 'Address' %}
+                                <th>{{ column }} <span class="center">{{ mapalladdresses | raw }}</span></th>
+                            {% else %}
+                                <th>{{ column }}</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set counter = 0 %}
+                    {% for row in unit.report_data  %}
+                        <tr>
+                            {% set counter = counter + 1 %}
+                            <td class="text-grey">&nbsp;{{ counter }}&nbsp;</td>
+                            {% for col_key, column in report.columns %}
+                                {% for key, cell in row %}
+                                    {% if (key == col_key) %}
+                                        {% if ((col_key in 'formatted_address') and (row.latitude is defined) and (row.longitude is defined)) %}
+                                            <td class="address_map_link"
+                                            data-eventname="{{ row.eventname }}"
+                                            data-id="{{ row.latitude }}"
+                                            data-latitude="{{ row.latitude }}"
+                                            data-longitude="{{ row.longitude }}"
+                                            data-label="{{ counter }} - {{ row.eventname }}"
+                                            data-name="{{ counter }} - {{ row.eventname }}"
+                                            ><a href="#">{{ cell }}</a></td>    
+                                        {% else %}
+                                            <td>{{ cell }}</td>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}        
+                            {% endfor %}                    
+                        </tr>
+                        {% if loop.index is divisibleby(repeat_header_at_row_count) and loop.index < loop.length %}
+                            <tr>
+                                {% for column in report.columns %}
+                                    <th>{{ column }}</th>
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
+                    {% else %}
+        {#}
+                        <tr>
+                            <td colspan="{{ report.columns|length }}">
+                                No Data to Report
+                            </td>
+                        </tr>
+        {#}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if unit.summary is defined and unit.summary|length > 0 %}
+                <div class="well well-sm table-summary">
+                    <dl class="dl-horizontal">
+                        {% for datum in unit.summary %}
+                            <dt>{{ datum.label }}:</dt>
+                            <dd>{{ datum.value|raw }}</dd>
+                        {% endfor %}
+                    </dl>
+                </div>
+            {% endif %}
+            <hr />
+        </div>
+    {% endif %}
+{% endfor %}
+{% if anyResults < 1 %}
+        <table class="table table-condensed table-hover table-striped table-curved">
+            <tbody>
+                <tr>
+                    <td>
+                        No Data to Report
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+{% endif %}

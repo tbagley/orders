@@ -1,0 +1,199 @@
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# allows spacing for x-editable button #}
+                    {% set full_col       = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+                    {% set half_col       = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set third_col      = 'col-lg-4 col-md-4 col-sm-4 col-xs-4' %}
+                    {% set two_thirds_col = 'col-lg-8 col-md-8 col-sm-8 col-xs-8' %}
+
+
+                    <div class="panel-body clearfix hook-editable-keys" data-user-pk="">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <h5>Landmark Group Details</h5>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="{{ label_col }}">
+                                        <label for="landmark-group-name">Name:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <div id="editable-group-name">
+                                            <a class="form-editable" id="landmark-group-name" data-type="text" data-url="/ajax/landmark/updateLandmarkGroupInfo" data-maxlength="{{ validation.group_name.maxlength }}"></a>
+                                        </div>
+                                        <div id="not-editable-group-name">
+                                            <span class="form-control-static">Default</span>
+                                        </div>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <a id="landmark-group-more-options-toggle" href="#"><small>Show More Options</small></a>
+                                    </div>
+                                </div>
+                                <div id="landmark-group-more-options">
+                                        <div class="container">
+                                            <div class="clearfix">
+                                                <div class="pull-left">
+                                                    <h5>Delete Landmark Group</h5>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <button id="landmark-group-delete-confirm" class="btn btn-default has-tooltip has-popover" data-placement="right" data-popover-placement="left" data-popover-content-id="popover-content-landmark-group-delete" data-popover-title-id="popover-head-landmark-group-delete" title="Delete Landmark Group" type="button">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="popover-head-landmark-group-delete" class="hide">
+                                            <div class="clearfix">
+                                                <div class="pull-left">
+                                                    Delete Landmark Group
+                                                </div>
+                                                <div class="pull-right">
+                                                    <button type="button" class="close">&times;</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="popover-content-landmark-group-delete" class="hide">
+                                            <p>Are you sure you want delete this Landmark Group?</p>
+                                            <div class="well well-sm">
+                                                <p>This action cannot be undone.</p>
+                                            </div>
+                                            <hr />
+                                            <div class="clearfix">
+                                                <div class="pull-left">
+                                                    <button type="button" id="popover-landmark-group-delete-confirm" class="btn btn-default">Delete</button>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <button type="button" id="popover-user-landmark-group-cancel" class="btn btn-primary popover-cancel">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-8" style="border-left: 1px solid #dddddd;">
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <h5>Group Assignment <small><em>(optional)</em></small></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <div id="landmark-group-assignment" class="drag-drop drag-drop-simple">
+                                            <div class="row">
+                                                <div class="{{ half_col }} hide-if-default">
+                                                    {#<h6 style="color: #333333;"><small>Landmarks Available</small></h6>#}
+                                                    <div class="clearfix">
+                                                        <div class="pull-left">
+                                                            <h6 style="color: #333333;"><small>Landmarks Available</small></h6>
+                                                        </div>
+                                                    </div>
+                                                    <label for="filter-available-text" class="sr-only">Filter:</label>
+                                                    <div class="input-group input-group-sm group-filter-container">
+                                                        <input id="filter-available-text" class="form-control input-sm" type="text" placeholder="Filter Available" />
+                                                        <div class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-filter"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <div class="clearfix">
+                                                        <div class="pull-left">
+                                                            <h6 style="color: #333333;"><small>Landmarks Assigned</small></h6>
+                                                        </div>
+                                                        <div class="pull-left">
+                                                            <a id="move-to-assigned" class="move-to has-popover has-tooltip" title="Transfer Assigned to Another Group" data-placement="bottom" data-popover-placement="bottom" data-popover-title-id="popover-head-move-assigned" data-popover-content-id="popover-content-move-assigned" href="#">Transfer</a>
+
+                                                            {# Move Assigned To - POPOVER #}
+                                                            <div id="popover-head-move-assigned" class="hide">
+                                                                <div class="clearfix">
+                                                                    <div class="pull-left">
+                                                                        Transfer Selected Landmarks
+                                                                    </div>
+                                                                    <div class="pull-right">
+                                                                        <button type="button" class="close">&times;</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="popover-content-move-assigned" class="hide">
+                                                                <div class="row">
+                                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                                        <label for="move-to">To:</label>
+                                                                    </div>
+                                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                                        <div class="btn-group">
+
+                                                                            <button type="button" id="move-to-group" value="0" class="btn btn-dropdown btn-default btn-sm disabled" style="width: 170px; text-align: left;">
+                                                                                <span class="filter-label">Select One</span>
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                                <span class="caret"></span>
+                                                                            </button>
+                                                                            <ul class="dropdown-menu" role="menu">
+                                                                            
+                                                                            {% for lmg in landmark_groups %}
+                                                                                <li><a href="#" data-value="{{ lmg.territorygroup_id }}">{{ lmg.territorygroupname }}</a></li>
+                                                                            {% endfor %}
+
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr />
+                                                                <div class="clearfix">
+                                                                    <div class="pull-left">
+                                                                        <button type="button" id="popover-move-to-group-cancel" class="btn btn-sm btn-default popover-cancel">Cancel</button>
+                                                                    </div>
+                                                                    <div class="pull-right">
+                                                                        <button type="button" id="popover-move-to-group-confirm" class="btn btn-sm btn-primary">Transfer</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <label for="filter-available-text" class="sr-only">Filter:</label>
+                                                        <div class="input-group input-group-sm group-filter-container">
+                                                            <input id="filter-assigned-text" class="form-control input-sm" type="text" placeholder="Filter Assigned" />
+                                                            <div class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-filter"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="{{ half_col }} hide-if-default">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-available">
+                                                            {#{% for landmark in range(1, 6) %}
+                                                                <li data-id="{{ loop.index }}" class="drag-drop-item list-group-item">
+                                                                    <div class="list-group-item-text drag-drop-name">Landmark {{ "%03d"|format(loop.index) }}</div>
+                                                                </li>
+                                                            {% else %}
+                                                                <li class="list-group-item drag-drop-static">
+                                                                    <div class="list-group-item-text">No Landmarks Available</div>
+                                                                </li>
+                                                            {% endfor %}#}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-assigned">
+                                                            {#<li data-id="7" class="drag-drop-item list-group-item">
+                                                                <div class="list-group-item-text drag-drop-name">Landmark 007</div>
+                                                            </li>#}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+

@@ -1,0 +1,86 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    {% include 'partial/quickactions/alert-list.html.twig' %}
+
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <div class="table-options clearfix">
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                        <h3 class="heading1">Manage Existing Alerts</h3>
+                    </div> 
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-6">
+                        <div class="btn-group btn-group-sm pull-right">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="alert-list-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+{#}
+                    <table id="alert-list-example-datatable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="font-size:14px;">Name</th>
+                                <th style="font-size:14px;">Alert Type</th>
+                                <th style="font-size:14px;">Vehicles</th>
+                                <th style="font-size:14px;">Contacts</th>
+                                <th style="font-size:14px;">Last Triggered</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modal-edit-alert" data-toggle="modal">Test Alert ABC</a></td>
+                                <td>Landmark</td>
+                                <td>All</td>
+                                <td>John Doe</td>
+                                <td>10:48 AM 05/07/2014</td>
+                            </tr>
+                        </tbody>
+                    </table>
+{#}
+                        </div>
+                    </div>
+            	</div>
+
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+    {% include('partial/alert-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/alert-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/alert.js"></script>
+{% endblock %}

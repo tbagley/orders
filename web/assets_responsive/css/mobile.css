@@ -1,0 +1,200 @@
+body {
+	overflow: hidden !important ; 
+}
+
+.div-navigation {
+  display: none ;
+}
+
+.div-navigation.active  {
+  display: block !important ;
+}
+
+a.navigation  {
+  color: #5f8f2f ;
+}
+
+a.navigation.active  {
+  color: #e67e22 !important ;
+}
+
+#div-login {
+	height: 100%;
+	width: 100%;
+	vertical-align: middle;
+}
+
+.bg-eeeeee {
+	background: #eeeeee;
+	background-color: #eeeeee;	
+}
+
+.bg-b3b3b3 {
+	background: #b3b3b3;
+	background-color: #b3b3b3;	
+}
+
+.bg-000000 {
+	background: #000000;
+	background-color: #000000;
+}
+
+.dataTables-search {
+	height: 36px;
+	margin: 0px 0px 3px 0px;
+	width: calc(100% - 150px);
+}
+
+.login-element-container {
+	height: 60px;
+	margin-top: 3%;
+}
+
+.logo {
+	height: 50%;
+	width: 50%;
+}
+
+.margin-none {
+	margin: 0 0 0 0 !important;
+}
+
+.mobile-wide {
+	width: 100%;
+}
+
+.text-8 {
+	font-size: 8px;
+}
+
+.text-10 {
+	font-size: 10px;
+}
+
+.text-12 {
+	font-size: 12px;
+}
+
+.text-14 {
+	font-size: 14px;
+}
+
+.text-18 {
+	font-size: 18px;
+}
+
+.text-22 {
+	font-size: 22px;
+}
+
+.text-24 {
+	font-size: 24px;
+}
+
+.text-28 {
+	font-size: 28px;
+}
+
+.text-bold {
+	font-weight: 700;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-moving ,
+.text-black {
+	color: #000000 !important;
+}
+
+.text-blue {
+	color: #0000ff !important;
+}
+
+.text-green {
+	color: #5f8f2f !important;
+}
+
+.text-stopped,
+.text-red {
+	color: #e74c3c !important;
+}
+
+.text-white {
+	color: #ffffff;
+}
+
+.vcenter {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#map-div {
+	background-color: #b3b3b3 ;
+	height: 100% !important;
+	width: 100% !important;
+}
+
+@media all and (max-width: 1200px) and (min-width: 640px) {
+	.btn {
+		font-size: 22px !important;
+		padding: 3px;
+	}
+
+	.btn-command {
+		font-size: 18px !important;
+		padding: 1px !important;
+		width: 180px !important;
+	}
+
+	.navigation {
+		font-size: 18px !important;
+		margin: 5px 5px 5px 5px !important;
+	}
+
+	.text-large {
+		font-size: 18px !important;
+	}
+
+	.text-normal {
+		font-size: 14px !important;
+	}
+
+}
+
+@media all and (max-width: 640px) and (min-width: 20px) {
+
+	.btn {
+		font-size: 8px !important;
+		padding: 3px;
+	}
+
+	.btn-command {
+		width: 110px;
+	}
+
+	.navigation {
+		font-size: 8px !important;
+	}
+
+	.text-large {
+		font-size: 10px !important;
+	}
+
+	.text-normal {
+		font-size: 8px !important;
+	}
+
+}

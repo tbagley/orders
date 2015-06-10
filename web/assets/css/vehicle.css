@@ -1,0 +1,163 @@
+/*
+
+    vehicle.css
+
+*/
+
+#vehicle-info-tab label {
+    display: inline-block;
+    width: 33%;
+}
+
+.vehicle-location-label {
+    white-space: nowrap;
+    /*padding-left: 15px;*/
+}
+
+section#secondary-panel button.btn-dropdown {
+    text-align: left;
+    width: 145px;
+}
+
+#vehicle-list-table-wrapper {
+    height: 728px;
+    padding-right: 30px;
+   /* padding-bottom: 10px;*/
+}
+
+#show-on-map {
+    cursor: pointer;
+}
+
+#vehicle-group-more-options-toggle small {
+    font-size: 0.704em;
+}
+
+#vehicle-group-more-options {
+    display: none;
+}
+
+#filter-available-go:hover {
+    cursor: pointer;
+}
+
+#vehicle-group-list-table span.edit-user {
+    cursor: pointer;
+    border-bottom: solid 1px;
+}
+
+#vehicle-group-user-detail li.list-group-item:hover {
+    cursor: pointer;
+}
+
+#detail-panel .editable-input > input ,
+#detail-panel .editable-input > select {
+    width: 156px;
+}
+
+#modal-vehicle-list #detail-panel .editable-input > input ,
+#modal-vehicle-list #detail-panel .editable-input > select {
+    width: 142px;
+}
+
+#modal-vehicle-group-list #detail-panel .editable-input > input ,
+#modal-vehicle-group-list #detail-panel .editable-input > select {
+    width: 126px;
+}
+
+#detail-panel label ,
+#detail-panel .editable-container {
+    height: 20px;
+}
+
+#vehicle-group-assignment.drag-drop a.move-to {
+    left: 98px;
+}
+
+#vehicle-group-user-all,
+#vehicle-group-usertype-all {
+    position: relative;
+    right: 29px;
+    top: 7px;
+}
+
+#vehicle-group-user-list ,
+#vehicle-group-usertype-list {
+    height: 302px;
+    overflow-y: scroll;
+    border-radius: 6px;
+}
+
+#vehicle-group-user-list li,
+#vehicle-group-usertype-list li {
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+}
+
+#vehicle-group-user-list li:first-child ,
+#vehicle-group-usertype-list li:first-child {
+    border-top: 0;
+}
+
+#vehicle-bar-info {
+    font-size: 0.75em;
+}
+
+#vehicle-bar-info .vehicle-bar-info-col:first-child {
+    margin-right: 15px;
+}
+
+#vehicle-bar-info .vehicle-bar-info-col div:first-child {
+    margin-bottom: 10px;
+}
+#vehicle-bar-info .vehicle-bar-info-col div span {
+    display: inline-block;
+}
+
+#vehicle-bar-info .vehicle-bar-info-col div span.info-label {
+    font-weight: bold;
+    min-width: 70px;
+}
+
+#quick-actions .filter-count {
+    vertical-align: super;
+    font-size: 0.75em;
+    padding-left: 2px;
+}
+
+#vehicle-group-tabs > li {
+    float: left;
+}
+
+label[for="vehicle-group-source"],
+label[for="vehicle-group-destination"] {
+
+    font-size: 0.75em;
+
+}
+
+#vehicle-group-assignment .btn-dropdown {
+    width: 230px;
+    text-align: left;
+}
+
+#vehicle-group-assignment .drag-drop-item {
+    width: 245px;
+}
+
+
+
+#vehicle-group-assignment .row .input-group {
+    line-height: 1em !important;
+}
+
+[data-context='vehicle/map'] #detail-panel .panel-body,
+[data-context='vehicle/list'] #detail-panel .panel-body {
+    height: 257px;
+}
+
+hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

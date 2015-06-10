@@ -1,0 +1,115 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    {% if access.device.write %}
+                    <div id="quick-actions" class="pull-right">
+                        <div class="block-options pull-right">
+                            <a href="#modal-device-transfer" data-toggle="modal" onclick="Core.ClearForm('device-transfer');" data-placement="bottom" title="Device Transfer" style="margin-right:15px;"><i class="gi gi-transfer"></i> Device Transfer</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+                <div class="table-options clearfix">
+{#}
+                    <div class="col-md-3 col-lg-3 col-sm-3 col-xs-6">
+                        <h3 class="heading1">Device</h3>
+                    </div> 
+{#}
+                    <div class="col-sm-4">
+                        <button id="btn-devices-importing" class="btn btn-default active" href="#tab-devices-importing" data-toggle="tab" style="width:40%;">Import</button>
+                        <button id="btn-devices-exporting" class="btn btn-default" href="#tab-devices-exporting" data-toggle="tab" style="width:40%;">Export</button>
+                    </div>                    
+                    <div class="col-sm-8">
+                        <div id="route-exporting" style="display:none;width:100%;">
+                            <div class="pull-right" style="width:33%;">
+                                <button class="btn btn-primary" data-toggle="modal" id="mark-for-transfer" href="#modal-transfer-authorize-release" onClick="Core.ClearForm('mark-for-transfer');" title="Authorize Selected Devices for Release to Transfee's Account">AUTHORIZE RELEASE</button>
+                            </div>
+                            <div class="pull-right" style="width:1%;">
+                                &nbsp;
+                            </div>
+                            <div class="pull-right" style="padding:2px;width:33%;">
+                                <input class="form-control" id="transferee-routing-number" type="text" placeholder="example: 1378982152-1-1378983680-1">
+                            </div>
+                            <div class="pull-right" style="width:33%;">
+                                <label class="pull-right"><h4>Tranferee's Routing Number:&nbsp;</h4></label>
+                            </div>
+                        </div>
+                        <div id="route-importing" style="display:none;width:100%;">
+                            <div class="pull-right" style="padding:10px;width:10%;">
+                                <a class="text-grey-10" data-toggle="modal" id="reject-transfer" href="#modal-transfer-reject" onClick="Core.ClearForm('reject-transfer');" title="Reject Delivery of Selected Devices">reject</a>
+                            </div>
+                            <div class="pull-right" style="width:20%;">
+                                <button class="btn btn-primary" data-toggle="modal" id="accept-transfer" href="#modal-transfer-accept" onClick="Core.ClearForm('accept-transfer');" title="Accept Delivery of Selected Devices">ACCEPT TRANSFER</button>
+                            </div>
+                            <div class="pull-right" style="width:50%;">
+                                <label class="pull-left"><h4>{{ import_export_key }}</h4></label>
+                            </div>
+                            <div class="pull-left" style="width:20%;">
+                                <label class="pull-right"><h4>My Routing Number:&nbsp;</h4></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Table Options -->
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in" id="tab-devices-exporting">
+                                    <div class="dataTables_wrapper form-inline" role="grid">
+                                        <div id="devices-exporting" class="noborder report-master">
+                                            {% include('partial/report-table.html.twig') %}
+                                        </div>                      
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade in active" id="tab-devices-importing">
+                                    <div class="dataTables_wrapper form-inline" role="grid">
+                                        <div id="devices-importing" class="noborder report-master">
+                                            {% include('partial/report-table.html.twig') %}
+                                        </div>                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END FX Container -->
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/device-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/device-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/device.js"></script>
+{% endblock %}

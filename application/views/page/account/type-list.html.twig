@@ -1,0 +1,107 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+    <div id="main-content">
+        <div id="content-1" class="active panel-content">
+            <div class="secondary-bar clearfix">
+                <div id="secondary-nav" class="pull-left">
+                    <ul>
+                        {% for item in secondary_navigation %}
+                            <li><a class="{% if route == item.route  %} active{% endif %} transition" href="/{{ item.route }}/list">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% include 'partial/quickactions/account-user-type.html.twig' %}
+            </div>
+
+            <div class="container">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4><span class="icon list"></span>&nbsp;User Types</h4>
+                    </div>
+                </div>
+                <div id="user-type-list-container">
+                    <div id="user-type-list-table-wrapper">
+                        <table id="user-type-list-table" class="table table-condensed table-hover table-striped table-curved">
+                            <thead>
+                                <tr>
+                                    <th class="no-wrap">Type</th>
+                                    <th class="no-wrap">User Count</th>
+                                    <th class="no-wrap">Editable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {#% for type in range(1, 60) %}
+                                <tr id="user-type-id-{{ loop.index }}">
+                                    <td class="col-type"><a href="#">Type {{ "%03d"|format(loop.index) }}</a></td>
+                                    <td class="col-count">{{ random(15) }}</td>
+                                    <td class="col-editable">{% if (loop.index < 6) %}<span class="user-type-editable user-type-preset glyphicon glyphicon-ban-circle"></span>{% else %}<span class="user-type-editable user-type-custom glyphicon glyphicon-ok"></span>{% endif %}</td>
+                                </tr>
+                            {% endfor %#}
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        <section id="sub-panel" class="collapsed">
+            <div class="container">
+                <div class="tab-content">
+                    <section id="vehicles-tab" class="tab-pane active">
+                        {% include('partial/secondaryfilter/account-user-type-list.html.twig') %}
+                    </section>
+                </div>
+
+            </div>
+        </section>
+        <div class="clear"></div>
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+{% block modals %}
+<!-- MODAL BEGIN -->
+    <div class="modal fade" id="modal-user-type-list" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <div class="pull-left">
+                        <h5 class="modal-title">
+                            <span class="user-type-label">User Type</span>
+                        </h5>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="pull-right">
+
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <section id="detail-panel" style="display: block;">
+                        {% include('page/account/type-detail.html.twig') %}
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <button type="button" id="user-type-permission-close" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" id="user-type-permission-close-alt" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" id="user-type-permission-save" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- MODAL END -->
+{% endblock %}

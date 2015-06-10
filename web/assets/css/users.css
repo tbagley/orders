@@ -1,0 +1,80 @@
+
+#user-more-options-toggle small {
+    font-size: 0.704em;
+}
+
+#user-more-options {
+    display: none;
+}
+
+#user-edit-nav > li {
+    float: left;
+}
+
+#modal-user-list .modal-body {
+    height: 350px;
+}
+
+#modal-user-list .drag-drop-container {
+    width: 275px;
+    height: 247px;
+}
+
+#modal-user-list .drag-drop-container .drag-drop-item {
+    width: 262px;
+}
+
+#user-edit-nav {
+    margin-bottom: 15px;
+}
+
+/*#modal-user-list h6 {
+    color: #333333;
+}*/
+
+#modal-user-list .tab-content {
+    padding: 0 10px;
+}
+
+/*.user-type-preset {
+    color: #dddddd;
+}
+
+.user-type-custom {
+    color:#5CB85C;
+}*/
+
+#user-type-preset-alert {
+    display: none;
+    padding: 5px 10px;
+    margin-bottom: 0;
+}
+
+.user-type-name-panel {
+    display: none;
+}
+
+#modal-user-list #detail-panel .editable-input > input ,
+#modal-user-list #detail-panel .editable-input > select {
+    width: 126px;
+}
+
+#modal-user-list #detail-panel label ,
+#modal-user-list #detail-panel .editable-container {
+    height: 30px;
+}
+
+#permission-toggle-all {
+    position: relative;
+    top: 7px;
+    right: 16px;
+}
+
+
+#user-type-more-options-toggle small {
+    font-size: 0.704em;
+}
+
+#user-type-more-options {
+    display: none;
+}

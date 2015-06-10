@@ -1,0 +1,55 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    #Checks to see if the user is attempting to access a valid file,
+    #such as an image or css document, if this isn't true it sends the
+    #request to index.php
+    RewriteCond %{REQUEST_URI} !=/server-status
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?/$1 [L]
+
+</IfModule>
+
+<IfModule mod_deflate.c>
+
+    # GZIP/DEFLATE COMPRESSION
+
+    AddOutputFilterByType DEFLATE text/text
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/xhtml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/pdf
+    AddOutputFilterByType DEFLATE application/excel
+    AddOutputFilterByType DEFLATE image/png
+    AddOutputFilterByType DEFLATE image/gif
+    AddOutputFilterByType DEFLATE image/jpg
+    AddOutputFilterByType DEFLATE image/jpeg
+
+
+</IfModule>
+
+<IfModule mod_expires.c>
+
+    # CACHE CONTROL
+
+    ExpiresActive On
+
+    ExpiresByType text/css               "access plus 1 hours"
+    ExpiresByType text/javascript        "access plus 1 hours"
+    ExpiresByType application/javascript "access plus 1 hours"
+    ExpiresByType application/pdf        "access plus 1 hours"
+    ExpiresByType image/png              "access plus 1 hours"
+    ExpiresByType image/gif              "access plus 1 hours"
+    ExpiresByType image/jpg              "access plus 1 hours"
+    ExpiresByType image/jpeg             "access plus 1 hours"
+    ExpiresByType image/ico              "access plus 1 hours"
+
+</IfModule>
+

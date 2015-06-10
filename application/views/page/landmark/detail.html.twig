@@ -1,0 +1,194 @@
+<div class="tab-content" style="padding:10px;">
+
+	<div class="col-md-4">
+
+		<div class="form-group" onClick="Landmark.Common.Popover.landmarkMethodCheck();" onFocus="Landmark.Common.Popover.landmarkMethodCheck();">
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+				<label class="control-label pull-right" for="example-text-input">Name:</label>
+	        </div>
+	        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-name" href="javascript:void(0);"{% if permissions_landmark_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);""{% endif %}>[Landmark Name]</a></td></tr></table></div>
+	        </div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+		</div>
+   
+		<div class="row"></div>
+
+		<div class="form-group" onClick="Landmark.Common.Popover.landmarkMethodCheck();" onFocus="Landmark.Common.Popover.landmarkMethodCheck();">
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+				<label class="control-label pull-right" for="example-text-input" style="margin-top:3px;">Group:</label>
+	        </div>
+	        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+				<select id="landmark-group" name="landmark-group" class="form-control" size="1"{% if permissions_landmark_write %} onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');"{% else %} disabled{% endif %}>
+                {% for option in options_groups %}
+                    <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                {% endfor %}
+				</select>
+			</div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+		</div>
+		
+		<div class="row"></div>
+
+		<div class="form-group" onClick="Landmark.Common.Popover.landmarkMethodCheck();" onFocus="Landmark.Common.Popover.landmarkMethodCheck();">
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+				<label class="control-label pull-right" for="example-text-input" style="margin-top:3px;">Category:</label>
+	        </div>
+	        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+				<select id="landmark-category" name="landmark-category" class="form-control" size="1"{% if permissions_landmark_write %} onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');"{% else %} disabled{% endif %}>
+                {% for option in options_categories %}
+                    <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                {% endfor %}
+				</select>
+			</div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+		</div>
+
+		<div class="row"></div>
+
+		<div class="form-group">
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+				<label class="control-label pull-right" for="example-text-input" style="margin-top:3px;">Map:</label>
+	        </div>
+	        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+				<select id="landmark-method2" name="landmark-method2" class="form-control" size="1"{% if permissions_landmark_write %}{% else %} disabled{% endif %}>
+					<option value="manual-entry">Use Address/LatLng to Position Landmark</option>
+					<option value="map-click">Use Mouse to Position Landmark</option>
+				</select>
+			</div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1">
+				<div class="btn-group" style="display:none;">
+				    <!--button type="button" id="landmark-method" value="address" class="btn btn-dropdown btn-default btn-xs disabled"><span class="filter-label">Address</span></button-->
+				    <button type="button" id="landmark-method" value="manual-entry" class="btn btn-dropdown btn-default btn-xs disabled">Manual Entry</button>
+				    <button type="button" class="btn btn-default btn-xs dropdown-toggle " data-toggle="dropdown">
+				        <span class="caret"></span>
+				    </button>
+				    <ul class="dropdown-menu" role="menu">
+				        <!--li><a data-value="address">Address</a></li>
+				        <li><a data-value="lat-long">Lat/Long</a></li-->
+				        <li><a data-value="manual-entry">Manual Entry</a></li>
+				        <li><a data-value="map-click">Use Map Click</a></li>
+				    </ul>
+				</div>
+	        </div>
+		</div>
+
+	</div>
+	<div class="col-md-5" onClick="Landmark.Common.Popover.landmarkMethodCheck();" onFocus="Landmark.Common.Popover.landmarkMethodCheck();">
+
+		<div class="form-group">
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+				<label class="control-label pull-right" for="example-text-input">Location:</label>
+	        </div>
+	        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-street-address" href="javascript:void(0);"{% if permissions_landmark_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);""{% endif %}>[Landmark Street Address]</a></td></tr></table></div>
+			</div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+		</div>
+
+		<div class="row"></div>
+
+		<div class="form-group">
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+	        	<div style="display:none;">
+					<select id="landmark-country" name="landmark-country" class="form-control" size="1"{% if permissions_landmark_write %} onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');"{% else %} disabled{% endif %}>
+	                {% for option in options_countries %}
+	                    <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+	                {% endfor %}
+					</select>
+				</div>
+			</div>
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+	            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-city" href="javascript:void(0);"{% if permissions_landmark_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);""{% endif %}>[Landmark City]</a></td></tr></table></div>
+			</div>
+	        <div class="col-control col-lg-3 col-md-3 col-sm-3 col-xs-3 wizard-div">
+				<select id="landmark-state" name="landmark-state" class="form-control" size="1"{% if permissions_landmark_write %} onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');"{% else %} disabled{% endif %}>
+                {% for option in options_states %}
+                    <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+                {% endfor %}
+				</select>
+			</div>
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+	            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-zipcode" href="javascript:void(0);"{% if permissions_landmark_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);""{% endif %}>[Landmark Zipcode]</a></td></tr></table></div>
+			</div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+		</div>
+
+		<div id="landmark-radius-row">
+
+			<div class="row"></div>
+
+			<div class="form-group">
+		        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+					<label class="control-label pull-right" for="example-text-input" style="margin-top:3px;">Radius:</label>
+		        </div>
+		        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+					<select id="landmark-radius" name="landmark-radius" class="form-control" size="1"{% if permissions_landmark_write %} onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');"{% else %} disabled{% endif %}>
+	                {% for option in options_radius %}
+	                    <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+	                {% endfor %}
+					</select>
+				</div>
+		        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+			</div>
+
+		</div>
+
+		<div class="row"></div>
+
+		<div class="form-group">
+	        <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+				<label class="control-label pull-right" for="example-text-input" style="margin-top:3px;">Shape:</label>
+	        </div>
+	        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+				<select id="landmark-shape" name="landmark-shape" class="form-control" size="1"{% if permissions_landmark_write %} onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');"{% else %} disabled{% endif %}>
+                {% for option in options_shapes %}
+                    <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                {% endfor %}
+				</select>
+			</div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+		</div>
+
+	</div>
+	<div class="col-md-3" onClick="Landmark.Common.Popover.landmarkMethodCheck();" onFocus="Landmark.Common.Popover.landmarkMethodCheck();">
+
+		<div class="form-group">
+	        <div class="col-control col-lg-4 col-md-4 col-sm-4 col-xs-4 wizard-div">
+				<label class="control-label pull-right" for="example-text-input">Lat/Long:</label>
+	        </div>
+	        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7">
+	        	<div class="wizard-div wizard-edit"><table class="wizard-join"><tr>
+		        	<td align="right" style="width:49%;"><a class="wizard-clickable wizard-editable" id="landmark-latitude" href="javascript:void(0);"{% if permissions_landmark_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);""{% endif %}>[Lat]</a></td>
+		        	<td style="width:2%;">&nbsp;/&nbsp;</td>
+		        	<td align="left" style="width:49%;"><a class="wizard-clickable wizard-editable" id="landmark-longitude" href="javascript:void(0);"{% if permissions_landmark_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);""{% endif %}>[Long]</a></td>
+		        </tr></table></div>
+		    </div>
+	        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+		</div>
+
+		<div class="row"></div>
+
+	    <div class="row pull-right">
+	        <a class="btn btn-default" href="#" id="landmark-delete-button">DELETE</a>
+	    </div>
+
+		<div class="row"></div>
+
+		<div class="form-group" style="display:none;">
+			<input id="poloygon-output" class="form-control">
+	    </div>
+
+	</div>
+{#}
+	<div class="row clearfix"></div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Save</button>
+    </div>
+{#}
+</div>
+
+
+

@@ -1,0 +1,54 @@
+{% extends "layout/layout-blank.html.twig" %}
+    {% block main_panel %}
+
+        <div class="well" style="width:400px;margin:40px auto">
+
+            {% if restrict == true %}
+
+                <div style="padding:20px">
+                    You are already logged into the system. Please logout and try this page again.
+                </div>
+
+            {% else %}
+                {% if error is defined %}
+                    <div class="alert alert-danger">{{ error.message }}</div>
+                {% endif %}
+
+                {% if success is defined %}
+                    <div class="alert alert-success">{{ success.message }}</div>
+                {% endif %}
+
+                <h4 style="margin-bottom:20px">Login</h4>
+
+                <form role="form" action="" method="post">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" name="_username" value="{% if last_username is defined %}{{ last_username }}{% endif %}" placeholder="" maxlength="{{ validation.username.maxlength }}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="_password" placeholder="" maxlength="{{ validation.password.maxlength }}">
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            {% endif %}
+
+        </div>
+
+        <!-- MAIN-PANEL BEGIN  -->
+        <!--div id="main-content">
+            <div id="content-1" class="active map-content panel-content">
+
+                Login
+
+            </div>
+        </div-->
+        <!-- MAIN-PANEL END  -->
+    {% endblock %}
+    {% block secondary_panel %}
+        <!-- SECONDARY-PANEL BEGIN  -->
+
+        <!-- SECONDARY-PANEL END  -->
+    {% endblock %}

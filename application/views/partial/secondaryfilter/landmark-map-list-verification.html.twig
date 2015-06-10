@@ -1,0 +1,62 @@
+<div class="nav" id="select-landmark-search-tab">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#landmark-search-tab" data-toggle="tab">Search</a></li>
+        <li class=""><a href="#landmark-filter-tab" data-toggle="tab">Filter</a></li>
+    </ul>
+</div>
+<form role="form">
+    <div class="tab-content">
+{% if route == 'landmark/verification' %}
+    <div id="landmark-filter-tab" class="tab-pane fade in">
+        <div class="form-group">
+            <label for="verification-filter" style="width: auto;">Verification Status:&nbsp;</label>
+            <div class="btn-group">
+                <button type="button" id="verification-filter" value="all" class="btn btn-dropdown disabled btn-default btn-sm"><span class="filter-label">All</span></button>
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a data-value="all">All</a></li>
+                    <li><a data-value="verified">Verified</a></li>
+                    <li><a data-value="no-verified">Not Verified</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="verification-vehicle-filter" style="width: auto;">Vehicle:&nbsp;</label>
+            <div class="btn-group">
+                <button type="button" id="verification-vehicle-filter" value="All" class="btn btn-dropdown disabled btn-default btn-sm"><span class="filter-label">All</span></button>
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a data-value="all">All</a></li>
+                {% for v in vehicles %}
+                    <li><a data-value="{{ v.unit_id }}">{{ v.unitname }}</a></li>
+                {% endfor %}
+                
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <div id="landmark-search-tab" class="tab-pane fade in active">
+        <div class="form-group">
+            <label for="text-verification-search">Search:</label>
+            <div class="input-group input-group-sm">
+                <input id="text-verification-search" type="text" class="form-control" />
+                <span class="input-group-btn">
+                    <button id="verification-search-go" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+{% endif %}
+</div>
+</form>
+<hr />

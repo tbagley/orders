@@ -1,0 +1,79 @@
+<!-- Report Table - Begin - views/partial/report-table.html.twig -->
+<div class="mobile-wide">
+    <div class="row" style="display: none;">
+        <div class="col-sm-3 pull-right">
+            <div class="dataTables-paginate paging-bootstrap pull-right">
+                <ul class="pagination pagination-sm remove-margin">
+                    <li class="dataTables-begin"><a href="javascript:void(0)"><i class="fa fa-fast-backward"></i> </a></li>
+                    <li class="dataTables-previous"><a href="javascript:void(0)"><i class="fa fa-chevron-left"></i> </a></li>
+                    <li class="dataTables-current"><span class="dataTables-current-page">1</span></li>
+                    <li class="dataTables-next"><a href="javascript:void(0)"><i class="fa fa-chevron-right"></i></a></li>
+                    <li class="dataTables-end"><a href="javascript:void(0)"><i class="fa fa-fast-forward"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-2 col-xs-2 pull-right">
+            <div class="dataTables-info pull-right">
+                <span style="color:#eeeeee;">&nbsp;|&nbsp;</span>
+                Page <span class="dataTables-page-count" style="font-weight:700;">0</span> of <span class="dataTables-page-total" style="font-weight:700;">9</span>
+            </div>
+        </div>
+        <div class="col-sm-4 pull-left">
+            <div class="dataTables-filter pull-left">
+                <div class="dataTables-group">
+                    <select size="1" class="dataTables-length dataTables-form" title="Rows per page">
+                        <option value="5">5</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                        <option value="-1" selected>All</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-3">
+            <div class="dataTables-info">
+                <span class="dataTables-last-report"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row mobile-wide">
+        <div class="dataTables-filter mobile-wide">
+            <span class="dataTables-group-addon pull-right"><i class="dataTables-clear-btn fa fa-times" onclick="return false;"></i></span>
+            <span class="dataTables-group-addon pull-right"><i class="dataTables-search-btn fa fa-search" onclick="return false;"></i></span>
+            <input type="text" class="dataTables-search dataTables-form pull-right" placeholder="Search">
+            <div class="pull-left" style="width:85px">
+                <div class="center" style="margin: 8px 0px 0px 0px;">
+                    <span class="dataTables-records-count text-normal text-grey" style="font-weight:700;"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-report-scroll" style="margin-top:10px;">
+        <table class="table table-bordered table-report table-hover">
+            <thead>
+                <tr>
+                    <th class="no-wrap"></th>
+                    <th class="no-wrap"></th>
+                    <th class="no-wrap"></th>
+                    <th class="no-wrap"></th>
+                    <th class="no-wrap"></th>
+                    <th class="no-wrap"></th>
+                    <th class="no-wrap"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Report Table - End -->

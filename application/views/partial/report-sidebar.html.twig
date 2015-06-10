@@ -1,0 +1,525 @@
+    <div class="sidebar-content">
+        <div style="padding:10px;">
+            <a href="#">
+                <img src="/assets_responsive/img/logo.png">
+            </a>
+        </div>
+
+        <!-- Wrapper for scrolling functionality -->
+        <div class="sidebar-left-scroll">
+            
+
+{% if route == 'report/list'%}
+
+            <div class="tab-content">
+
+                <!-- report tab pane -->
+                <div class="tab-pane" id="tab-report">    
+                    <div class="col-sm-12">
+                        <form action="#" method="#">
+
+                            <div class="form-group">
+                                <small>Report Type:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="select-report-type" class="btn sidebar-btn-group-box" value="Address Verification">Address Verification</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sub-panel-items" role="menu">
+                                        <li id="14"><a href="#">Address Verification</a></li>
+                                        <li id="1"><a href="#">Alert</a></li>
+                                        <li id="3"><a href="#">Detailed Event</a></li>
+                                        <li id="4"><a href="#">Frequent Stops</a></li>
+                                        <li id="5"><a href="#">Landmark</a></li>
+                                        <li id="15"><a href="#">Last Ten Stops</a></li>
+                                        <li id="6"><a href="#">Mileage Summary</a></li>
+                                        <li id="7"><a href="#">Non Reporting</a></li>
+                                        <li id="8"><a href="#">Speed Summary</a></li>
+                                        <li id="9"><a href="#">Starter Disable Summary</a></li>
+                                        <li id="10"><a href="#">Stationary</a></li>
+                                        <li id="11"><a href="#">Stop</a></li>
+                                        <li id="12"><a href="#">User Command</a></li>
+                                        <li id="13"><a href="#">Vehicle Information</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-vehicle-mode" style="display:none;">
+                                <small>Vehicle Mode:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-vehicle-mode" class="btn sidebar-btn-group-box" value="all">All Vehicles</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="all"><a href="#">All Vehicles</a></li>
+                                        <li id="single"><a href="#">Single Vehicle</a></li>
+                                        <li id="group"><a href="#">Vehicle Group</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-vehicle" style="display:none;">
+                                <small>Vehicle:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-vehicle-single" class="btn sidebar-btn-group-box" value="{{ vehicles ? vehicles[0]['unit_id'] : '' }}">{{ vehicles ? vehicles[0]['unitname'] : 'No Vehicles Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for v in vehicles %}
+                                            <li id="{{ v.unit_id }}"><a href="#">{{ v.unitname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Vehicles Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-vehicle-group" style="display:none;">
+                                <small>Vehicle Group:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-vehicle-group" class="btn sidebar-btn-group-box" value="{{ vehicle_groups ? vehicle_groups[0]['unitgroup_id'] : '' }}">{{ vehicle_groups ? vehicle_groups[0]['unitgroupname'] : 'No Vehicle Groups Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for vg in vehicle_groups %}
+                                            <li id="{{ vg.unitgroup_id }}"><a href="#">{{ vg.unitgroupname }}</a></li>
+                                        {% else %}
+                                            <li id=""><a href="#">No Vehicle Groups Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-verification" style="display:none;">
+                                <small>Verification:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-reference" class="btn sidebar-btn-group-box" value="all">All</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="all"><a href="#">All</a></li>
+                                        <li id="full"><a href="#">Fully Verified</a></li>
+                                        <li id="partial"><a href="#">Partial Verification</a></li>
+                                        <li id="none"><a href="#">No Verification</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-alert-type" style="display:none;">
+                                <small>Alert Type:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-alert" class="btn sidebar-btn-group-box" value="0">All Alert Types</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="0"><a href="#">All Alert Types</a></li>
+                                        <li id="2"><a href="#">Extended Stops</a></li>
+                                        <li id="3"><a href="#">Landmark</a></li>
+                                        <li id="4"><a href="#">Low Voltage</a></li>
+                                        <li id="5"><a href="#">Moving</a></li>
+                                        <li id="6"><a href="#">Non Reporting</a></li>
+                                        <li id="7"><a href="#">Over Speed</a></li>
+                                        <li id="8"><a href="#">Tow</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group tab-content" id="div-report-date-range" style="display:none;">
+                                <div class="tab-pane active" id="tab-date-preset">    
+                                    <small>Date Range:</small>
+                                    <div class="btn-group sidebar-div">
+                                        <button type="button" id="report-dates" class="btn sidebar-btn-group-box" value="Today">Today</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                            <li id="Today"><a href="#tab-date-preset" data-toggle="tab">Today</a></li>
+                                            <li id="Yesterday"><a href="#tab-date-preset" data-toggle="tab">Yesterday</a></li>
+                                            <li id="Last 7 Days"><a href="#tab-date-preset" data-toggle="tab">Last 7 Days</a></li>
+                                            <li id="Last 30 Days"><a href="#tab-date-preset" data-toggle="tab">Last 30 Days</a></li>
+                                            <li id="Last 60 Days"><a href="#tab-date-preset" data-toggle="tab">Last 60 Days</a></li>
+                                            <li id="Last 90 Days"><a href="#tab-date-preset" data-toggle="tab">Last 90 Days</a></li>
+                                            <li id="This Month"><a href="#tab-date-preset" data-toggle="tab">This Month</a></li>
+                                            <li id="Last Month"><a href="#tab-date-preset" data-toggle="tab">Last Month</a></li>
+                                            <li id="Custom Range"><a href="#tab-date-custom" data-toggle="tab">Custom Range</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-date-custom">    
+<!-- 
+                                    <input type="text" id="example-datepicker" name="datepicker" class="form-control input-datepicker text-center" data-date-format="mm/dd/yy" placeholder="mm/dd/yy" >
+ -->
+                                    <small>Custom Date Range From:</small>
+                                    <input type="text" id="date-range-picker_start" placeholder="08/01/2014" class="input-datepicker">                                   
+                                    <small>To</small>
+                                    <input type="text" id="date-range-picker_end" placeholder="08/25/2014" class="input-datepicker">
+                                    <a href="/report/list">reset</a>
+                                </div>
+                            </div>
+                            <!-- date range modal -->
+<!--
+                             <div id="modal-date-range" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" style="min-width:300px;">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="btn-group-vertical">
+                                                <button class="btn btn-default">Today</button>
+                                                <button class="btn btn-default">Yesterday</button>
+                                                <button class="btn btn-default">Last 7 Days</button>                                    
+                                                <button class="btn btn-default">Last 30 Days</button>
+                                                <button class="btn btn-default">Last 60 Days</button>
+                                                <button class="btn btn-default">Last 90 Days</button>
+                                                <button class="btn btn-default">This Month</button>                                   
+                                                <button class="btn btn-default">Last Month</button>                                     
+                                                <button class="btn btn-default">Custom Range</button> 
+                                            </div>
+                                            <label>FROM</label>
+                                            <input type="text" placeholder="08/01/2014" class="input-datepicker">                                   
+                                            <label>TO</label>
+                                            <input type="text" placeholder="08/25/2014" class="input-datepicker">   
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-primary">Apply</button>
+                                        </div>
+                                    </div>
+                                </div>           
+                            </div>
+ -->
+                             <!-- END date range modal -->
+
+
+                            <div class="form-group" id="div-report-landmark-mode" style="display:none;">
+                                <small>Landmark Mode:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-landmark-mode" class="btn sidebar-btn-group-box" value="all">All Landmarks</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="all"><a href="#">All Landmarks</a></li>
+                                        <li id="single"><a href="#">Single Landmark</a></li>
+                                        <li id="group"><a href="#">Landmark Group</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-landmark" style="display:none;">
+                                <small>Landmark:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-landmark-single" class="btn sidebar-btn-group-box" value="{{ landmarks ? landmarks[0]['territory_id'] : '' }}">{{ landmarks ? landmarks[0]['territoryname'] : 'No Landmarks Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for lm in landmarks %}
+                                            <li id="{{ lm.territory_id }}"><a href="#">{{ lm.territoryname }}</a></li>
+                                        {% else %}
+                                            <li id=""><a href="#">No Landmarks Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-landmark-group" style="display:none;">
+                                <small>Landmark Group:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-landmark-group" class="btn sidebar-btn-group-box" value="{{ landmark_groups ? landmark_groups[0]['territorygroup_id'] : '' }}">{{ landmark_groups ? landmark_groups[0]['territorygroupname'] : 'No Landmark Groups Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for lg in landmark_groups %}
+                                            <li id="{{ lg.territorygroup_id }}"><a href="#">{{ lg.territorygroupname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Landmark Groups Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-total-miles-filter" style="display:none;">
+                                <small>Total Miles Filter:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-mileage-summary" class="btn sidebar-btn-group-box" value="50000">&gt;50,000</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="0"><a href="#">None</a></li>
+                                        <li id="50000"><a href="#">&gt;50,000</a></li>
+                                        <li id="75000"><a href="#">&gt;75,000</a></li>
+                                        <li id="100000"><a href="#">&gt;100,000</a></li>
+                                        <li id="150000"><a href="#">&gt;150,000</a></li>
+                                        <li id="200000"><a href="#">&gt;200,000</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-not-reported-in" style="display:none;">
+                                <small>Not Reported In:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-non-reporting" class="btn sidebar-btn-group-box" value="7">&gt;7 Days</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="7"><a href="#">&gt;7 Days</a></li>
+                                        <li id="14"><a href="#">&gt;14 Days</a></li>
+                                        <li id="30"><a href="#">&gt;30 Days</a></li>
+                                        <li id="60"><a href="#">&gt;60 Days</a></li>
+                                        <li id="90"><a href="#">&gt;90 Days</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-speed-filter" style="display:none;">
+                                <small>Speed Filter:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-speed-summary" class="btn sidebar-btn-group-box" value="75">&gt;75 MPH</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="75"><a href="#">&gt;75 MPH</a></li>
+                                        <li id="80"><a href="#">&gt;80 MPH</a></li>
+                                        <li id="85"><a href="#">&gt;85 MPH</a></li>
+                                        <li id="90"><a href="#">&gt;90 MPH</a></li>
+                                        <li id="95"><a href="#">&gt;95 MPH</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-stationary-filter" style="display:none;">
+                                <small>Stationary Filter:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-stationary" class="btn sidebar-btn-group-box" value="3">&gt;3 Days</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="3"><a href="#">&gt;3 Days</a></li>
+                                        <li id="7"><a href="#">&gt;7 Days</a></li>
+                                        <li id="14"><a href="#">&gt;14 Days</a></li>
+                                        <li id="30"><a href="#">&gt;30 Days</a></li>
+                                        <li id="60"><a href="#">&gt;60 Days</a></li>
+                                        <li id="90"><a href="#">&gt;90 Days</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-stop-threshold" style="display:none;">
+                                <small>Stop Threshold:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-stop" class="btn sidebar-btn-group-box" value="30">&gt;30 Minutes</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="5"><a href="#">&gt;5 Minutes</a></li>
+                                        <li id="30"><a href="#">&gt;30 Minutes</a></li>
+                                        <li id="60"><a href="#">&gt;1 Hour</a></li>
+                                        <li id="240"><a href="#">&gt;4 Hour</a></li>
+                                        <li id="720"><a href="#">&gt;12 Hours</a></li>
+                                        <li id="1440"><a href="#">&gt;1 Day</a></li>
+                                        <li id="10080"><a href="#">&gt;7 Days</a></li>
+{#}
+                                        <li id="20160"><a href="#">&gt;14 Days</a></li>
+                                        <li id="43200"><a href="#">&gt;30 Days</a></li>
+{#}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-users" style="display:none;">
+                                <small>Users:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-user-command" class="btn sidebar-btn-group-box" value="">[Select User]</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for u in users %}
+                                            <li id="{{ u.user_id }}"><a href="#">{{ u.firstname }} {{ u.lastname }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <small>Name:</small>
+                                <input type="text" id="report-name" name="report-name" value="Address Verification Report 1">
+                            </div>        
+
+                            <hr>
+
+                            <div class="pull-right">
+{#}
+                                <button class="btn btn-default sidebar-btn-schedule" data-toggle="modal" data-target="#modal-schedule-report" id="report-schedule" onClick="return false;">Schedule</button> 
+{#}
+                                <button class="btn btn-primary sidebar-btn-run" id="report-run" onClick="return false;">Run</button>            
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- END report tab pane -->
+                
+                <!-- category tab pane -->
+                <div class="tab-pane active" id="tab-reports"> 
+                    <div style="margin-top:20px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                        <h4>Reports</h4>
+                    </div>
+                    <div class="col-sm-12 col-md-12 block-section ms-categories">
+                        <ul id="secondary-sidebar-scroll" class="nav nav-pills nav-stacked sub-panel-items sub-panel-resize">
+                            <li id="14"><a href="#tab-report" data-toggle="tab">Address Verification</a></li>
+                            <li id="1"><a href="#tab-report" data-toggle="tab">Alert</a></li>
+                            <li id="3"><a href="#tab-report" data-toggle="tab">Detailed Event</a></li>
+                            <li id="4"><a href="#tab-report" data-toggle="tab">Frequent Stops</a></li>
+                            <li id="5"><a href="#tab-report" data-toggle="tab">Landmark</a></li>
+                            <li id="15"><a href="#tab-report" data-toggle="tab">Last Ten Stops</a></li>
+                            <li id="6"><a href="#tab-report" data-toggle="tab">Mileage Summary</a></li>
+                            <li id="7"><a href="#tab-report" data-toggle="tab">Non Reporting</a></li>
+                            <li id="8"><a href="#tab-report" data-toggle="tab">Speed Summary</a></li>
+                            <li id="9"><a href="#tab-report" data-toggle="tab">Starter Disable Summary</a></li>
+                            <li id="10"><a href="#tab-report" data-toggle="tab">Stationary</a></li>
+                            <li id="11"><a href="#tab-report" data-toggle="tab">Stop</a></li>
+                            <li id="12"><a href="#tab-report" data-toggle="tab">User Command</a></li>
+                            <li id="13"><a href="#tab-report" data-toggle="tab">Vehicle Information</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END category tab pane -->
+
+            </div>
+
+{% endif %}
+
+
+{% if route == 'report/scheduled' %}
+
+                    <!-- Default Working Tabs Content -->
+                    <ul class="nav nav-tabs push" data-toggle="tabs">
+                        <li class="active" style="font-size:10px;"><a href="#tab-search" style="padding:5px;">Search</a></li>
+                        <li style="font-size:10px;"><a href="#tab-filter" style="padding:5px;">Filter</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-search">
+                            <form action="#" method="post" class="sidebar-search">
+                                <input type="text" id="sidebar-search" name="sidebar-search" placeholder="Search...">
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="tab-filter">
+                            <div class="col-sm-12">
+                                <small>Type:</small>
+                                <select id="sidebar-type" name="sidebar-type" class="form-control" size="1">
+                                    <option value="all" selected>All</option>
+                                {% for rt in reporttypes %}
+                                    <option value="{{ rt.reporttype_id }}">{{ rt.reporttypename }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12" style="margin-top:10px;">
+                                <small>Contact Mode:</small>
+                                <select id="sidebar-contact-mode" name="sidebar-contact-mode" class="form-control" size="1">
+                                    <option value="all" selected>All Contacts</option>
+                                    <option value="single">Single Contacts</option>
+                                    <option value="group">Contact Group</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12" id="div-sidebar-contact-single" name="div-sidebar-contact-single" style="display:none;margin-top:10px;">
+                                <small>Contact:</small>
+                                <select id="sidebar-contact-single" name="sidebar-contact-single" class="form-control" size="1">
+                                {% for u in users %}
+                                    <option value="{{ u.user_id }}">{{ u.firstname }} {{ u.lastname }}</option>
+                                {% else %}
+                                    <option value="">No Contacts Available</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12" id="div-sidebar-contact-group" name="div-sidebar-contact-group" style="display:none;margin-top:10px;">
+                                <small>Contact Group:</small>
+                                <select id="sidebar-contact-group" name="sidebar-contact-group" class="form-control" size="1">
+                                {% for u in users %}
+                                    <option value="{{ u.user_id }}">{{ u.firstname }} {{ u.lastname }}</option>
+                                {% else %}
+                                    <option value="">No Contact Groups Available</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12" style="margin-top:10px;">
+                                <small>Schedule:</small>
+                                <select id="sidebar-recurrence" name="sidebar-recurrence" class="form-control" size="1">
+                                 <option value="all">All</option>
+                                 <option value="daily">Daily</option>
+                                 <option value="weekly">Weekly</option>
+                                 <option value="monthly">Monthly</option>
+                                 <option value="quarterly">Quarterly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Default Working Tabs Content -->
+                    
+{% endif %}
+
+
+{% if route == 'report/history' %}
+
+                    <!-- Default Working Tabs Content -->
+                    <ul class="nav nav-tabs push" data-toggle="tabs">
+                        <li class="active" style="font-size:10px;"><a href="#tab-search" style="padding:5px;">Search</a></li>
+                        <li style="font-size:10px;"><a href="#tab-filter" style="padding:5px;">Filter</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-search">
+                            <form action="#" method="post" class="sidebar-search">
+                                <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+                            </form>
+                        </div>
+                        <div class="tab-pane" id="tab-filter">
+                            <div class="col-sm-12">
+                                <small>Type:</small>
+                                <select id="sidebar-type" name="sidebar-type" class="form-control" size="1">
+                                    <option value="all" selected>All</option>
+                                {% for rt in reporttypes %}
+                                    <option value="{{ rt.reporttype_id }}">{{ rt.reporttypename }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12" style="margin-top:10px;">
+                                <small>Contact:</small>
+                                <select id="sidebar-contact-single" name="sidebar-contact-single" class="form-control" size="1">
+                                    <option value="all">All</option>
+                                {% for u in users %}
+                                    <option value="{{ u.user_id }}">{{ u.firstname }} {{ u.lastname }}</option>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12" style="margin-top:10px;">
+                                <small>Ran On:</small>
+                                <select id="sidebar-date-range" name="sidebar-date-range" class="form-control" size="1">
+                                    <option value="all">All</option>
+                                    <option value="1">Last 24 Hours</option>
+                                    <option value="3">Last 3 Days</option>
+                                    <option value="7">Last 7 Days</option>
+                                    <option value="30">Last 30 Days</option>
+                                    <option value="60">Last 60 Days</option>
+                                    <option value="90">Last 90 Days</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Default Working Tabs Content -->
+                    
+{% endif %}
+
+
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
+    </div>

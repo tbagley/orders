@@ -1,0 +1,197 @@
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# allows spacing for x-editable button #}
+                    {% set command_col    = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %} {# allows spacing for x-editable button #}
+
+                    <div class="panel-body clearfix hook-editable-keys" data-contact-pk="" data-contact-sms="" data-contact-carrier="">
+
+                        {#<div class="pull-right">
+                            <div class="btn-group">
+                                <button id="popover-delete-contact" type="button" class="btn btn-default has-tooltip has-popover" title="Delete Contact" data-placement="bottom" data-popover-title-id="popover-head-alert-delete" data-popover-content-id="popover-content-alert-delete" data-popover-placement="left">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                        </div>#}
+                        <div class="{#pull-left#}" style="/*width: 235px;*/">
+                           {# <div class="row">#}
+                                <div class="{#col-lg-12#}">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h5>Contact Details</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="contact-first-name">First Name:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="contact-first-name" data-type="text" data-url="/ajax/contact/updateContactInfo" data-maxlength="{{ validation.first_last_name.maxlength }}"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="contact-last-name">Last Name:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="contact-last-name" data-type="text" data-url="/ajax/contact/updateContactInfo" data-maxlength="{{ validation.first_last_name.maxlength }}"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="contact-email">E-Mail:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="contact-email" data-type="text" data-url="/ajax/contact/updateContactInfo" data-maxlength="{{ validation.email.maxlength }}"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="contact-sms">SMS Number:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="contact-sms" data-type="text" data-url="/ajax/contact/updateContactInfo" data-maxlength="{{ validation.phone_number.maxlength }}"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="contact-carrier">SMS Carrier:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="contact-carrier" data-type="select" data-source="/ajax/contact/getSMSCarrierOptions" data-url="/ajax/contact/updateContactInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <a href="#" id="contact-more-options-toggle"><small>Show More Options</small></a>
+                                        </div>
+                                    </div>
+                                    <div id="contact-more-options" class="container" {#style="margin-top: 15px; padding-left: 15px;"#}>
+                                        {#<h5>Delete Contact</h5>
+                                        <div class="well well-sm">This is action cannot be undone.</div>#}
+                                        <div class="{#well well-sm#}">
+
+                                            <div class="clearfix">
+                                                <div class="pull-left">
+                                                    <h5>Delete Contact</h5>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <button id="contact-delete-confirm" type="button" class="btn btn-default has-tooltip has-popover" title="Delete Contact" data-popover-title-id="popover-head-contact-delete" data-popover-content-id="popover-content-contact-delete" data-popover-placement="left" data-placement="right">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                {#</div>#}
+                                {#<div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h5>Group Assignment <small><em>(optional)</em></small></h5>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="contact-assign-group">Contact Group:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="contact-assign-group" data-type="select" data-source="/ajax/contact/getContactGroupOptions/None/false" data-url="/ajax/contact/updateContactInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="well well-sm">
+                                                <p>You may assign a New Contact to a Contact Group. Once saved the New Contact may be assigned to additional Contact Groups.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>#}
+                            </div>
+                            {#
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="{{ label_col }}">
+                                    <label for="contact-name">Name:</label>
+                                </div>
+                                <div class="{{ control_col }}">
+                                    <a class="form-editable" id="contact-name" data-type="text" data-url="/ajax/contact/updateContactInfo"></a>
+                                </div>
+                                <div class="{{ control_offset }}"></div>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="{{ label_col }}">
+                                    <label for="contact-assign-group">Contact Group:</label>
+                                </div>
+                                <div class="{{ control_col }}">
+                                    <a class="form-editable" id="contact-assign-group" data-type="select" data-source="/ajax/contact/getContactGroupOptions/None/false" data-url="/ajax/contact/updateContactInfo"></a>
+                                </div>
+                                <div class="{{ control_offset }}"></div>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="{{ label_col }}">
+                                    <label for="contact-email">E-Mail:</label>
+                                </div>
+                                <div class="{{ control_col }}">
+                                    <a class="form-editable" id="contact-email" data-type="text" data-url="/ajax/contact/updateContactInfo"></a>
+                                </div>
+                                <div class="{{ control_offset }}"></div>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="{{ label_col }}">
+                                    <label for="contact-sms">SMS Number:</label>
+                                </div>
+                                <div class="{{ control_col }}">
+                                    <a class="form-editable" id="contact-sms" data-type="text" data-url="/ajax/contact/updateContactInfo"></a>
+                                </div>
+                                <div class="{{ control_offset }}"></div>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px">
+                                <div class="{{ label_col }}">
+                                    <label for="contact-carrier">SMS Carrier:</label>
+                                </div>
+                                <div class="{{ control_col }}">
+                                    <a class="form-editable" id="contact-carrier" data-type="select" data-source="/ajax/alert/getSMSCarrierOptions" data-url="/ajax/contact/updateContactInfo"></a>
+                                </div>
+                                <div class="{{ control_offset }}"></div>
+                            </div>
+                            #}
+                        </div>
+                    </div>
+{# POPOVERS #}
+    {# Contact - Delete #}
+                    <div id="popover-head-contact-delete" class="hide">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                Delete Contact
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="close">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="popover-content-contact-delete" class="hide">
+                        <p>Are you sure you want delete this Contact?</p>
+                        <div class="well well-sm">
+                            <p>This action cannot be undone.</p>
+                        </div>
+                        <hr />
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-contact-delete-confirm" class="btn btn-default">Delete</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-contact-delete-cancel" class="btn btn-primary popover-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+

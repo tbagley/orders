@@ -1,0 +1,161 @@
+{# QUICK ACTIONS #}
+<div id="quick-actions" class="pull-right" xmlns="http://www.w3.org/1999/html">
+    <form role="form">
+        <ul>
+            <li>
+                <a id="popover-user-new" class="has-popover has-tooltip" data-placement="bottom" title="Add User" data-popover-placement="bottom" data-popover-title-id="popover-head-user-new" data-popover-content-id="popover-content-user-new" data-popover-width="824" data-popover-position-right="25" data-popover-arrow-left-position="758">
+                    <span class="icon16 icon16-plus"></span> <span style="color: #999999; font-size: 0.9em; text-transform: uppercase; position: relative; top: -3px;">User</span>
+                </a>
+            </li>
+        </ul>
+    </form>
+</div>
+{# QUICK ACTION POPOVERS #}
+<div id="popover-head-user-new" class="hide">
+    <div class="clearfix">
+        <div class="pull-left">
+            Add Userx
+        </div>
+        <div class="pull-right">
+            <button type="button" class="close">&times;</button>
+        </div>
+    </div>
+</div>
+<div id="popover-content-user-new" class="hide">
+    {% set label_col   = 'col-lg-8 col-md-8 col-sm-8 col-xs-8' %}
+    {% set control_col = 'col-lg-8 col-md-8 col-sm-8 col-xs-8' %}
+    {% set half_col    = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+    {% set full_col    = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+    {% set third_col   = 'col-lg-16 col-md-16 col-sm-16 col-xs-16' %}
+
+
+    <div class="row">
+        <div class="{{ full_col }}">
+            <h4>User Detailsx</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="{{ third_col }}" style="border-right: 1px dotted #dddddd;">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="{{ label_col }}">
+                    <label for="user-first-name-new">First Name:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="user-first-name-new" type="text" class="form-control input-sm" maxlength="{{ validation.first_last_name.maxlength }}" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="{{ label_col }}">
+                    <label for="user-last-name-new">Last Name:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="user-last-name-new" type="text" class="form-control input-sm" maxlength="{{ validation.first_last_name.maxlength }}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="{{ label_col }}">
+                    <label for="user-type-new">User Type:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <div class="btn-group">
+                        <button type="button" id="user-type-new" value="2" class="btn btn-dropdown btn-default btn-sm disabled" style="width: 125px; text-align: left;">
+                            <span class="filter-label">User</span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                        {% for u in usertypes %}
+                        <li><a href="#" data-value="{{ u.usertype_id }}">{{ u.usertype }}</a></li>
+                        {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="{{ third_col }}" style="border-right: 1px dotted #dddddd;">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="{{ label_col }}">
+                    <label for="user-username-new">Username:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="user-username-new" type="text" class="form-control input-sm" maxlength="{{ validation.username.maxlength }}" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="{{ label_col }}">
+                    <label for="user-password-new">Password:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="user-password-new" type="password" class="form-control input-sm" placeholder="Minimum 8 Characters" maxlength="{{ validation.password.maxlength }}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="{{ label_col }}">
+                    <label for="user-confirm-new">Confirm:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="user-confirm-new" type="password" class="form-control input-sm" placeholder="Retype Password" maxlength="{{ validation.password.maxlength }}" />
+                </div>
+            </div>
+        </div>
+        <div class="{{ third_col }}">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="{{ label_col }}">
+                    <label for="user-email-new">E-Mail:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="user-email-new" type="text" class="form-control input-sm" maxlength="{{ validation.email.maxlength }}" />
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="{{ label_col }}">
+                    <label for="user-cell-new">Cell:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="user-cell-new" type="text" class="form-control input-sm" maxlength="{{ validation.phone_number.maxlength }}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="{{ label_col }}">
+                    <label for="user-carrier-new">Carrier:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <div class="btn-group">
+                        <button type="button" id="user-carrier-new" value="null" class="btn btn-dropdown btn-default btn-sm disabled" style="width: 127px; text-align: left;">
+                            <span class="filter-label">{{ carriers ? carriers[0]['cellcarrier'] : 'Not Set'}}</span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ carriers ? '' : 'disabled'}}" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                        {% for carrier in carriers %}
+                        <li><a href="#" data-value="{{ carrier.cellcarrier_id }}">{{ carrier.cellcarrier }}</a></li>
+                        {% endfor %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="{{ full_col }}">
+           <div class="well well-sm">
+               <p>Once saved, an E-mail containing login credentials will be sent to the New User.<br /> <span class="text-danger">For increased <span class="bold">password security</span> you may advise the New User to change his or her password upon initial login.</span> </p>
+
+           </div>
+       </div>
+    </div>
+    <hr />
+    <div class="clearfix">
+        <div class="pull-left">
+            <button type="button" id="popover-new-user-cancel" class="btn btn-default popover-cancel">Cancel</button>
+        </div>
+        <div class="pull-right">
+            <button type="button" id="popover-new-user-confirm" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</div>
+

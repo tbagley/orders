@@ -1,0 +1,27 @@
+{
+    "require": {
+        "doctrine/dbal": "*",
+        "firephp/firephp-core": "*",
+        "symfony/console": "2.3.x-dev",
+        "twig/twig": "1.14.*",
+        "symfony/security-bundle": "2.3.*@dev",
+        "phpunit/phpunit": "3.7.27",
+        "symfony/yaml": "*",
+        "symfony-cmf/routing": "1.1.*@dev",
+        "symfony/finder": "2.4.*@dev",
+        "swiftmailer/swiftmailer": "5.1.*@dev",
+        "anthonymartin/geo-location": "dev-master",
+        "ensepar/tcpdf": "dev-master",
+        "twilio/sdk": "dev-master"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "GTC": "src/",
+            "Controllers": "application/",
+            "Models": "application/",
+            "Commands": "application/"
+        }
+
+    }
+}

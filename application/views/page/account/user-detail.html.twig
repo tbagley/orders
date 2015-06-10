@@ -1,0 +1,209 @@
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# allows spacing for x-editable button #}
+                    {% set full_col       = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+                    {% set half_col       = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+
+
+                    <div class="panel-body clearfix hook-editable-keys" data-user-pk="">
+
+
+                        <ul id="user-edit-nav" class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#user-details-tab" data-toggle="tab">User Details</a>
+                            </li>
+                            <li>
+                                <a href="#user-vehicle-groups-tab" data-toggle="tab">Vehicle Groups</a>
+                            </li>
+                            <li>
+                                <a href="#user-landmark-groups-tab" data-toggle="tab">Landmark Groups</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="user-details-tab" class="tab-pane fade in active">
+                                {#<h6>User Details</h6>#}
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="{{ label_col }}">
+                                        <label for="user-firstname">First Name:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <a class="form-editable" id="user-firstname" data-type="text" data-url="/account/updateUserInfo" data-maxlength="{{ validation.first_last_name.maxlength }}"></a>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="{{ label_col }}">
+                                        <label for="user-lastname">Last Name:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <a class="form-editable" id="user-lastname" data-type="text" data-url="/account/updateUserInfo" data-maxlength="{{ validation.first_last_name.maxlength }}"></a>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="{{ label_col }}">
+                                        <label for="user-email">E-Mail:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <a class="form-editable" id="user-email" data-type="text" data-url="/account/updateUserInfo" data-maxlength="{{ validation.email.maxlength }}"></a>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="{{ label_col }}">
+                                        <label for="user-usertype">User Type:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <a class="form-editable" id="user-usertype" data-type="select" data-source="/account/getUserTypeOptions" data-url="/account/updateUserInfo"></a>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <a id="user-more-options-toggle" href="#"><small>Show More Options</small></a>
+                                    </div>
+                                </div>
+                                <div id="user-more-options">
+                                    <div class="container">
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                <h5>Delete User</h5>
+                                            </div>
+                                            <div class="pull-right">
+                                                <button id="user-delete-confirm" class="btn btn-default has-tooltip has-popover" data-placement="right" data-popover-placement="left" data-popover-content-id="popover-content-user-delete" data-popover-title-id="popover-head-user-delete" title="Delete User" type="button">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="popover-head-user-delete" class="hide">
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                Delete User
+                                            </div>
+                                            <div class="pull-right">
+                                                <button type="button" class="close">&times;</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="popover-content-user-delete" class="hide">
+                                        <p>Are you sure you want delete this User?</p>
+                                        <div class="well well-sm">
+                                            <p>This action cannot be undone.</p>
+                                        </div>
+                                        <hr />
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                <button type="button" id="popover-user-delete-confirm" class="btn btn-default">Delete</button>
+                                            </div>
+                                            <div class="pull-right">
+                                                <button type="button" id="popover-user-delete-cancel" class="btn btn-primary popover-cancel">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="user-vehicle-groups-tab" class="tab-pane fade">
+                                {#<h5>Vehicle Groups</h5>#}
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <div id="user-vehicle-group-assignment" class="drag-drop drag-drop-simple">
+                                            <div class="row">
+                                                <div class="{{ half_col }}">
+                                                    <h6 style="color: #333333;"><small>Vehicle Groups Available</small></h6>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <h6 style="color: #333333;"><small>Vehicle Groups Assigned</small></h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="{{ half_col }}">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-available">
+                                                            {% for group in range(1, 6) %}
+                                                                <li data-id="{{ loop.index }}" class="drag-drop-item list-group-item">
+                                                                    <div class="list-group-item-heading drag-drop-name">Group {{ "%03d"|format(loop.index) }}</div>
+                                                                </li>
+                                                            {% else %}
+                                                                <li class="list-group-item drag-drop-static">
+                                                                    <div class="list-group-item-heading">No Vehicle Groups Available</div>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-assigned">
+                                                            <li data-id="7" class="drag-drop-item list-group-item">
+                                                                <div class="list-group-item-heading drag-drop-name">Group 007</div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="pull-right">
+                                                <form role="form">
+                                                    <label for="user-vehicle-groups-all" class="text-muted">Assign All Vehicle Groups:</label>
+                                                    <input id="user-vehicle-groups-all" type="checkbox" class="drag-drop-toggle" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="user-landmark-groups-tab" class="tab-pane fade">
+                                {#<h5>Landmark Groups</h5>#}
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <div id="user-landmark-group-assignment" class="drag-drop drag-drop-simple">
+                                            <div class="row">
+                                                <div class="{{ half_col }}">
+                                                    <h6 style="color: #333333;"><small>Landmark Groups Available</small></h6>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <h6 style="color: #333333;"><small>Landmark Groups Assigned</small></h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="{{ half_col }}">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-available">
+                                                            {% for group in range(1, 6) %}
+                                                                <li data-id="{{ loop.index }}" class="drag-drop-item list-group-item">
+                                                                    <div class="list-group-item-heading drag-drop-name">Group {{ "%03d"|format(loop.index) }}</div>
+                                                                </li>
+                                                            {% else %}
+                                                                <li class="list-group-item drag-drop-static">
+                                                                    <div class="list-group-item-heading">No Landmark Groups Available</div>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-assigned">
+                                                            <li data-id="7" class="drag-drop-item list-group-item">
+                                                                <div class="list-group-item-heading drag-drop-name">Group 007</div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix">
+                                            <div class="pull-right">
+                                                <form role="form">
+                                                    <label for="user-landmark-groups-all" class="text-muted">Assign All Landmark Groups:</label>
+                                                    <input id="user-landmark-groups-all" type="checkbox" class="drag-drop-toggle" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+

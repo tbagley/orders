@@ -1,0 +1,96 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+    <div id="main-content">
+        <div id="content-1" class="active panel-content">
+            <div class="secondary-bar clearfix">
+                <div id="secondary-nav" class="pull-left">
+                    <ul>
+                        {% for item in secondary_navigation %}
+                            <li><a class="{% if route == item.route  %} active{% endif %} transition" href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% include 'partial/quickactions.html.twig' %}
+            </div>
+            {# TOP LEFT OF MAIN #}
+            <div class="wedge wedge-top-left" data-wedge-background="#383838" data-wedge-foreground="#ffffff" data-wedge-left-position="0" data-wedge-y-position="34" role="presentation"></div>
+            {# TOP RIGHT OF MAIN #}
+            {#<div class="wedge wedge-top-right" data-wedge-background="#383838" data-wedge-foreground="#ffffff" data-wedge-right-position="0" data-wedge-y-position="34" role="presentation"></div>#}
+            {# LEFT OF QUICK ACTIONS #}
+            <div class="wedge wedge-bottom-right" data-wedge-background="#ffffff" data-wedge-foreground="#383838" data-wedge-right-position="0" data-wedge-y-position="14" role="presentation"></div>
+
+            {# BOTTOM LEFT OF MAIN #}
+            {#<div class="wedge wedge-bottom-left" data-wedge-background="#383838" data-wedge-foreground="#ffffff" data-wedge-left-position="0" data-wedge-y-position="780" role="presentation"></div>#}
+
+
+            <div class="container">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4><span class="icon report"></span>&nbsp;Landmark Report</h4>
+                    </div>
+                    <div class="pull-right" style="margin-right: 30px;">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default has-tooltip" title="Export PDF" data-placement="bottom"><span class="glyphicon glyphicon-file"></span></button>
+                            <button id="button-vehicle-list-export-csv" type="button" class="btn btn-default has-tooltip has-popover" title="Export CSV" data-placement="bottom" data-popover-placement="left" data-popover-title-id="popover-head-vehicle-list-export-csv" data-popover-content-id="popover-content-vehicle-list-export-csv"><span class="glyphicon glyphicon-export"></span></button>
+                            <button type="button" class="btn btn-default has-tooltip" title="Print" data-placement="bottom"><span class="glyphicon glyphicon-print"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-scroll-vertical">
+                    <div id="report-table-wrapper">
+                        <table id="report-table" class="table table-condensed table-hover table-striped table-curved tables">
+
+                            {% set table_head =
+                                '<tr>
+                                    <th class="no-wrap">Landmark</th>
+                                    <th class="no-wrap">Vehicle(s)</th>
+                                    <th class="no-wrap">Details</th>
+                                    <th class="no-wrap">Date &amp; Time</th>
+                                </tr>'
+                            %}
+
+                            <thead>
+                                {{ table_head|raw }}
+                            </thead>
+                            <tbody>
+                            {% for report_data in range(1, 50) %}
+                                {% if loop.index is divisible by(26) %}
+                                    {{ table_head|raw }}
+                                {% endif %}
+                                <tr>
+                                    <td>Landmark {{ "%03d"|format(random(19)+1) }}</td>
+                                    <td>{{ random(['Vehicle 001', 'Vehicle Group 001']) }}</td>
+                                    <td>Landmark {{ random(['In', 'Out']) }}</td>
+                                    <td>11/14/2013 04:40 pm</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        <section id="sub-panel" class="collapsed">
+            <div class="container">
+                {% include 'page/report/reportparams.html.twig' %}
+            </div>
+        </section>
+        <div class="clear"></div>
+
+    {# BOTTOM RIGHT OF SECONDARY #}
+    {#<div class="wedge wedge-bottom-right" data-wedge-background="#ffffff" data-wedge-foreground="#383838" data-wedge-left-position="180" data-wedge-y-position="830" role="presentation"></div>#}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+{% block modals %}
+{% endblock %}

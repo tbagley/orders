@@ -1,0 +1,128 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    {% include 'partial/quickactions/contact.html.twig' %}
+
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <ul class="nav nav-tabs push" role="tablist" data-toggle="tabs" id="contactTabs">
+                    <li class="active"><a class="contacts-list" href="#tab-contact-list" data-toggle="tab" role="tab">Contacts</a></li>
+                    <li><a class="contactgroups-list" href="#tab-contact-group" data-toggle="tab" role="tab">Groups</a></li>
+                </ul>
+
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="tab-contact-list">
+{#}
+                      <h3 class="heading1">Contacts</h3>
+{#}
+                      <!-- END Table Options -->
+                      <div class="table-responsive">
+                        <div class="dataTables_wrapper form-inline" role="grid">
+                          <div id="contacts-contacts-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+{#}
+                            <table id="contact-list-example-datatable" class="table table-bordered table-hover">
+                               <thead>
+                                  <tr>
+                                     <th style="font-size:14px;">Name</th>
+                                     <th style="font-size:14px;">Group</th>
+                                     <th style="font-size:14px;">Contact</th>
+                                     <th style="font-size:14px;">Details</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  <tr>
+                                     <td><a href="#modal-edit-contact" data-toggle="modal">[John Smith]</a></td>
+                                     <td>[B Names, Rocks Group]</td>
+                                     <td>[All]</td>
+                                     <td>[4155551212@vtext.com / jsmith@domain.com]</td>
+                                  </tr>
+                                  <tr>
+                                     <td><a href="#modal-edit-contact" data-toggle="modal">[John Doe]</a></td>
+                                     <td>[B Names, Collector A-F]</td>
+                                     <td>[E-Mail]</td>
+                                     <td>[4155551313@vtext.com / jdoe@domain.com]</td>
+                                  </tr>
+                               </tbody>
+                            </table>
+{#}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="tab-contact-group">
+{#}
+                      <h3 class="heading1">Groups</h3>
+{#}
+                      <div class="table-responsive">
+                        <div class="dataTables_wrapper form-inline" role="grid">
+                          <div id="contacts-groups-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+{#}
+                            <table id="contact-group-example-datatable" class="table table-bordered table-hover">
+                               <thead>
+                                  <tr>
+                                     <th style="font-size:14px;">Name</th>
+                                     <th style="font-size:14px;">Contact Method</th>
+                                     <th style="font-size:14px;">Contacts</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  <tr>
+                                     <td><a href="#modal-edit-contact-group" data-toggle="modal">[John Smith]</a></td>
+                                     <td>[All]</td>
+                                     <td>[5]</td>
+                                  </tr>
+                                  <tr>
+                                     <td><a href="#modal-edit-contact-group" data-toggle="modal">[John Doe]</a></td>
+                                     <td>[E-Mail]</td>
+                                     <td>[3]</td>
+                                  </tr>
+                               </tbody>
+                            </table>
+{#}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/contact-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/contact-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/contact.js"></script>
+{% endblock %}

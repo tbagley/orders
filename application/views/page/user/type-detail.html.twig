@@ -1,0 +1,146 @@
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# allows spacing for x-editable button #}
+                    {% set full_col       = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+                    {% set half_col       = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set master_col     = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set detail_col     = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+
+
+                    <div class="panel-body clearfix hook-editable-keys" data-user-type-pk="">
+
+                        <div id="user-type-master-detail" class="master-detail-list">
+            {# ALERT #}
+                            <div class="row">
+                                <div class="{{ half_col }}">
+                                    <div id="user-type-name-static-panel" class="user-type-name-panel">
+                                        <label for="user-type-name-static">Name:</label>
+                                        <span id="user-type-name-static" class="form-control-static">Test</span>
+                                    </div>
+                                    <div id="user-type-name-editable-panel" class="user-type-name-panel row">
+                                        <div class="{{ label_col }}">
+                                            <label for="user-type-name">Name:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="user-type-name" data-type="text" data-url="/ajax/users/updateUserTypeInfo" data-maxlength="{{ validation.usertype_name.maxlength }}"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                                <div class="{{ half_col }}">
+                                    <div id="user-type-preset-alert" class="alert alert-warning fade in">
+                                        {#<button class="close" aria-hidden="true" data-dismiss="alert" type="button">&times;</button>#}
+                                        {#<strong>Note:</strong>#}
+                                        <span class="glyphicon glyphicon-hand-right"></span>
+                                        This <em>Preset User Type</em> cannot be modified.
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+            {# MASTER DETAIL HEADINGS #}
+                            <div class="row">
+                                <div class="{{ master_col }}">
+                                    <h5><span class="master-detail-master-title">Permission Category</span></h5>
+                                </div>
+                                <div class="{{ detail_col }}">
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <h5><span class="master-detail-detail-title"></span> Permissions</h5>
+                                        </div>
+                                        <div class="pull-right">
+                                            <label for="permission-toggle-all" class="sr-only">All:</label>
+                                            <input type="checkbox" id="permission-toggle-all" class="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            {# MASTER DETAIL LIST #}
+                            <div class="row">
+                                <div class="{{ master_col }}">
+                                    
+                                    <ul class="master-detail-list-master list-group">
+                                    {% for pc in permissioncategory %}
+                                        <li class="list-group-item" data-toggle="{{ pc.permissioncategoryname }}-detail-list">{{ pc.permissioncategoryname }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                    
+                                </div>
+                                <div class="{{ detail_col }}">
+                                    
+                                    {% for pc in permissioncategory %}
+                                        <ul id="{{ pc.permissioncategoryname }}-detail-list" class="master-detail-list-detail list-group">
+                                        {% for p in pc.permissions %}
+                                            <li class="list-group-item unselectable">
+                                                <label class="clearfix">
+                                                    <span class="pull-left">
+                                                        {{ p.label }}
+                                                    </span>
+                                                    <span class="pull-right">
+                                                        <input id="{{ pc.permissioncategoryname }}-permission-{{ p.permission_id }}" type="checkbox" class="user-type-permission" />
+                                                    </span>
+                                                </label>
+                                            </li>
+                                        {% endfor %}
+                                        </ul>
+                                    {% endfor %}                                    
+                                    </ul>
+
+                                </div>
+                            </div>
+
+            {# MORE OPTIONS #}
+                        {% if access.usertype.write %}
+                            <div class="{{ master_col }}">
+                                <div class="clearfix" style="margin-bottom: 15px;">
+                                    <div class="pull-left">
+                                        <a href="#" id="user-type-more-options-toggle"><small>Show More Options</small></a>
+                                    </div>
+                                </div>
+                                <div id="user-type-more-options">
+                                    <div class="container">
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                <h5>Delete User Type</h5>
+                                            </div>
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-default has-tooltip has-popover" data-placement="bottom" title="Delete UserType" data-popover-placement="left" data-popover-title-id="popover-head-user-type-delete" data-popover-content-id="popover-content-user-type-delete"><span class="glyphicon glyphicon-remove"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                            
+			{# POPOVERS #}
+        	{# UserType - Delete #}
+							<div id="popover-head-user-type-delete" class="hide">
+								<div class="clearfix">
+									<div class="pull-left">
+										Delete UserType
+									</div>
+									<div class="pull-right">
+										<button type="button" class="close">&times;</button>
+									</div>
+								</div>
+							</div>
+							<div id="popover-content-user-type-delete" class="hide">
+								<p>Are you sure you want delete this Usertype?</p>
+								<div class="well well-sm">
+									<p>This action cannot be undone.</p>
+								</div>
+								<hr />
+								<div class="clearfix">
+									<div class="pull-left">
+										<button type="button" id="popover-user-type-delete-confirm" class="btn btn-default">Delete</button>
+									</div>
+									<div class="pull-right">
+										<button type="button" id="popover-user-type-delete-cancel" class="btn btn-primary popover-cancel">Cancel</button>
+									</div>
+								</div>
+							</div>
+                          
+                        </div>
+
+                    </div>
+

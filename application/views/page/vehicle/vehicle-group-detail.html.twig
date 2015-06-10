@@ -1,0 +1,509 @@
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-3 col-md-3 col-sm-3 col-xs-3' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-3 col-md-3 col-sm-3 col-xs-3' %} {# allows spacing for x-editable button #}
+                    {% set full_col       = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+                    {% set half_col       = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set third_col      = 'col-lg-4 col-md-4 col-sm-4 col-xs-4' %}
+                    {% set two_thirds_col = 'col-lg-8 col-md-8 col-sm-8 col-xs-8' %}
+                    {% set master_col     = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set detail_col     = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+
+
+                    <div class="panel-body clearfix hook-editable-keys" data-user-pk="">
+                        <div class="row">
+                            <div class="{{ full_col }}">
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="{{ label_col }}">
+                                        <label for="vehicle-group-name">Vehicle Group Name:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <div id="editable-group-name" class="hide-if-new">
+                                            <a class="form-editable" id="vehicle-group-name" data-type="text" data-url="/ajax/vehicle/updateVehicleGroupInfo" data-maxlength="{{ validation.group_name.maxlength }}"></a>
+                                        </div>
+                                        <div id="not-editable-group-name" class="hide-if-new">
+                                            <span class="form-control-static">Default</span>
+                                        </div>
+                                        <div id="new-group-name" style="display:none;">
+                                            <input id="vehicle-group-name-new" type="text" class="form-control" maxlength="{{ validation.group_name.maxlength }}" />
+                                        </div>
+                                    </div>
+                                    <div class="{{ control_offset }}">
+                                    </div>
+                                </div>
+                                <ul id="vehicle-group-tabs" class="nav nav-tabs hide-if-new">
+                                    <li><a data-toggle="tab" id="vehicle-group-access-tab-href" href="#vehicle-group-access-tab">User Access</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#vehicle-group-assignment-tab">Assign Devices</a></li>
+                                </ul>
+                                <div class="tab-content hide-if-new" style="padding-top: 10px;">
+                                    <div id="vehicle-group-access-tab" class="tab-pane fade in">
+                                        <div id="vehicle-group-user-detail" class="vehicle-group-user-detail">
+                                            {# LABEL #}
+                                            {# <div class="row">
+                                                 <div class="{{ full_col }}">
+                                                     <h5><span class="vehicle-group-user-title"></span>Assign User Access:</h5>
+                                                 </div>
+                                                 &#123;&#35;<div class="{{ half_col }}">&nbsp;</div>&#35;&#125;
+                                             </div>#}
+                                             {# MASTER DETAIL HEADINGS #}
+                                            <div class="row">
+                                                <div class="{{ master_col }}">
+                                                    <div class="pull-left">
+                                                        <h6 style="color: #333333;">
+                                                            <span class="master-detail-master-title">User Types</span>
+                                                        </h6>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        {#All&nbsp;#}<input id="vehicle-group-usertype-all" type="checkbox"/>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ detail_col }}">
+                                                    <div class="pull-left">
+                                                        <h6 style="color: #333333;">
+                                                            <span class="master-detail-detail-title">Users</span>
+                                                        </h6>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        {#All&nbsp;#}<input id="vehicle-group-user-all" type="checkbox"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {# MASTER DETAIL LIST #}
+                                            <div class="row">
+                                                <div class="{{ master_col }}">
+                                                    <ul id="vehicle-group-usertype-list" class="master-detail-list-master list-group"></ul>
+                                                </div>
+                                                <div class="{{ detail_col }}">
+                                                    <ul id="vehicle-group-user-list" class="master-detail-list-master list-group"></ul>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="{{ full_col }}">
+                                                    <div class="clearfix">
+                                                        <div class="pull-right">
+                                                            <button id="vehicle-group-user-save" type="button" class="btn btn-xs btn-primary">Save User Access</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="vehicle-group-assignment-tab" class="tab-pane fade in active">
+                                        {#<div class="row">
+                                            <div class="{{ full_col }}">
+                                                <div id="vehicle-group-assignment" class="drag-drop drag-drop-simple">
+                                                    <div class="row">
+                                                        <div class="{{ half_col }} hide-if-default">
+                                                            <div class="clearfix">
+                                                                <div class="pull-left">
+                                                                    <h6 style="color: #333333;"><small>Vehicles Available</small></h6>
+                                                                </div>
+                                                            </div>
+                                                            <label for="filter-available-text" class="sr-only">Filter:</label>
+                                                            <div class="input-group input-group-sm group-filter-container">
+                                                                <input id="filter-available-text" class="form-control input-sm" type="text" placeholder="Filter Available" />
+                                                                <div class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-filter"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ half_col }}">
+                                                            <div class="clearfix">
+                                                                <div class="pull-left">
+                                                                    <h6 style="color: #333333;"><small>Vehicles Assigned</small></h6>
+                                                                </div>
+                                                                <div class="pull-left" id="move-container">
+                                                                    <a id="move-to-assigned" class="move-to has-popover has-tooltip" title="Transfer Assigned to Another Group" data-placement="bottom" data-popover-placement="bottom" data-popover-title-id="popover-head-move-assigned" data-popover-content-id="popover-content-move-assigned" href="#">Transfer</a>
+                                                                    &#123;&#35; Move Assigned To - POPOVER &#35;&#125;
+                                                                    <div id="popover-head-move-assigned" class="hide">
+                                                                        <div class="clearfix">
+                                                                            <div class="pull-left">
+                                                                                Transfer Selected Vehicles
+                                                                            </div>
+                                                                            <div class="pull-right">
+                                                                                <button type="button" class="close">&times;</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="popover-content-move-assigned" class="hide">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                                                <label for="move-to">To:</label>
+                                                                            </div>
+                                                                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                                                <div class="btn-group">
+                                                                                    <button type="button" id="move-to-group" value="0" class="btn btn-dropdown btn-default btn-sm disabled" style="width: 170px; text-align: left;">
+                                                                                        <span class="filter-label">Select One</span>
+                                                                                    </button>
+                                                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                                        <span class="caret"></span>
+                                                                                    </button>
+                                                                                    <ul class="dropdown-menu" role="menu">
+
+                                                                                    {% for g in vehicle_groups %}
+                                                                                        <li><a data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</a></li>
+                                                                                    {% endfor %}
+
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr />
+                                                                        <div class="clearfix">
+                                                                            <div class="pull-left">
+                                                                                <button type="button" id="popover-move-to-group-cancel" class="btn btn-sm btn-default popover-cancel">Cancel</button>
+                                                                            </div>
+                                                                            <div class="pull-right">
+                                                                                <button type="button" id="popover-move-to-group-confirm" class="btn btn-sm btn-primary">Move</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <label for="filter-assigned" class="sr-only">Filter:</label>
+                                                            <div class="input-group input-group-sm group-filter-container">
+                                                                <input id="filter-assigned-text" class="form-control input-sm" type="text" placeholder="Filter Assigned" />
+                                                                <div class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-filter"></span>
+                                                                </div>
+                                                            </div>
+                                                            &#123;&#35;<h6 style="color: #333333;"><small>Vehicles Assigned</small></h6>&#35;&#125;
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="{{ half_col }} hide-if-default">
+                                                            <div class="drag-drop-container">
+                                                                <ul class="list-group drag-drop-list drag-drop-available">
+                                                                    &#123;&#35;{% for vehicle in range(1, 6) %}
+                                                                        <li data-id="{{ loop.index }}" class="drag-drop-item list-group-item">
+                                                                            <div class="list-group-item-text drag-drop-name">
+                                                                                Vehicle {{ "%03d"|format(loop.index) }}
+                                                                            </div>
+                                                                        </li>
+                                                                    {% else %}
+                                                                        <li class="list-group-item drag-drop-static">
+                                                                            <div class="list-group-item-text">No Vehicles Available</div>
+                                                                        </li>
+                                                                    {% endfor %}&#35;&#125;
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ half_col }}">
+                                                            <div class="drag-drop-container">
+                                                                <ul class="list-group drag-drop-list drag-drop-assigned">
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>#}
+
+                                        {# begin bulk transfer#}
+
+                                        <div class="row">
+
+                                                                    <div class="col-lg-12" style="border-left: 1px solid #dddddd;">
+                                                                        {#<div class="row">
+                                                                            <div class="{{ full_col }}">
+                                                                                <h5>Device Transfer</h5>
+                                                                            </div>
+                                                                        </div>#}
+                            
+                                                                        <div class="row">
+                                                                            <div class="{{ full_col }}">
+                                                                                <div class="clearfix">
+                                                                                    <div class="pull-right">
+                                                                                        <button id="vehicle-group-toggle" type="button" class="btn btn-xs">< Swap ></button>&nbsp;&nbsp;&nbsp;<button id="vehicle-group-transfer" type="button" class="btn btn-xs btn-primary">Transfer >></button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="{{ full_col }}">
+                                                                                <div id="vehicle-group-assignment" class="drag-drop drag-drop-simple">
+                                                                                    <div class="row">
+                                                                                        <div class="{{ half_col }}">
+                                                                                            <div class="row">
+                                                                                                <div class="{{ full_col }}">
+                                                                                                    <label for="vehicle-group-source">From Group:</label>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row" style="margin-bottom: 15px;">
+                                                                                                <div class="{{ full_col }}">
+                                                                                                    <div class="btn-group">
+                                                                                                        <button type="button" id="vehicle-group-source" value="all" class="btn btn-dropdown btn-default btn-sm"><span class="filter-label">All</span></button><button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                                                            <span class="caret"></span>
+                                                                                                        </button>
+                                                                                                        <ul class="dropdown-menu" role="menu">
+                                                                                                            <li class="transfer-group-id-all"><a data-value="all">All</a></li>
+                                                                                                            {% for g in vehicle_groups %}
+                                                                                                            <li data-group-id="{{ g.unitgroup_id }}" class="transfer-group-id-{{ g.unitgroup_id }}"><a data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</a></li>
+                                                                                                            {% endfor %}
+                                                                                                        </ul>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="{{ full_col }}">
+                                                                                                    <label for="filter-available-text" class="sr-only">Filter:</label>
+                                                                                                    <div class="input-group input-group-sm group-filter-container">
+                                                                                                        <input id="filter-available-text" class="form-control input-sm" type="text" placeholder="Filter Devices in Group" />
+                                                                                                        <div class="input-group-addon">
+                                                                                                            <span class="glyphicon glyphicon-filter"></span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="drag-drop-container">
+                                                                                                <ul class="list-group drag-drop-list drag-drop-available">
+
+                                                                                    				{#{% for v in vehicles %}
+                                                                                                        <li data-id="{{ v.unit_id }}" class="drag-drop-item list-group-item">
+                                                                                                            <div class="list-group-item-text drag-drop-name">{{ v.unitname }}</div>
+                                                                                                        </li>
+
+                                                                                                    {% else %}
+                                                                                                        <li class="list-group-item drag-drop-static">
+                                                                                                            <div class="list-group-item-text">No Vehicles Available</div>
+                                                                                                        </li>
+                                                                                                    {% endfor %}#}
+
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="{{ half_col }}">
+                                                                                                <div class="row">
+                                                                                                    <div class="{{ full_col }}">
+                                                                                                        <label for="vehicle-group-destination">To Group:</label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row" style="margin-bottom: 15px;">
+                                                                                                    <div class="{{ full_col }}">
+                                                                                                        <div class="btn-group">
+                                                                                                            <button type="button" id="vehicle-group-destination" value="0" class="btn btn-dropdown btn-default btn-sm"><span class="filter-label">Select One</span></button><button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                                                                <span class="caret"></span>
+                                                                                                            </button>
+                                                                                                            <ul class="dropdown-menu" role="menu">
+                                                                                                                {% for g in vehicle_groups %}
+                                                                                                                <li data-group-id="{{ g.unitgroup_id }}" class="transfer-group-id-{{ g.unitgroup_id }}"><a data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</a></li>
+                                                                                                                {% endfor %}
+                                                                                                            </ul>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            <div class="row">
+                                                                                                <div class="{{ full_col }}">
+                                                                                                    <label for="filter-assigned-text" class="sr-only">Filter:</label>
+                                                                                                    <div class="input-group input-group-sm group-filter-container">
+                                                                                                        <input id="filter-assigned-text" class="form-control input-sm" type="text" placeholder="Filter Devices in Group" />
+                                                                                                        <div class="input-group-addon">
+                                                                                                            <span class="glyphicon glyphicon-filter"></span>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="drag-drop-container">
+                                                                                                <ul class="list-group drag-drop-list drag-drop-assigned">
+
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="{{ full_col }}">
+                                                                                <div class="clearfix">
+                                                                                    <div class="pull-right">
+                                                                                        &nbsp;<br><button id="vehicle-group-transfer2" type="button" class="btn btn-xs btn-primary">Transfer >></button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                        {# end bulk transfer#}
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="row hide-if-default hide-if-new">
+                                    <div class="{{ full_col }}">
+                                        &nbsp;<p><button id="popover-vehicle-group-delete-confirm" class="btn btn-xs pull-right" title="Delete vehicle Group" type="button">Delete Group</button>
+                                        <!--
+                                            <button id="popover-vehicle-group-delete-confirm" class="btn has-tooltip has-popover" data-placement="right" data-popover-placement="left" data-popover-content-id="popover-content-vehicle-group-delete" data-popover-title-id="popover-head-vehicle-group-delete" title="Delete vehicle Group" type="button">Delete Group</button>
+                                            <a id="vehicle-group-more-options-toggle" href="#"><small>Show More Options</small></a>
+                                        -->
+                                    </div>
+                                </div>
+                                <div id="vehicle-group-more-options" class="hide-if-default hide-if-new">
+                                    <!--
+                                        <div class="container">
+                                            <div class="clearfix">
+                                                <div class="pull-left">
+                                                    <h5>Delete Vehicle Group</h5>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <button id="vehicle-group-delete-confirm" class="btn btn-default has-tooltip has-popover" data-placement="right" data-popover-placement="left" data-popover-content-id="popover-content-vehicle-group-delete" data-popover-title-id="popover-head-vehicle-group-delete" title="Delete vehicle Group" type="button">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="popover-head-vehicle-group-delete" class="hide">
+                                            <div class="clearfix">
+                                                <div class="pull-left">
+                                                    Delete Vehicle Group
+                                                </div>
+                                                <div class="pull-right">
+                                                    <button type="button" class="close">&times;</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="popover-content-vehicle-group-delete" class="hide">
+                                            <p>Are you sure you want delete this Vehicle Group?</p>
+                                            <div class="well well-sm">
+                                                <p>This action cannot be undone.</p>
+                                            </div>
+                                            <hr />
+                                            <div class="clearfix">
+                                                <div class="pull-left">
+                                                    <button type="button" id="popover-vehicle-group-delete-confirm" class="btn btn-default">Delete</button>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <button type="button" id="popover-user-vehicle-group-cancel" class="btn btn-primary popover-cancel">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    -->
+                                </div>
+                            </div>
+                            {#<div class="col-lg-8" style="border-left: 1px solid #dddddd;">
+                                &#123;&#35;<div class="row">
+                                    <div class="{{ full_col }}">
+                                        <h5>Group Assignment <small><em>(optional)</em></small></h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <div id="vehicle-group-assignment" class="drag-drop drag-drop-simple">
+                                            <div class="row">
+                                                <div class="{{ half_col }} hide-if-default">
+                                                    <div class="clearfix">
+                                                        <div class="pull-left">
+                                                            <h6 style="color: #333333;"><small>Vehicles Available</small></h6>
+                                                        </div>
+                                                    </div>
+                                                    <label for="filter-available-text" class="sr-only">Filter:</label>
+                                                    <div class="input-group input-group-sm group-filter-container">
+                                                        <input id="filter-available-text" class="form-control input-sm" type="text" placeholder="Filter Available" />
+                                                        <div class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-filter"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <div class="clearfix">
+                                                        <div class="pull-left">
+                                                            <h6 style="color: #333333;"><small>Vehicles Assigned</small></h6>
+                                                        </div>
+                                                        <div class="pull-left" id="move-container">
+                                                            <a id="move-to-assigned" class="move-to has-popover has-tooltip" title="Transfer Assigned to Another Group" data-placement="bottom" data-popover-placement="bottom" data-popover-title-id="popover-head-move-assigned" data-popover-content-id="popover-content-move-assigned" href="#">Transfer</a>
+                                                            &#123;&#35; Move Assigned To - POPOVER &#35;&#125;
+                                                            <div id="popover-head-move-assigned" class="hide">
+                                                                <div class="clearfix">
+                                                                    <div class="pull-left">
+                                                                        Transfer Selected Vehicles
+                                                                    </div>
+                                                                    <div class="pull-right">
+                                                                        <button type="button" class="close">&times;</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="popover-content-move-assigned" class="hide">
+                                                                <div class="row">
+                                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                                                        <label for="move-to">To:</label>
+                                                                    </div>
+                                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                                                        <div class="btn-group">
+                                                                            <button type="button" id="move-to-group" value="0" class="btn btn-dropdown btn-default btn-sm disabled" style="width: 170px; text-align: left;">
+                                                                                <span class="filter-label">Select One</span>
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                                <span class="caret"></span>
+                                                                            </button>
+                                                                            <ul class="dropdown-menu" role="menu">
+                                                                            
+                                                                    		{% for g in vehicle_groups %}
+                                                                    		    <li><a data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</a></li>
+                                                                    		{% endfor %}
+                                                                    		
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <hr />
+                                                                <div class="clearfix">
+                                                                    <div class="pull-left">
+                                                                        <button type="button" id="popover-move-to-group-cancel" class="btn btn-sm btn-default popover-cancel">Cancel</button>
+                                                                    </div>
+                                                                    <div class="pull-right">
+                                                                        <button type="button" id="popover-move-to-group-confirm" class="btn btn-sm btn-primary">Move</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <label for="filter-assigned" class="sr-only">Filter:</label>
+                                                    <div class="input-group input-group-sm group-filter-container">
+                                                        <input id="filter-assigned-text" class="form-control input-sm" type="text" placeholder="Filter Assigned" />
+                                                        <div class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-filter"></span>
+                                                        </div>
+                                                    </div>
+                                                    &#123;&#35;<h6 style="color: #333333;"><small>Vehicles Assigned</small></h6>&#35;&#125;
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="{{ half_col }} hide-if-default">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-available">
+                                                            &#123;&#35;{% for vehicle in range(1, 6) %}
+                                                                <li data-id="{{ loop.index }}" class="drag-drop-item list-group-item">
+                                                                    <div class="list-group-item-text drag-drop-name">
+                                                                        Vehicle {{ "%03d"|format(loop.index) }}
+                                                                    </div>
+                                                                </li>
+                                                            {% else %}
+                                                                <li class="list-group-item drag-drop-static">
+                                                                    <div class="list-group-item-text">No Vehicles Available</div>
+                                                                </li>
+                                                            {% endfor %}&#35;&#125;
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-assigned">
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>&#35;&#125;
+                            </div>#}
+                        </div>
+                    </div>
+
+

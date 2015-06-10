@@ -1,0 +1,530 @@
+{% if route == 'vehicle/map' %}
+
+    <div class="modal fade" id="modal-sidebar-left" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modal-transparent">
+                    <div class="modal-body">
+                        <div class="center modal-opaque">
+                            <img src="/assets/media/images/edu-side-panel-toggle.png">
+                            <p>
+                            <div class="center" style="font-size:28px;">
+                                Click &nbsp;&nbsp;<b>&equiv;</b>&nbsp;&nbsp; to toggle the sidebar menu.
+                            </div>
+                            <p>
+                        </div>
+                    </div>
+                    <br>&nbsp;<br>
+                    <div class="center">
+                        <button id="sidebartoggle" type="button" class="btn btn-primary{% if sidebartoggle == '' %} got-it{% endif %}" data-dismiss="modal">OK, I've Got It</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-repo-create" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title clearfix">Create Repossession Link</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-label col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <label class="control-label vertical-center pull-right" for="vehicle-group" style="margin-top:7px;">Name:</label>
+                            </div>
+                            <div class="col-control col-lg-9 col-md-9 col-sm-9 col-xs-9 wizard-div">
+                                <input type="text" class="form-control" id="repo-create-name" placeholder="Company / Contact Name">
+                            </div>
+                            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        </div>
+                        <div class="clearfix row">&nbsp;</div>
+                        <div class="row">
+                            <div class="col-label col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <label class="control-label vertical-center pull-right" for="vehicle-group" style="margin-top:7px;">Email:</label>
+                            </div>
+                            <div class="col-control col-lg-9 col-md-9 col-sm-9 col-xs-9 wizard-div">
+                                <input type="text" class="form-control" id="repo-create-email" placeholder="Email Address">
+                            </div>
+                            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        </div>
+                        <div class="clearfix row">&nbsp;</div>
+                        <div class="row">
+                            <div class="col-label col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                <label class="control-label vertical-center pull-right" for="vehicle-group" style="margin-top:7px;">Phone:</label>
+                            </div>
+                            <div class="col-control col-lg-9 col-md-9 col-sm-9 col-xs-9 wizard-div">
+                                <input type="text" class="form-control" id="repo-create-phone" placeholder="Phone Number">
+                            </div>
+                            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        </div>
+                    </div>
+                    <div class="row clearfix"></div>
+                    <div class="modal-footer">
+                        <div class="col-md-1 pull-right"></div>
+                        <div class="col-md-1 pull-right">
+                            <button type="button" class="btn btn-warning pull-right create-update" id="repo-create-add">Create Repossession Link</button>
+                        </div>
+                        <div class="col-md-1 pull-right"></div>
+                        <div class="col-md-1 pull-right">
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="repo-create-cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+{% 
+    if route == 'vehicle/batch' 
+    or route == 'vehicle/batchqueue'
+    or route == 'vehicle/commandhistory'
+    or route == 'vehicle/commandqueue'
+%}
+
+    <div class="modal fade" id="modal-batch-commands" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Create Command Batch</h4>
+                    </div>
+                    <div class="modal-body">
+    {# ------------- BEGIN DEVICES ----------------- #}
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-md-2 pull-left">
+                                    <h4>Vehicles</h4>
+                                </div>
+                                <div class="col-md-2 pull-right">
+                                    <span class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></span>
+                                </div>
+                                <div class="col-md-8 pull-right">
+                                    <label class="pull-right">
+                                        <div class="transfer-group">
+                                            <input type="text" class="transfer-search transfer-form" placeholder="Search">
+                                            <span class="transfer-group-addon"><i id="search-batch-devices" class="transfer-search-btn fa fa-search" onclick="return false;"></i></span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="row"></div>
+                                <div class="transfer-list-div">
+                                    <ul id="batch-devices-available" name="batch-devices-available" class="list-group list-available nav nav-pills nav-stacked transfer-list">
+                                        {% for vehicle in vehicles %}
+                                            <li value="{{ vehicle.serialnumber }}"><a href="javascript:void(0);">{{ vehicle.unitname }} <span class="pull-right text-grey">{{ vehicle.serialnumber }}</span></a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-2">
+                            <div class="clearfix center-wrapper">&nbsp;<p>&nbsp;<h4>Batch Management</h4>&nbsp;<p>&nbsp;</div> 
+                            <div><button type="button" class="btn btn-primary btn-transfer batch-to" id="batch-add">Add&nbsp;Serial&nbsp;Numbers&nbsp;>></button></div>
+                            <div class="clearfix">&nbsp;</div> 
+                            <div><button type="button" class="btn btn-default btn-transfer save-to-target batch-from" id="batch-remove">Clear&nbsp;Batch</button></div>
+                            <div class="clearfix">&nbsp;</div> 
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-md-6 pull-left">
+                                    <h4>Serial Numbers <span class="text-12 text-grey">*one per line</span></h4>
+                                </div>
+                                <div class="col-md-6 pull-right">
+                                    <select id="batch-command" name="batch-command" class="form-control transfer-form" size="1">
+                                        <option class="text-grey" value="" data-value="" selected>[select batch command]</option>
+                                        {% for bc in batchcommands %}
+                                            <option value="{{ bc.batchcommand_id }}" data-value="{{ bc.batchcommand_id }}">{{ bc.batchcommand }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="row"></div>
+                                <div class="transfer-list-div">
+                                    <textarea class="transfer-list width-100" id="batch-devices" name="batch-devices">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+    {# ------------- END OF DEVICES ----------------- #}
+                    </div>
+                    <div class="row clearfix"></div>
+                    <div class="modal-footer">
+                        <div class="col-md-1 pull-right">
+                        </div>
+                        <div class="col-md-1 pull-right">
+                            <button type="button" class="btn btn-primary pull-right" id="batch-commands-confirm">Submit Batch</button>
+                        </div>
+                        <div class="col-md-1 pull-right">
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="batch-commands-cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-batch-upload" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <form id="batch-import-csv-form" role="form" action="/ajax/vehicle/commandbatch">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">Import Command Batch via CSV File</h4>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div style="padding-top:11px;">
+
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-4 text-12">
+
+                                    &nbsp;<p class="text-18">How to Use this Tool:<br>&nbsp;
+
+                                    <ol>
+                                        <li><a href="/assets/media/downloads/batch_command_template.csv" target="_csv">Download CSV File Template</a></li>&nbsp;<br>
+                                        <li>Customize the template with your command batch<ul class="text-10">
+                                                <li><b>LIMITS</b>: One (1) file containing commands for up to 100 devices may be uploaded at any one time.
+                                            </ul></li>&nbsp;<br>
+                                        <li>Choose your file<br>
+                                            <span class="btn btn-default btn-sm btn-file">
+                                                <input id="batch-import-csv-file" name="batch-import-csv-file" type="file">
+                                            </span></li>
+                                            &nbsp;<br>
+                                        <li><button type="button" id="batch-import-confirm" class="batch-import-confirm btn btn-primary disabled trigger-upload" data-iframe-id="batch-iframe">Import CSV</button></li>&nbsp;<br>
+                                    </ol>
+                                </div>
+                                <div class="col-md-1">
+                                    <div style="display:none;">
+                                        <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
+                                        <div class="clearfix">
+                                            <div class="input-group input-group-file pull-left">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" id="batch-import-csv-file-dummy">
+                                            </div>
+                                            <label for="batch-import-csv-file-dummy" class="sr-only"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 background-grey">
+                                    <div id="batch-import-csv-success-div" style="padding-top:11px;"></div>
+                                    <div id="batch-import-csv-info-div" class="text-12">
+                                        <p class="bg-primary note"><b>IMPORTANT</b><br>Importing command batch requires a file to be in the CSV format.<br>CSV files may be created by exporting from most spreadsheet applications.</p>
+
+                                        The following CSV column order must be used:<br>&nbsp;
+
+                                        <ol>
+                                            <li>Device (use Serial Number, Unit Name or VIN)</li>
+                                            <li>Reminder On (date to turn reminder on)</li>
+                                            <li>Starter Disable (date to disable starter)</li>
+                                        </ol>
+                                        
+                                        <p>Note: Empty and Future dates trigger Reminder Off and/or Starter Enable commands.</p>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix">&nbsp;</div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row clearfix"></div>
+
+                        <div class="modal-footer">
+                            <div class="col-md-6 pull-right">
+                                <button type="button" id="batch-import-cancel" class="btn btn-default popover-cancel pull-right" data-dismiss="modal" data-popover-target-id="button-batch-import">Close</button>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="pull-left" style="margin-top:7px;"><a href="/assets/media/downloads/batch_command_template.csv" target="_csv">Click Here to Download CSV File Template</a></label>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
+
+
+
+{% if route == 'vehicle/list' %}
+
+    <!-- Modal export csv -->
+    <div class="modal fade" id="modal-export-csv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+                <div class="modal-pronounce">
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        				<h4 class="modal-title" id="myModalLabel">Export CSV</h4>
+        			</div>
+        			<div class="modal-body">
+        				
+        				<p>Are you sure want to Download CSV File?</p>
+        				
+        				<p class="bg-primary note">This feature allows you to download list of vehicle associated with this account. You may subsequently open the CSV file with your spreadsheet application.</p>
+        				
+                    </div>
+                    <div class="row clearfix"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary pull-left" id="popover-vehicle-list-export-csv-confirm">Download</button>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="vehicle-export-csv-cancel">Cancel</button>
+                    </div>
+                </div>
+    		</div>
+    	</div>
+    </div>    
+    <!-- END modal export CSV --> 
+                            
+                            
+    <!-- Modal download PDF -->
+    <div class="modal fade" id="modal-download-pdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+                <div class="modal-pronounce">
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        				<h4 class="modal-title" id="myModalLabel">Download PDF</h4>
+        			</div>
+        			<div class="modal-body">
+        				
+        				<p>Are you sure want to Download a PDF File?</p>
+        				
+        				<p class="bg-primary note">This feature allows you to download list of vehicle associated with this account. You may subsequently open the PDF file with your PDF viewer such as Adobe<sup>&reg;</sup> Acrobat<sup>&reg;</sup>.</p>
+        				
+        			</div>
+                    <div class="row clearfix"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary pull-left" id="popover-vehicle-list-export-pdf-confirm">Download</button>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="vehicle-export-pdf-cancel">Cancel</button>
+                    </div>
+                </div>
+    		</div>
+    	</div>
+    </div>    
+    <!-- END modal download PDF --> 
+    
+    
+    <!-- Edit Vehicle Modal -->
+    <div id="modal-edit-vehicle-list" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+        			<div class="modal-header">
+                        <div id="map-div"></div>
+        			</div>
+        			<!-- Vehicle Report Details Block -->
+        			<div class="block">
+        			    <!-- Vehicle Details Title -->
+                        <div class="block-title">
+                            <h2 class="text-center"><i class="gi gi-car"></i>
+                                <span id="vehicle-map-html-modal-device">[Tundra]</span>
+                                <small>
+                                    <span id="vehicle-map-html-modal-details">[Stopped (3 hours 25 minutes ago)]</span>
+                                    <span id="vehicle-map-html-modal-landmark">[in California]</span>
+                                </small>
+                            </h2>
+                            <button type="button" class="btn btn-default pull-right vehicle-edit-close" data-dismiss="modal" style="margin:5px;">Close</button>
+                            {% include('page/vehicle/detail-nav.html.twig') %}
+                        </div>
+                        {% include ('page/vehicle/detail.html.twig') %}
+        			    <!-- END Vehicle Details Content -->
+        			</div>
+        			<!-- END Vehicle Details Block -->
+                </div>
+            </div>
+    	</div>
+    </div>
+    <!-- END Edit Vehicle Modal -->
+
+{% endif %}
+
+
+
+{% if route == 'vehicle/group' %}
+
+    <!-- Edit vehicle group -->      
+    <div id="modal-edit-vehicle-group" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title clearfix">Edit Vehicle Group: <span id="edit-vehicle-group-title" class="text-green"></span></h4>
+                    </div>
+                    <div class="modal-body" style="min-height:320px;">
+                        <div class="row">
+                            <button id="btn-edit-vehicle-group-devices" class="btn btn-default active" href="#sub-devices" data-toggle="tab" style="width:100px;">Vehicles</button>                         
+                            <button id="btn-edit-vehicle-group-users" class="btn btn-default" href="#sub-users" data-toggle="tab" style="width:100px;">Users</button>                         
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="sub-devices">
+    {# ------------- BEGIN DEVICES ----------------- #}
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <span class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></span>
+                                                <h4>Group</h4>
+                                                <div class="col-md-6 pull-right">
+                                                    <label class="pull-right">
+                                                        <div class="transfer-group">
+                                                            <input type="text" class="transfer-search transfer-form" placeholder="Search">
+                                                            <span class="transfer-group-addon"><i id="search-vehicle-group-devices-transfer-from" class="transfer-search-btn fa fa-search" onclick="return false;"></i></span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-6 pull-left">
+                                                    <input class="form-control" id="edit-vehicle-group-title-edit" placeholder="Change name of vehicle group">
+                                                    <div style="display:none;">
+                                                        <select id="transfer-vehicle-group-devices-group-from" name="transfer-vehicle-group-devices-group-from" class="form-control transfer-form" size="1">
+                                                            {% for groups in vehicle_groups %}
+                                                                <option value="{{ groups.unitgroup_id }}" data-value="{{ groups.unitgroup_id }}">{{ groups.unitgroupname }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row"></div>
+                                                <div class="transfer-list-div">
+                                                    <ul id="edit-vehicle-group-devices-available" name="edit-vehicle-group-devices-available" class="list-group list-available nav nav-pills nav-stacked transfer-list">
+                                                      <option value="0">[Vehicle Group #0]</option>
+                                                      <option value="1">[Vehicle Group #1]</option>
+                                                      <option value="2">[Vehicle Group #2]</option>
+                                                      <option value="3">[Vehicle Group #3]</option>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-2">
+                                            <div class="clearfix center-wrapper">&nbsp;<p>&nbsp;<h4>Vehicle Transfers</h4>&nbsp;<p>&nbsp;</div> 
+                                            <div><button type="button" class="btn btn-primary btn-transfer transfer-to" id="edit-vehicle-group-devices-assign">Transfer&nbsp;>></button></div>
+                                            <div class="clearfix">&nbsp;</div> 
+                                            <div><button type="button" class="btn btn-default btn-transfer save-to-target transfer-from" id="edit-vehicle-group-devices-remove"><<&nbsp;Return</button></div>
+                                            <div class="clearfix">&nbsp;</div> 
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <span class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></span>
+                                                <h4>Group</h4>
+                                                <div class="col-md-6 pull-right">
+                                                    <label class="pull-right">
+                                                        <div class="transfer-group">
+                                                            <input type="text" class="transfer-search transfer-form" placeholder="Search">
+                                                            <span class="transfer-group-addon"><i id="search-vehicle-group-devices-transfer-to" class="transfer-search-btn fa fa-search" onclick="return false;"></i></span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-6 pull-left">
+                                                    <select id="transfer-vehicle-group-devices-group-to" name="transfer-vehicle-group-devices-group-to" class="form-control transfer-form" size="1">
+                                                        {% for groups in vehicle_groups %}
+                                                            <option value="{{ groups.unitgroup_id }}" data-value="{{ groups.unitgroup_id }}">{{ groups.unitgroupname }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="row"></div>
+                                                <div class="transfer-list-div">
+                                                    <ul id="edit-vehicle-group-devices-assigned" name="edit-vehicle-group-devices-assigned" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                                                        <option value="4">[Vehicle Group #4]</option>
+                                                        <option value="5">[Vehicle Group #5]</option>
+                                                        <option value="6">[Vehicle Group #6]</option>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+    {# ------------- END OF DEVICES ----------------- #}
+                                    </div>
+                                    <div class="tab-pane fade in" id="sub-users">
+    {# ------------- BEGIN USERS ------------------ #}
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <span class="pull-right"><a href="#" class="selections-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="selections-select-clear">Clear</a></span>
+                                                <h4>User Types</h4>
+                                                <div class="row"></div>
+                                                <div class="selections-list-div">
+                                                    <ul id="edit-vehicle-group-user-types" name="edit-vehicle-group-user-types" class="list-group list-available nav nav-pills nav-stacked selections-list">
+                                                        {% for types in usertypes %}
+                                                            <li class="selections-vehicle-group-usertypes-{{ types.usertype_id }}" value="{{ types.usertype_id }}" data-value="{{ types.usertype_id }}"><a href="#"><span class="checkbox-width pull-right"><input type="checkbox"></span>{{ types.usertype }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <span class="pull-right"><a href="#" class="selections-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="selections-select-clear">Clear</a></span>
+                                                <h4>Users</h4>
+                                                <div class="row"></div>
+                                                <div class="selections-list-div">
+                                                    <ul id="edit-vehicle-group-users" name="edit-vehicle-group-users" class="list-group list-assigned nav nav-pills nav-stacked selections-list">
+                                                        {% for user in users %}
+                                                            <li class="selections-vehicle-group-users-{{ user.user_id }}" value="{{ user.user_id }}" data-value="{{ user.user_id }}"><a href="#"><span class="checkbox-width pull-right"><input type="checkbox"></span>{{ user.user_fullname }} - {{ user.username }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+    {# ------------- END OF USERS ----------------- #}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add vehicle group -->      
+    <div id="modal-add-vehicle-group" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title clearfix">Vehicle Group</h4>
+                    </div>
+                    <div class="modal-body" style="min-height:80px;">
+                    	<div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label class="pull-right control-label" for="vehicle-group-add-name" style="margin-top:7px;">Vehicle Group Name:</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" id="vehicle-group-add-name" name="vehicle-group-add-name" class="form-control">
+                                </div>
+                            </div>
+                    	</div>
+                    </div>
+                    <div class="row clearfix"></div>
+                    <div class="modal-footer">
+                        <div class="col-md-1 pull-right"></div>
+                        <div class="col-md-1 pull-right">
+                            <button type="button" class="btn btn-primary pull-right create-update" id="vehicle-group-add">Create Group</button>
+                        </div>
+                        <div class="col-md-1 pull-right"></div>
+                        <div class="col-md-1 pull-right">
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="vehicle-group-add-cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END add vehicle group -->  
+        
+{% endif %}
+

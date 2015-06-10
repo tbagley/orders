@@ -1,0 +1,86 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+            <!-- FX Container -->
+            <div id="fx-container" class="fx-opacity">
+                <!-- Page content -->
+                <!-- Block Tabs -->
+                <div class="block block-tabs full">
+                    <!-- Block Tabs Title -->
+                    <div class="block-title">
+                        <ul id="secondaryNav" class="nav nav-tabs">
+                            {% for item in secondary_navigation %}
+                                <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- END Block Tabs Title -->
+
+                    <!-- Tabs Content -->
+                    <div class="tab-content">
+                        <h3 class="heading1">Scheduled Reports</h3>
+                        <div class="table-responsive">
+                            <div class="dataTables_wrapper form-inline" role="grid">
+                                <div id="report-scheduled-table" class="noborder report-master">
+                                    {% include('partial/report-table.html.twig') %}
+{#}
+                                    <table id="scheduled-reports-table" class="table table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="no-wrap">Name</th>
+                                                <th class="no-wrap">Type</th>
+                                                <th class="no-wrap">Contact</th>
+                                                <th class="no-wrap">Vehicle/Group</th>
+                                                <th class="no-wrap">Landmark/Group</th>
+                                                <th class="no-wrap">Schedule</th>
+                                                <th class="no-wrap">Days</th>
+                                                <th class="no-wrap">Last Run</th>
+                                                <th class="no-wrap">Next Run</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>3</td>
+                                                <td>4</td>
+                                                <td>5</td>
+                                                <td>6</td>
+                                                <td>7</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+{#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Tabs Content -->
+                </div>
+                <!-- END Block Tabs -->
+                <!-- END Page Content -->
+            </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/report-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/report-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/report.js"></script>
+{% endblock %}

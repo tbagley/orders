@@ -1,0 +1,181 @@
+{% extends "layout/repo.html.twig" %}
+
+{% block main_panel %}
+
+    <div class="center repo">
+
+        <div class="clearfix row">
+            <a class="pull-left" href="#">
+                <img src="/assets_responsive/img/logo.png">
+            </a>
+            <div style="display:none;">
+                <a href="javascript:void(0);" class="div-nav" id="repolink-expired">Expired</a>
+                <a href="javascript:void(0);" class="div-nav" id="repolink-none">None</a>
+            </div>
+            <div class="pull-right" id="last-known-location" style="display:none;">
+                <button id="repoKey-refresh" class="btn btn-warning">Show Last Known Location</button>
+            </div>
+            <div class="pull-right">
+                &nbsp;
+            </div>
+            <ul class="nav nav-tabs pull-right" id="nav-links">
+                <li><a href="javascript:void(0);" class="div-nav" id="repolink-details">Vehicle Details</a></li>
+                <li><a href="javascript:void(0);" class="div-nav" id="repolink-frequentstops">Frequent Stops</a></li>
+                <li class="active"><a href="javascript:void(0);" class="div-nav" id="repolink-map">Map</a></li>
+            </ul>
+        </div>
+
+        <div class="clearfix row">
+
+            <div class="div-nav-div div-nav-details block block-tabs full" id="details-div" style="display: none;">
+                <div class="center">
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Access&nbsp;Days&nbsp;Left:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-expiration">[expiration]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Make:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-make">[make]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Model:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-model">[model]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Color:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-color">[color]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Year:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-year">[year]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Lic.Plate:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-license-plate">[lic.plate]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Vin:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-vin">[vin]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Last&nbsp;Address:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-address">[address]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Lat&nbsp;/&nbsp;Lng:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-lat-lng">[lat/lng]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Status:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-status">[status]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Last&nbsp;Event:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-event">[event]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Unit&nbsp;Time:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-unittime">[unittime]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                    <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                        <label class="pull-right">Server&nbsp;Time:</label>
+                    </div>
+                    <div class="col-command col-info col-lg-9 col-md-9 col-sm-9 col-xs-9 col-bordered">
+                        <span class="pull-left" id="vehicle-servertime">[servertime]</span>
+                    </div>
+
+                    <div class="clearfix row">&nbsp;</div>
+
+                </div>
+            </div>
+            <div class="div-nav-div div-nav-expired block block-tabs full" id="expired-div" style="display: none;">
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <span class="center text-18 text-red">Sorry, this Repo Link has Expired.</span>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+            <div class="div-nav-div div-nav-frequentstops block block-tabs full" id="report-div" style="display: none;">
+                <div id="fx-container" class="fx-opacity">
+                    <div class="block block-tabs full">
+                        <div class="table-responsive">
+                            <div class="dataTables_wrapper form-inline" role="grid">
+                                <div id="stops-report-frequent" class="noborder report-master">
+                                    {% include('partial/report-table.html.twig') %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="div-nav-div div-nav-map" id="map-div"> <!-- use this div for map hook --> </div>
+            <div class="div-nav-div div-nav-none" id="none-div" style="display: none;"></div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

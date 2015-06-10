@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!-- layout-blank -->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <link rel="apple-touch-icon" href="/assets/media/icons/{{ apple_touch_icon }}"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{{ browser_title }}{#} - {{ controller|title }}{#}</title>
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,500,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Ledger:400" rel="stylesheet" type="text/css"/>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/vendor/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/assets/css/wireframe.css" />
+    {% for css in css_files %}
+        <!--link rel="stylesheet" href="/assets/css/{{ css }}.css" /-->
+    {% endfor %}
+
+    <!-- Stylesheets -->
+        <link rel="stylesheet" href="/assets_responsive/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/map.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/plugins.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/themes.css" />
+    <!-- END Stylesheets -->
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="/assets/vendor/bootstrap3-editable/js/bootstrap-editable.js"></script>
+    {% if gmap_api_link is defined %}
+        <script type="text/javascript" src="{{ gmap_api_link }}"></script>
+    {% endif %}
+    {% for js in js_files %}
+        <script type="text/javascript" src="/assets/js/{{ js }}.js"></script>
+    {% endfor %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!--script>!window.jQuery && document.write(unescape('%3Cscript src="/assets_responsive/js/vendor/jquery-1.11.0.min.js"%3E%3C/script%3E'));</script-->
+
+    <script src="/assets_responsive/js/vendor/bootstrap.min.js"></script>
+    <script src="/assets_responsive/js/plugins.js"></script>
+    <script src="/assets_responsive/js/main.js"></script>
+</head>
+<body data-environment="759b74ce43947f5f4c91aeddc3e5bad3" data-context="{{ context }}">
+<div class="wrap">
+    <header class="clearfix">
+        <!-- Header -->
+        <header style="background-color:#333333; padding:10px;">
+            <!-- Header Brand -->
+        {% if whitelabel is not defined %}
+            <a href="">
+                <img src="{{ logopath }}" style="width:132px;">
+            </a>
+        {% endif %}
+            <!-- END Header Brand -->
+        </header>
+        <!-- END Header -->
+    </header>
+    <!-- noscript -->
+    {% include 'partial/noscript.html.twig' %}
+
+    <!-- main_panel -->
+    <section id="main-panel">
+        {% block main_panel %}{% endblock %}
+    </section>
+    <!-- secondary_panel -->
+    <section id="secondary-panel">
+        {% block secondary_panel %}{% endblock %}
+    </section>
+    <!-- help_panel -->
+    <section id="help-panel" class="collapsed">
+        {# % include('partial/help.html.twig') % #}
+    </section>
+    <!-- footer -->
+    <footer class="clearfix">
+        {% include('layout/footer.html.twig') %}
+    </footer>
+</div>
+{% include 'partial/modal-map.html.twig' %}
+{% block modals %}{% endblock %}
+</body>
+</html>

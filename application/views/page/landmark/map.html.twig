@@ -1,0 +1,74 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+        <!-- FX Container -->
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    {% include 'partial/quickactions/landmark-list-map.html.twig' %}
+    
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <!-- Tabs Content -->
+                <div class="tab-content" style="z-index: 1;">
+                    <div class="tab-pane active" id="tab-home">
+                        <div id="map-div"> <!-- use this div for map hook --> </div>
+                    </div>
+                </div>
+                <section id="detail-panel" style="display: none;">
+                    <div class="panel panel-default panel-bottomless">
+                        <div class="block">
+                            <div class="block-title">
+                                <div class="pull-right">
+{#}
+                                    <a href="javascript:void(0);" id="hide-landmark-panel" class="close">&nbsp;x&nbsp;</a>
+{#}
+                                    <ul  class="nav nav-tabs" role="tablist" id="vehicleTabs">
+                                        <li>
+                                            <a href="javascript:void(0);" id="popndrop-landmark-panel"><img src="/assets/media/icons/down.gif" title="Down"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h2 class="text-center"><i class="gi gi-flag"></i>&nbsp;&nbsp;<span id="landmark-label">[Disneyland]</span>:&nbsp;<small><span id="landmark-location-label">[1234 Infinite Loop, Someville CA]</span></small></h2>
+                            </div>
+                            {% include ('page/landmark/detail.html.twig') %}
+                        </div>
+                    </div>
+                </section>                
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/landmark-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/landmark-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/landmark.js"></script>
+{% endblock %}
+

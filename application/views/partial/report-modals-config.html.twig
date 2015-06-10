@@ -1,0 +1,140 @@
+
+<!-- SCHEDULE REPORT CONFIG -->
+
+<div class="form-group">
+	<label class="col-md-2 control-label scheduled-label" for="">Recurrence:</label>
+	<div class="col-md-10">
+		<select id="scheduled-recurrence" name="scheduled-recurrence" class="form-control" size="1">
+			<option value="Daily" selected>Daily</option>
+			<option value="Weekly">Weekly</option>
+			<option value="Monthly">Monthly</option>
+		</select>
+	</div>
+</div>
+
+<div class="form-group" id="div-scheduled-Weekly" style="display: none;">
+    <label class="col-md-2 control-label scheduled-label" for="">Day of Week:</label>
+    <div class="col-md-10">
+        <select id="scheduled-day" name="scheduled-day" class="form-control" size="1">
+            <option value="0">Sunday</option>
+            <option value="1">Monday</option>
+            <option value="2">Tuesday</option>
+            <option value="3">Wednesday</option>
+            <option value="4">Thursday</option>
+            <option value="5">Friday</option>
+            <option value="6">Saturday</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group" id="div-scheduled-Monthly" style="display: none;">
+    <label class="col-md-2 control-label scheduled-label" for="">Day of Month:</label>
+    <div class="col-md-10">
+        <select id="scheduled-monthly" name="scheduled-monthly" class="form-control" size="1">
+            <option value="1">1st</option>
+            <option value="2">2nd</option>
+            <option value="3">3rd</option>
+            <option value="4">4th</option>
+            <option value="5">5th</option>
+            <option value="6">6th</option>
+            <option value="7">7th</option>
+            <option value="8">8th</option>
+            <option value="9">9th</option>
+            <option value="10">10th</option>
+            <option value="11">11th</option>
+            <option value="12">12th</option>
+            <option value="13">13th</option>
+            <option value="14">14th</option>
+            <option value="15">15th</option>
+            <option value="16">16th</option>
+            <option value="17">17th</option>
+            <option value="18">18th</option>
+            <option value="19">19th</option>
+            <option value="20">20th</option>
+            <option value="21">21st</option>
+            <option value="22">22nd</option>
+            <option value="23">23rd</option>
+            <option value="24">24th</option>
+            <option value="25">25th</option>
+            <option value="26">26th</option>
+            <option value="27">27th</option>
+            <option value="28">28th</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+	<label class="col-md-2 control-label scheduled-label" for="">Time To Send:</label>
+	<div class="col-md-10">
+		<select id="scheduled-time" name="scheduled-time" class="form-control" size="1">
+			<option value="0" selected>12:00 am (midnight)</option>
+            <option value="1">1:00am</option>
+            <option value="2">2:00am</option>
+            <option value="3">3:00am</option>
+            <option value="4">4:00am</option>
+            <option value="5">5:00am</option>
+            <option value="6">6:00am</option>
+            <option value="7">7:00am</option>
+            <option value="8">8:00am</option>
+            <option value="9">9:00am</option>
+            <option value="10">10:00am</option>
+            <option value="11">11:00am</option>
+            <option value="12">12:00pm (noon)</option>
+            <option value="13">1:00pm</option>
+            <option value="14">2:00pm</option>
+            <option value="15">3:00pm</option>
+            <option value="16">4:00pm</option>
+            <option value="17">5:00pm</option>
+            <option value="18">6:00pm</option>
+            <option value="19">7:00pm</option>
+            <option value="20">8:00pm</option>
+            <option value="21">9:00pm</option>
+            <option value="22">10:00pm</option>
+            <option value="23">11:00pm</option>
+		</select>
+	</div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-2 control-label scheduled-label" for="">Format:</label>
+    <div class="col-md-10">
+        <select id="scheduled-format" name="scheduled-format" class="form-control" size="1">
+            <option value="CSV" selected>CSV</option>
+            <option value="PDF">PDF</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-2 control-label scheduled-label" for="">Email Report To:</label>
+    <div class="col-md-10">
+        <select id="scheduled-contact-mode" name="scheduled-contact-mode" class="form-control" size="1">
+            <option value="single" selected>User</option>
+            <option value="group">Group</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group dropdown-toggle-panel-scheduled-contact-single toggle-panel-contact-mode" style="display: block;">
+    <label class="col-md-2 control-label scheduled-label" for="">User:</label>
+    <div class="col-md-10">
+        <select id="scheduled-contact-single" name="scheduled-contact-single" class="form-control" size="1">
+            {% for u in users %}
+                <option value="{{ u.user_id }}">{{ u.firstname }} {{ u.lastname }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<div class="form-group dropdown-toggle-panel-scheduled-contact-group toggle-panel-contact-mode" style="display: none;">
+    <label class="col-md-2 control-label scheduled-label" for="">Group:</label>
+    <div class="col-md-10">
+        <select id="scheduled-contact-group" name="scheduled-contact-group" class="form-control" size="1">
+            {% for g in vehicle_groups %}
+                <option value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+<!-- SCHEDULE REPORT CONFIG - END -->

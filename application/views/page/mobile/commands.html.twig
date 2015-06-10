@@ -1,0 +1,40 @@
+<div style="margin-top:5px;width:100%;">
+
+	<table style="width:100%;">
+		<tr>
+			<td class="text-left text-large">
+				<span id="label_unitname" class="text-green text-bold"></span>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-left text-normal">
+				<span id="label_address" class="text-blue"></span>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-left text-normal">
+				<span id="label_event" class="text-red"></span>
+				&nbsp;
+				<span id="label_time" class="text-black"></span>
+			</td>
+		</tr>
+	</table>
+
+	<div id="div-buttons" class="div-navigation div-3" style="width:100%;">
+	    {% include('page/mobile/buttons.html.twig') %}
+	</div>
+	<div id="div-confirm" class="div-navigation div-3">
+	    {% include('page/mobile/confirm.html.twig') %}
+	</div>
+	<div id="div-console" class="div-navigation div-3">
+	    {% include('page/mobile/console.html.twig') %}
+	</div>
+	<div style="display: none;">
+	    <a href="javascript:void(0);" id="buttons" class="navigation">Buttons</a>
+	    &nbsp;|&nbsp;
+	    <a href="javascript:void(0);" id="confirm" class="navigation">Confirm</a>
+	    &nbsp;|&nbsp;
+	    <a href="javascript:void(0);" id="console" class="navigation">Console</a>
+	</div>
+
+</div>

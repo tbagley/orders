@@ -1,0 +1,123 @@
+{% extends "layout/layout-blank.html.twig" %}
+    {% block main_panel %}
+
+        <div class="well" style="width:600px;margin:40px auto">
+
+            {% if error is defined %}
+                <!--div class="alert alert-danger">{{ error.message }}</div-->
+                <div class="alert alert-danger">
+                    <ul>
+                    {% for key,message in error.message %}
+                        <li>{{ message }}</li>    
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}           
+
+            <h4 style="margin-bottom:20px">User Registration</h4>
+
+            <form role="form" action="" method="post">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-group">
+                            <label for="user-first-name">First Name:</label>
+                            <input type="text" class="form-control" id="user-first-name" name="user-first-name" value="{% if userdata.firstname is defined %}{{ userdata.firstname }}{% endif %}" placeholder="" readonly="readonly" maxlength="{{ validation.first_last_name.maxlength }}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="user-last-name">Last Name:</label>
+                            <input type="text" class="form-control" id="user-last-name" name="user-last-name" value="{% if userdata.lastname is defined %}{{ userdata.lastname }}{% endif %}" placeholder="" readonly="readonly" maxlength="{{ validation.first_last_name.maxlength }}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="user-timezone">Timezone:</label>
+                            <!--div class="btn-group">
+                                <button type="button" id="user-timezone" name="user-timezone" value="{% if userdata.timezone_id is defined %}{{ userdata.timezone_id }}{% endif %}" class="btn btn-dropdown btn-default btn-sm disabled">
+                                    <span class="filter-label">{% if userdata.timezone is defined %}{{ userdata.timezone }}{% endif %}</span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ timezones ? '' : 'disabled' }}" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                {% for tz in timezones %}
+                                    <li><a data-value="{{ tz.timezone_id }}">{{ tz.timezone }}</a></li>
+                                {% endfor %}
+                                </ul>
+                            </div-->
+                            {% if userdata.timezone_id is defined %}
+                            {% set tz_id = userdata.timezone_id %}
+                            {% else %}
+                            {% set tz_id = 0 %}
+                            {% endif %}
+                            <select id="user-timezone" name="user-timezone" class="form-control">
+                                {% for tz in timezones %}
+                                    <option value="{{ tz.timezone_id }}" {{ tz.timezone_id in [tz_id] ? ' selected' : '' }}>{{ tz.timezone }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input type="text" class="form-control" id="username" name="username" value="{% if last_username is defined %}{{ last_username }}{% endif %}" placeholder="" maxlength="{{ validation.username.maxlength }}" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-group">
+                            <label for="user-email">E-Mail:</label>
+                            <input type="text" class="form-control" id="user-email" name="user-email" value="{% if userdata.email is defined %}{{ userdata.email }}{% endif %}" placeholder="" readonly="readonly" maxlength="{{ validation.email.maxlength }}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="user-sms">SMS Number <em>(optional)</em>:</label>
+                            <input type="text" class="form-control" id="user-sms" name="user-sms" value="{% if last_sms is defined %}{{ last_sms }}{% endif %}" placeholder="XXX-XXX-XXXX" maxlength="{{ validation.phone_number.maxlength }}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="sms-carrier">SMS Carrier:</label>
+                            <select id="sms-carrier" name="sms-carrier" class="form-control">
+                                {% if last_sms_carrier is defined %}
+                                {% set sc_id = last_sms_carrier %}
+                                {% else %}
+                                {% set sc_id = 0 %}
+                                {% endif %}
+                                {% for sc in sms_carriers %}
+                                    <option value="{{ sc.cellcarrier_id }}" {{ sc.cellcarrier_id in [sc_id] ? ' selected' : '' }}>{{ sc.cellcarrier }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder=""  maxlength="{{ validation.password.maxlength }}" />
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <div class="form-group">
+                            <label for="user-term-agreement">I have read and agreed to the Terms and Conditions of Use</label>
+                            <input type="checkbox" id="user-term-agreement" name="user-term-agreement" />&nbsp;
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+                <input type="hidden" id="user-id" name="user-id" value="{% if userdata.user_id is defined %}{{ userdata.user_id }}{% endif %}"/>
+
+
+            </form>
+
+
+        </div>
+
+        <!-- MAIN-PANEL BEGIN  -->
+        <!--div id="main-content">
+            <div id="content-1" class="active map-content panel-content">
+
+                Login
+
+            </div>
+        </div-->
+        <!-- MAIN-PANEL END  -->
+    {% endblock %}
+    {% block secondary_panel %}
+        <!-- SECONDARY-PANEL BEGIN  -->
+
+        <!-- SECONDARY-PANEL END  -->
+    {% endblock %}

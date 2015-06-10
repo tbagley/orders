@@ -1,0 +1,124 @@
+    <div class="sidebar-content">
+    	<div style="padding:10px;">
+        	<a href="#">
+            	<img src="/assets_responsive/img/logo.png">
+			</a>
+    	</div>
+
+        <!-- Wrapper for scrolling functionality -->
+        <div class="sidebar-left-scroll">
+
+            <!-- Default Working Tabs Content -->
+            <ul class="nav nav-tabs push" data-toggle="tabs">
+                <li class="active" style="font-size:10px;"><a href="#tab-search" id="tab-search-link" style="padding:5px;">Search</a></li>
+                <li style="font-size:10px;"><a href="#tab-filter" id="tab-filter-link" style="padding:5px;">Filter</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-search">
+                	<form action="#" method="post" class="sidebar-search">
+	                    <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+	                </form>
+                </div>
+
+            
+
+{% if route == 'landmark/map' or route == 'landmark/list' %}
+
+                 <div class="tab-pane" id="tab-filter">
+                	<div class="col-sm-12">
+                		<small>Group:</small>
+                        <select id="bordered-select" name="bordered-select" class="form-control" size="1">
+                            <option value="0">All</option>
+                        {% for lmg in landmark_groups %}
+                            <option value="{{ lmg.territorygroup_id }}">{{ lmg.territorygroupname }}</option>
+                        {% endfor %}
+                        </select>
+                	</div>
+    
+                	<div class="col-sm-12" style="margin-top:10px;">
+                		<small>Category:</small>
+                        <select id="bordered-select" name="bordered-select" class="form-control" size="1">
+                            <option value="0">All</option>
+                        {% for tc in territory_categories %}
+                            <option value="{{ tc.territorycategory_id }}">{{ tc.territorycategoryname }}</option>
+                        {% endfor %}
+                        </select>
+                	</div>
+                </div>
+    
+            </div>
+            
+        {% if route == 'landmark/map' %}
+
+            <div style="margin-top:20px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+            	<h4>Landmarks</h4>
+            </div>
+            
+            <!-- Categories -->
+            <div class="col-sm-12 col-md-12 block-section ms-categories">
+                <ul id="secondary-scroll" class="list-group nav nav-pills nav-stacked sub-panel-items">
+                    {% for l in landmarks %}
+                    <li id="landmark-li-{{ l.territory_id }}"><a href="#">{{ l.territoryname }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+            
+        </div>
+
+{% endif %}
+
+
+
+{% if route == 'landmark/incomplete' %}
+
+
+
+                <div class="tab-pane" id="tab-filter">
+                	<div class="col-sm-12">
+                		<small>Group:</small>
+                        <select id="bordered-select" name="bordered-select" class="form-control" size="1">
+                            <option value="all">All</option>
+                            {% for lmg in landmark_groups %}
+                                <option value="{{ lmg.territorygroup_id }}">{{ lmg.territorygroupname }}</option>
+                            {% endfor %}
+                        </select>
+                	</div>
+                	<div class="col-sm-12" style="margin-top:10px;">
+                		<small>Type:</small>
+                        <select id="bordered-select" name="bordered-select" class="form-control" size="1">
+                            <option value="all">All</option>
+                            <option value="landmark">Landmark</option>
+                            <option value="reference">Verification</option>
+                        </select>
+                	</div>
+                    <div class="col-sm-12" style="margin-top:10px;">
+                		<small>Reason:</small>
+                        <select id="bordered-select" name="bordered-select" class="form-control" size="1">
+                            <option value="all">All</option>
+                            <option value="name">Duplicate Name</option>
+                            <option value="geo">Geocode</option>
+                            <option value="rgeo">Reverse Geocode</option>
+                        </select>
+                	</div>
+                </div>
+            </div>
+        </div>
+
+
+
+{% endif %}
+
+
+
+{% if route == 'landmark/verification' %}
+
+
+
+{% endif %}
+
+
+
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
+    </div>

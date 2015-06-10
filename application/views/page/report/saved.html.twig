@@ -1,0 +1,96 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+    <div id="main-content">
+        <div id="content-1" class="active panel-content">
+            <div class="secondary-bar clearfix">
+                <div id="secondary-nav" class="pull-left">
+                    <ul>
+                        {% for item in secondary_navigation %}
+                            <li><a class="{% if route == item.route  %} active{% endif %} transition" href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% include 'partial/quickactions.html.twig' %}
+            </div>
+            {# TOP LEFT OF MAIN #}
+            <div class="wedge wedge-top-left" data-wedge-background="#383838" data-wedge-foreground="#ffffff" data-wedge-left-position="0" data-wedge-y-position="34" role="presentation"></div>
+            {# TOP RIGHT OF MAIN #}
+            {#<div class="wedge wedge-top-right" data-wedge-background="#383838" data-wedge-foreground="#ffffff" data-wedge-right-position="0" data-wedge-y-position="34" role="presentation"></div>#}
+            {# LEFT OF QUICK ACTIONS #}
+            <div class="wedge wedge-bottom-right" data-wedge-background="#ffffff" data-wedge-foreground="#383838" data-wedge-right-position="0" data-wedge-y-position="14" role="presentation"></div>
+
+            {# BOTTOM LEFT OF MAIN #}
+            {#<div class="wedge wedge-bottom-left" data-wedge-background="#383838" data-wedge-foreground="#ffffff" data-wedge-left-position="0" data-wedge-y-position="780" role="presentation"></div>#}
+
+
+            <div class="container">
+
+                <div class="report-hint" style="display: block;">&nbsp;Choose a Saved Report to get started</div>
+
+            </div>
+        </div>
+    </div>
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        <section id="sub-panel" class="collapsed">
+            <div class="container">
+                <div class="tab-content">
+
+                    {#{% include('partial/secondaryfilter.html.twig') %}#}
+                    <h4 class="secondary-panel-heading">Saved Reports</h4>
+
+                    <ul id="page-scroll" class="list-group sub-panel-items">
+                    {% for reports in range(1, 10) %}
+                        {%  set report_type =  random(['alert', 'landmark', 'boundary', 'reference', 'not-reporting', ]) %}
+                        <li data-report-id="{{ loop.index }}" data-report-type="{{ report_type }}" class="list-group-item clearfix">
+                            <span>Saved Report {{ "%03d"|format(loop.index) }}</span>
+                            <div class="toggle pull-right">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+        <div class="clear"></div>
+
+    {# BOTTOM RIGHT OF SECONDARY #}
+    {#<div class="wedge wedge-bottom-right" data-wedge-background="#ffffff" data-wedge-foreground="#383838" data-wedge-left-position="180" data-wedge-y-position="830" role="presentation"></div>#}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+{% block modals %}
+<!-- MODAL BEGIN -->
+<div class="modal fade" id="modal-saved-report" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <div class="pull-left">
+                    <h5 class="modal-title">Saved Report</h5>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <section id="detail-panel" style="display: block;">
+                    {% include('page/report/detail.html.twig') %}
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm incomplete-landmark-close" data-dismiss="modal">Close</button>
+                {#<button type="button" class="btn btn-primary btn-sm incomplete-landmark-save">Save</button>#}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL END -->
+{% endblock %}

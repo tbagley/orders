@@ -1,0 +1,24 @@
+<div class="pull-left" style="width: 50%">
+    {#<h3 class="report-head-title">Criteria</h3>#}
+    <dl class="report-result-params dl-horizontal" data-report-title="{{ report.title }}" data-report-type="{{ report.report_type|replace({' ': ''})|lower }}">
+        <dt>Report Type:</dt>
+        <dd>{{ report.report_type }}</dd>
+        <dt>Generated:</dt>
+        <dd>{{ report.time_generated }}</dd>
+        {% for criterion in report.criteria %}
+            <dt>{{ criterion.label }}:</dt>
+            <dd>{{ criterion.value }}</dd>
+        {% endfor %}
+    </dl>
+</div>
+<div class="pull-left" style="width: 50%">
+    {#<h3 class="report-head-title">Summary</h3>#}
+    <dl class="report-result-params dl-horizontal">
+        {% if report.summary is defined and report.summary|length > 0 %}
+            {% for datum in report.summary %}
+                <dt>{{ datum.label }}:</dt>
+                <dd>{{ datum.value }}</dd>
+            {% endfor %}
+        {% endif %}
+    </dl>
+</div>

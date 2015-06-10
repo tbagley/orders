@@ -1,0 +1,728 @@
+                <h4 class="secondary-panel-heading">Reports</h4>
+                <ul id="page-scroll" class="list-group sub-panel-items">
+                    {#<li data-report-route="/report/alert/run" data-report-params-id="report-params-alert" data-report-title="Alert Report" class="list-group-item clearfix">
+                        <span>Alerts</span>
+                    </li>
+                    <li data-report-route="/report/landmark/run" data-report-params-id="report-params-landmark" data-report-title="Landmark Report" class="list-group-item">
+                        <span>Landmark</span>
+                    </li>
+                    <li data-report-route="/report/boundary/run" data-report-params-id="report-params-boundary" data-report-title="Boundary Report" class="list-group-item">
+                        <span>Boundary</span>
+                    </li>
+                    <li data-report-route="/report/reference/run" data-report-params-id="report-params-reference" data-report-title="Reference Report" class="list-group-item">
+                        <span>Reference</span>
+                    </li>
+                    <li data-report-route="/report/notreporting/run" data-report-params-id="report-params-not-reporting" data-report-title="Not Reporting Report" class="list-group-item">
+                        <span>Not Reporting</span>
+                    </li>#}
+                    {% for rt in reporttypes %}
+                        <li id="report-type-{{ rt.reporttype_id }}" data-report-type-id="{{ rt.reporttype_id }}" data-report-type="{{ rt.url }}" data-report-route="/report/{{ rt.url }}/run" data-report-params-id="report-params-{{ rt.dom_id }}" data-report-title="{{ rt.reporttypename }} Report" class="list-group-item">
+                            <span>{{ rt.reporttypename }}</span>
+                        </li>                    
+                    {% endfor %}
+                </ul>
+                <div id="report-params-panel">
+                    <div class="container">
+                        <h4 class="secondary-panel-heading">Report Options</h4>
+                {# ALL REPORTS #}
+                        <div class="report-params-static">
+                            <div class="form-group">
+                                <label for="report-type-select">Report Type:</label>
+                                <div class="btn-group">
+                                    <button type="button" id="report-type-select" class="btn btn-dropdown btn-sm"  value="">
+                                        <span class="filter-label">&nbsp;</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                    {% for rt in reporttypes %}
+                                        <li><a data-value="{{ rt.reporttype_id }}">{{ rt.reporttypename }}</a></li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                    {# VEHICLES #}
+                            <div class="form-group">
+                                <label for="report-vehicle-mode">Vehicle Mode:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-vehicle-mode" class="btn btn-dropdown btn-sm btn-dropdown-toggle-panels" data-panel-targets="toggle-panel-report-vehicle-mode" value="{{ vehicles ? 'all' : '' }}">
+                                        <span class="filter-label">{{ vehicles ? 'All Vehicles' : 'No Vehicles Available' }}</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ vehicles ? '' : 'disabled' }}" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="all" data-toggle-target="report-vehicle-mode-all">All Vehicles</a></li>
+                                        <li><a data-value="single" data-toggle-target="report-vehicle-mode-single">Single Vehicle</a></li>
+                                        <li><a data-value="group" data-toggle-target="report-vehicle-mode-group">Vehicle Group</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="dropdown-toggle-panel dropdown-toggle-panel-report-vehicle-mode-single toggle-panel-report-vehicle-mode">
+                                <div class="form-group">
+                                    <label for="report-vehicle-single">Vehicle:</label><br />
+                                    <div class="btn-group">
+                                        <button type="button" id="report-vehicle-single" class="btn btn-dropdown btn-sm"  value="{{ vehicles ? vehicles[0]['unit_id'] : '' }}">
+                                            <span class="filter-label">{{ vehicles ? vehicles[0]['unitname'] : 'No Vehicles Available' }}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ vehicles ? '' : 'disabled' }}" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                        {% for v in vehicles %}
+                                            <li><a data-value="{{ v.unit_id }}">{{ v.unitname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Vehicles Available</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-toggle-panel dropdown-toggle-panel-report-vehicle-mode-group toggle-panel-report-vehicle-mode">
+                                <div class="form-group">
+                                    <label for="report-vehicle-group">Vehicle Group:</label><br />
+                                    <div class="btn-group">
+                                        <button type="button" id="report-vehicle-group" class="btn btn-dropdown btn-sm"  value="{{ vehicle_groups ? vehicle_groups[0]['unitgroup_id'] : '' }}">
+                                            <span class="filter-label">{{ vehicle_groups ? vehicle_groups[0]['unitgroupname'] : 'No Vehicle Groups Available' }}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ vehicle_groups ? '' : 'disabled' }}" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                        {% for vg in vehicle_groups %}
+                                            <li><a data-value="{{ vg.unitgroup_id }}">{{ vg.unitgroupname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Vehicle Groups Available</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        {# DATE RANGE #}
+                            <div class="form-group">
+                                <label for="report-dates">Date Range:</label><br />
+<!--
+                                <input type="text" id="report-dates" class="form-control input-sm has-datepicker" data-datepicker-opens="right" />
+-->
+                                <div class="btn-group">
+                                    <button type="button" id="report-dates" class="btn btn-dropdown btn-sm"  value="Today">
+                                        <span class="filter-label">Today</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="Today">Today</a></li>
+                                        <li><a data-value="Yesterday">Yesterday</a></li>
+                                        <li><a data-value="Last 7 Days">Last 7 Days</a></li>
+                                        <li><a data-value="Last 30 Days">Last 30 Days</a></li>
+                                        <li><a data-value="Last 60 Days">Last 60 Days</a></li>
+                                        <li><a data-value="Last 90 Days">Last 90 Days</a></li>
+                                        <li><a data-value="This Month">This Month</a></li>
+                                        <li><a data-value="Last Month">Last Month</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <hr />
+                        </div>
+                {# ALERT REPORT #}
+                        <div class="report-params report-params-alert">
+                            <div class="form-group">
+                                <label for="report-alert">Alert Type:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-alert" class="btn btn-dropdown btn-sm"  value="0">
+                                        <span class="filter-label">All Alert Type</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="0">All Alert Type</a></li>
+                                    {% for k, v in alerttypes %}
+                                        <li><a data-value="{{ k }}">{{ v }}</a></li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# LANDMARK REPORT #}
+                        <div class="report-params report-params-landmark">
+                            <div class="form-group">
+                                <label for="report-landmark-mode">Landmark Mode:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-landmark-mode" class="btn btn-dropdown btn-sm btn-dropdown-toggle-panels" data-panel-targets="toggle-panel-report-landmark-mode" value="{{ landmarks ? 'all' : '' }}">
+                                        <span class="filter-label">{{ landmarks ? 'All Landmarks' : 'No Landmarks Available' }}</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ landmarks ? '' : 'disabled' }}" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="all" data-toggle-target="report-landmark-mode-all">All Landmarks</a></li>
+                                        <li><a data-value="single" data-toggle-target="report-landmark-mode-single">Single Landmark</a></li>
+                                        <li><a data-value="group" data-toggle-target="report-landmark-mode-group">Landmark Group</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="dropdown-toggle-panel dropdown-toggle-panel-report-landmark-mode-single toggle-panel-report-landmark-mode">
+                                <div class="form-group">
+                                    <label for="report-landmark-single">Landmark:</label><br />
+                                    <div class="btn-group">
+                                        <button type="button" id="report-landmark-single" class="btn btn-dropdown btn-sm"  value="{{ landmarks ? landmarks[0]['territory_id'] : '' }}">
+                                            <span class="filter-label">{{ landmarks ? landmarks[0]['territoryname'] : 'No Landmarks Available' }}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ landmarks ? '' : 'disabled' }}" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                        {% for lm in landmarks %}
+                                            <li><a data-value="{{ lm.territory_id }}">{{ lm.territoryname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Landmarks Available</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-toggle-panel dropdown-toggle-panel-report-landmark-mode-group toggle-panel-report-landmark-mode">
+                                <div class="form-group">
+                                    <label for="report-landmark-group">Landmark Group:</label><br />
+                                    <div class="btn-group">
+                                        <button type="button" id="report-landmark-group" class="btn btn-dropdown btn-sm"  value="{{ landmark_groups ? landmark_groups[0]['territorygroup_id'] : '' }}">
+                                            <span class="filter-label">{{ landmark_groups ? landmark_groups[0]['territorygroupname'] : 'No Landmark Groups Available' }}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                        {% for lg in landmark_groups %}
+                                            <li><a data-value="{{ lg.territorygroup_id }}">{{ lg.territorygroupname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Landmark Groups Available</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {# Not sure if landmark categories will be needed #}
+                            {#<div class="dropdown-toggle-panel dropdown-toggle-panel-default dropdown-toggle-panel-report-landmark-mode-group dropdown-toggle-panel-report-landmark-mode-all toggle-panel-report-landmark-mode">
+                                <div class="form-group">
+                                    <label for="report-landmark-category">Landmark Category:</label><br />
+                                    <div class="btn-group">
+                                        <button type="button" id="report-landmark-category" class="btn btn-dropdown btn-sm"  value="false">
+                                            <span class="filter-label">&nbsp;</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                        {% for landmark_category in range(1, 3) %}
+                                            <li><a data-value="{{ loop.index }}">Category {{ "%03d"|format(loop.index) }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="false">No Categories Available</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>#}
+                        </div>
+                {# BOUNDARY REPORT #}
+                        <div class="report-params report-params-boundary">
+                            <div class="form-group">
+                                <label for="report-landmark-mode">Boundary Mode:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-boundary-mode" class="btn btn-dropdown btn-sm btn-dropdown-toggle-panels" data-panel-targets="toggle-panel-report-boundary-mode" value="{{ boundaries ? 'all' : '' }}">
+                                        <span class="filter-label">{{ boundaries ? 'All Boundaries' : 'No Boundaries Available' }}</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ boundaries ? '' : 'disabled' }}" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="all" data-toggle-target="report-boundary-mode-all">All Boundaries</a></li>
+                                        <li><a data-value="single" data-toggle-target="report-boundary-mode-single">Single Boundary</a></li>
+                                        <li><a data-value="group" data-toggle-target="report-boundary-mode-group">Boundary Group</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="dropdown-toggle-panel dropdown-toggle-panel-report-boundary-mode-single toggle-panel-report-boundary-mode">
+                                <div class="form-group">
+                                    <label for="report-boundary">Boundary:</label><br />
+                                    <div class="btn-group">
+                                        <button type="button" id="report-boundary" class="btn btn-dropdown btn-sm"  value="{{ boundaries ? boundaries[0]['territory_id'] : '' }}">
+                                            <span class="filter-label">{{ boundaries ? boundaries[0]['territoryname'] : 'No Available Boundaries' }}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ boundaries ? '' : 'disabled' }}" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            {#<li><a data-value="ALL">All Boundaries</a></li>#}
+                                        {% for b in boundaries %}
+                                            <li><a data-value="{{ b.territory_id }}">{{ b.territoryname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="false">No Boundaries Available</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-toggle-panel dropdown-toggle-panel-report-boundary-mode-group toggle-panel-report-boundary-mode">
+                                <div class="form-group">
+                                    <label for="report-landmark-group">Boundary Group:</label><br />
+                                    <div class="btn-group">
+                                        <button type="button" id="report-boundary-group" class="btn btn-dropdown btn-sm"  value="{{ boundary_groups ? boundary_groups[0]['territorygroup_id'] : '' }}">
+                                            <span class="filter-label">{{ boundary_groups ? boundary_groups[0]['territorygroupname'] : 'No Boundary Groups Available' }}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ boundary_groups ? '' : 'disabled' }}" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                        {% for bg in boundary_groups %}
+                                            <li><a data-value="{{ bg.territorygroup_id }}">{{ bg.territorygroupname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Boundary Groups Available</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                {# REFERENCE REPORT #}
+                        {#<div class="report-params report-params-reference">
+                            <div class="form-group">
+                                <label for="report-reference">Reference:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-reference" class="btn btn-dropdown btn-sm"  value="ALL">
+                                        <span class="filter-label">All References</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="ALL">All Reference</a></li>
+                                    {% for reference in range(1, 20) %}
+                                        <li><a data-value="{{ loop.index }}">Reference {{ "%03d"|format(loop.index) }}</a></li>
+                                    {% else %}
+                                        <li><a data-value="false">No References Available</a></li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>#}
+                        <div class="report-params report-params-reference">
+                            <div class="form-group">
+                                <label for="report-reference">Verification:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-reference" class="btn btn-dropdown btn-sm"  value="all">
+                                        <span class="filter-label">All</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="all">All</a></li>
+                                        <li><a data-value="full">Fully Verified</a></li>
+                                        <li><a data-value="partial">Partial Verification</a></li>
+                                        <li><a data-value="none">No Verification</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# NON REPORTING REPORT #}
+                        <div class="report-params report-params-non-reporting">
+                            <div class="form-group">
+                                <label for="report-non-reporting">Not Reported in:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-non-reporting" class="btn btn-dropdown btn-sm"  value="7">
+                                        <span class="filter-label">&gt;7 Days</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="7">&gt;7 Days</a></li>
+                                        <li><a data-value="14">&gt;14 Days</a></li>
+                                        <li><a data-value="30">&gt;30 Days</a></li>
+                                        <li><a data-value="60">&gt;60 Days</a></li>
+                                        <li><a data-value="90">&gt;90 Days</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# FREQUENT STOPS REPORT #}
+                        <div class="report-params report-params-frequent-stops">
+                            <div class="form-group">
+                                <label for="report-frequent-stops-duration">Average Duration Threshold:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-frequent-stops-duration" class="btn btn-dropdown btn-sm" value="30">
+                                        <span class="filter-label">&gt;30 Minutes</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="30">&gt;30 Minutes</a></li>
+                                        <li><a data-value="60">&gt;1 Hour</a></li>
+                                        <li><a data-value="90">&gt;1 Hour 30 Minutes</a></li>
+                                        <li><a data-value="120">&gt;2 Hours</a></li>
+                                        <li><a data-value="150">&gt;2 Hours 30 Minutes</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--div class="form-group">
+                                <label for="report-frequent-stops-number"># of Stops Threshold:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-frequent-stops-number" class="btn btn-dropdown btn-sm" value="7">
+                                        <span class="filter-label">&gt;7</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="7">&gt;7</a></li>
+                                        <li><a data-value="14">&gt;14</a></li>
+                                        <li><a data-value="30">&gt;30</a></li>
+                                        <li><a data-value="60">&gt;60</a></li>
+                                        <li><a data-value="90">&gt;90</a></li>
+                                    </ul>
+                                </div>
+                            </div-->
+                        </div>
+                {# MILEAGE SUMMARY REPORT #}
+                        <div class="report-params report-params-mileage-summary">
+                            <div class="form-group">
+                                <label for="report-mileage-summary">Total Miles Filter:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-mileage-summary" class="btn btn-dropdown btn-sm" value="0">
+                                        <span class="filter-label">None</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="0">None</a></li>
+                                        <li><a data-value="50000">&gt;50,000</a></li>
+                                        <li><a data-value="75000">&gt;75,000</a></li>
+                                        <li><a data-value="100000">&gt;100,000</a></li>
+                                        <li><a data-value="150000">&gt;150,000</a></li>
+                                        <li><a data-value="200000">&gt;200,000</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# SPEED REPORT #}
+                        <div class="report-params report-params-speed-summary">
+                            <div class="form-group">
+                                <label for="report-speed-summary">Speed Filter:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-speed-summary" class="btn btn-dropdown btn-sm" value="75">
+                                        <span class="filter-label">&gt;75 MPH</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="75">&gt;75 MPH</a></li>
+                                        <li><a data-value="80">&gt;80 MPH</a></li>
+                                        <li><a data-value="85">&gt;85 MPH</a></li>
+                                        <li><a data-value="90">&gt;90 MPH</a></li>
+                                        <li><a data-value="95">&gt;95 MPH</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# STATIONARY REPORT #}
+                        <div class="report-params report-params-stationary">
+                            <div class="form-group">
+                                <label for="report-stationary">Stationary Filter:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-stationary" class="btn btn-dropdown btn-sm"  value="3">
+                                        <span class="filter-label">&gt;3 Days</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="3">&gt;3 Days</a></li>
+                                        <li><a data-value="7">&gt;7 Days</a></li>
+                                        <li><a data-value="14">&gt;14 Days</a></li>
+                                        <li><a data-value="30">&gt;30 Days</a></li>
+                                        <li><a data-value="60">&gt;60 Days</a></li>
+                                        <li><a data-value="90">&gt;90 Days</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# STOP REPORT #}{# stop thresholds are save in minutes #}
+                        <div class="report-params report-params-stop">
+                            <div class="form-group">
+                                <label for="report-stop">Stop Threshold:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-stop" class="btn btn-dropdown btn-sm"  value="30">
+                                        <span class="filter-label">&gt;30 Minutes</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="30">&gt;30 Minutes</a></li>
+                                        <li><a data-value="60">&gt;1 Hour</a></li>
+                                        <li><a data-value="720">&gt;12 Hours</a></li>
+                                        <li><a data-value="1440">&gt;1 Day</a></li>
+                                        <li><a data-value="10080">&gt;7 Days</a></li>
+                                        <li><a data-value="20160">&gt;14 Days</a></li>
+                                        <li><a data-value="43200">&gt;30 Days</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# USER COMMAND REPORT #}
+                        <div class="report-params report-params-user-command">
+                            <div class="form-group">
+                                <label for="report-user-command">Users:</label><br />
+                                <div class="btn-group">
+                                    <button type="button" id="report-user-command" class="btn btn-dropdown btn-sm"  value="{{ users ? '0' : '' }}">
+                                        <span class="filter-label">{{ users ? 'All' : 'No Users Available' }}</span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle {{ users ? '' : 'disabled' }}" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a data-value="0">All</a></li>
+                                    {% for u in users %}
+                                        <li><a data-value="{{ u.user_id }}">{{ u.fullname }}</a></li>
+                                    {% else %}
+                                        <li><a data-value="">No Users Available</a></li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                {# NAME, RUN, SAVE, GO BACK #}
+                        <div class="report-params-static">
+                            <hr />
+                            <div class="form-group">
+                                <label for="report-name">Name:</label>
+                                <input type="text" class="form-control has-tooltip input-sm" id="report-name" placeholder="required" data-placement="bottom" title="Although a default name is provided, you may enter a name of your choice." maxlength="{{ validation.report_name.maxlength }}" />
+                            </div>
+                            <hr />
+                            <div class="btn-group btn-group-justified">
+                                <a id="report-schedule" class="btn btn-sm btn-default has-popover has-tooltip" data-placement="bottom" title="Schedule Report" data-popover-placement="right" data-popover-title-id="popover-head-report-schedule" data-popover-content-id="popover-content-report-schedule" data-popover-width="277" data-popover-position-left="100">Schedule</a>
+                                <a type="button" class="btn btn-sm btn-primary" id="report-run">Run</a>
+                            </div>
+                            <p id="max-report-hint" class="text-muted">*max 8 concurrent reports</p>
+                            {#<hr />
+                            <div class="go-back"></div>#}
+                        {# SCHEDULE POPOVER #}
+                            <div id="popover-head-report-schedule" class="hide">
+                                <div class="clearfix">
+                                    <div class="pull-left">
+                                        Schedule Report
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="close">&times;</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="popover-content-report-schedule" class="hide">
+                                <form id="popover-report-schedule-form" role="form">
+                                    {% set label_col   = 'col-lg-4' %}
+                                    {% set control_col = 'col-lg-8' %}
+
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="scheduled-recurrence">Recurrence:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <div class="btn-group">
+                                                <button type="button" id="scheduled-recurrence" class="btn btn-default btn-dropdown btn-sm btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-scheduled-recurrence" value="Daily">
+                                                    <span class="filter-label">Daily</span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a data-value="Daily" data-toggle-target="scheduled-recurrence-daily">Daily</a></li>
+                                                    <li><a data-value="Weekly" data-toggle-target="scheduled-recurrence-weekly">Weekly</a></li>
+                                                    <li><a data-value="Monthly" data-toggle-target="scheduled-recurrence-monthly">Monthly</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-scheduled-recurrence-weekly toggle-panel-scheduled-recurrence">
+                                        <div class="row" style="margin-bottom: 15px">
+                                            <div class="{{ label_col }}">
+                                                <label for="scheduled-day">Day of Week:</label>
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <div class="btn-group">
+                                                    <button type="button" id="scheduled-day" value="" class="btn btn-dropdown btn-default btn-sm disabled">
+                                                        <span class="filter-label">&nbsp;</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        <li><a data-value="Everyday">Everyday</a></li>
+                                                        <li><a data-value="Weekdays">Weekdays</a></li>
+                                                        <li><a data-value="Weekends">Weekends</a></li>
+                                                        <li><a data-value="Monday">Monday</a></li>
+                                                        <li><a data-value="Tuesday">Tuesday</a></li>
+                                                        <li><a data-value="Wednesday">Wednesday</a></li>
+                                                        <li><a data-value="Thursday">Thursday</a></li>
+                                                        <li><a data-value="Friday">Friday</a></li>
+                                                        <li><a data-value="Saturday">Saturday</a></li>
+                                                        <li><a data-value="Sunday">Sunday</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-scheduled-recurrence-monthly toggle-panel-scheduled-recurrence">
+                                        <div class="row" style="margin-bottom: 15px">
+                                            <div class="{{ label_col }}">
+                                                <label for="scheduled-monthly">Day of Month:</label>
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <div class="btn-group">
+                                                    <button type="button" id="scheduled-monthly" value="" class="btn btn-dropdown btn-default btn-sm disabled">
+                                                        <span class="filter-label">&nbsp;</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        {% for day_of_month in range(1, 31) %}
+                                                            <li><a data-value="{{ loop.index }}">{{ loop.index|ordinal_suffix }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="scheduled-time">Time to Send:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <div class="btn-group">
+                                                <button type="button" id="scheduled-time" value="" class="btn btn-dropdown btn-default btn-sm disabled">
+                                                    <span class="filter-label">&nbsp;</span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    {% for hour in range(0, 23) %}
+                                                        <li><a data-value="{{ hour }}">{{ hour|hour }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="scheduled-format">Format:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <div class="btn-group">
+                                                <button type="button" id="scheduled-format" value="" class="btn btn-dropdown btn-default btn-sm disabled">
+                                                    <span class="filter-label">&nbsp;</span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a data-value="CSV">CSV</a></li>
+                                                    <li><a data-value="PDF">PDF</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px">
+                                        <div class="{{ label_col }}">
+                                            <label for="scheduled-contact-mode">Contact Mode:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <div class="btn-group">
+                                                <button type="button" id="scheduled-contact-mode" class="btn btn-default btn-dropdown btn-sm btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-contact-mode" value="single">
+                                                    <span class="filter-label">Single Contact</span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a data-value="single" data-toggle-target="scheduled-contact-single">Single Contact</a></li>
+                                                    <li><a data-value="group" data-toggle-target="scheduled-contact-group">Contact Group</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {# SINGLE CONTACT #}
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-default dropdown-toggle-panel-scheduled-contact-single toggle-panel-contact-mode">
+                                        <div class="row" style="margin-bottom: 15px">
+                                            <div class="{{ label_col }}">
+                                                <label for="scheduled-contact-single">Contact:</label>
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <div class="btn-group">
+                                                    <button type="button" id="scheduled-contact-single" value="" class="btn btn-dropdown btn-default btn-sm disabled">
+                                                        <span class="filter-label">&nbsp;</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        {% for c in contacts %}
+                                                        <li><a data-value="{{ c.contact_id }}">{{ c.contactname }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {# CONTACT GROUP #}
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-scheduled-contact-group toggle-panel-contact-mode">
+                                        <div class="row" style="margin-bottom: 15px">
+                                            <div class="{{ label_col }}">
+                                                <label for="scheduled-contact-group">Contact Group:</label>
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <div class="btn-group">
+                                                    <button type="button" id="scheduled-contact-group" value="" class="btn btn-dropdown btn-default btn-sm disabled">
+                                                        <span class="filter-label">&nbsp;</span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                        {% for cg in contact_groups %}
+                                                        <li><a data-value="{{ cg.contactgroup_id }}">{{ cg.contactgroupname }}</a></li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <hr />
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <button type="button" id="popover-report-schedule-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button type="button" id="popover-report-schedule-confirm" class="btn btn-primary">Save</button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>

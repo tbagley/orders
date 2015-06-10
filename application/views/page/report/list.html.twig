@@ -1,0 +1,64 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+            <!-- FX Container -->
+            <div id="fx-container" class="fx-opacity">
+                <!-- Page content -->
+                <!-- Block Tabs -->
+                <div class="block block-tabs full">
+                    <!-- Block Tabs Title -->
+                    <div class="block-title">
+                        <ul id="secondaryNav" class="nav nav-tabs">
+                            {% for item in secondary_navigation %}
+                                <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                        <div id="report-exports" class="btn-group pull-right" style="margin-right: 1px; margin-top: 4px;">
+                            <button type="button" class="btn btn-primary has-tooltip" title="Export Print PDF" id="popover-report-list-export-pdf-confirm"><span class="fa fa-print"></span></button>
+                            <button type="button" class="btn btn-primary has-tooltip" title="Export CSV" id="popover-report-list-export-csv-confirm"><span class="hi hi-export"></span></button>
+                        </div>
+                    </div>
+                    <!-- END Block Tabs Title -->
+
+                    <!-- Tabs Content -->
+                    <div id="report-tabs-container" class="container" style="display: none;">
+                        <ul id="report-result-tabs" class="nav nav-tabs">
+                        </ul>
+                        <div class="panel panel-default panel-report">
+                            <div id="report-result-panes" class="tab-content ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="report-landing-container">&nbsp;<p>Choose a Report to get started&nbsp;<p>&nbsp;</div>
+                    <!-- END Tabs Content -->
+                </div>
+                <!-- END Block Tabs -->
+
+                <!-- END Page Content -->
+            </div>
+            <!-- END FX Container -->
+
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/report-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/report-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/report.js"></script>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% set label_col      = 'col-label col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# label columns #}
+{% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+{% set control_offset = 'col-offset col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# allows spacing for x-editable button #}
+{% set third_col   = 'col-lg-4 col-md-4 col-sm-4 col-xs-4' %}
+{% set half_col    = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+{% set full_col    = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+{% set heading     = '4' %}
+<div class="modal fade" id="modal-my-account" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header clearfix">
+                        <div class="pull-left">
+                            <h5 class="modal-title">
+                                <span class="my-account-label">My Account</span>
+                            </h5>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="pull-right">
+
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="{{ half_col }}">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ full_col }}">
+                                            <h{{ heading }}>Basic Information</h{{ heading }}>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="my-account-first-name">First Name:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="wizard-editable" id="my-account-first-name" href="javascript:void(0);" onclick="Core.Wizard.Link2Input(this.id,this.text);" onfocus="Core.Wizard.Link2Input(this.id,this.text);"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="my-account-last-name">Last Name:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="wizard-editable" id="my-account-last-name" href="javascript:void(0);" onclick="Core.Wizard.Link2Input(this.id,this.text);" onfocus="Core.Wizard.Link2Input(this.id,this.text);"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="{{ label_col }}">
+                                            <label for="my-account-email">E-Mail:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="wizard-editable" id="my-account-email" href="javascript:void(0);" onclick="Core.Wizard.Link2Input(this.id,this.text);" onfocus="Core.Wizard.Link2Input(this.id,this.text);"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                                <div class="{{ half_col }}"  style="border-left: 1px dotted #dddddd;">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ full_col }}">
+                                            <h{{ heading }}>Login Credentials</h{{ heading }}>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="my-account-username">Username:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="wizard-editable" id="my-account-username" href="javascript:void(0);" onclick="Core.Wizard.Link2Input(this.id,this.text);" onfocus="Core.Wizard.Link2Input(this.id,this.text);"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div  id="change-password-container-toggle" class="row">
+                                        <div class="{{ full_col }}">
+                                            <a href="#">Change Password</a>
+                                        </div>
+                                    </div>
+                                    <div id="change-password-container">
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="{{ label_col }}">
+                                                <label for="my-account-password">Password:</label>
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <input type="password" id="my-account-password" maxlength="{{ validation.password.maxlength }}" class="form-control input-sm" />
+                                            </div>
+                                            <div class="{{ control_offset }}"></div>
+                                        </div>
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="{{ label_col }}">
+                                                <label for="my-account-password-confirm">Confirm:</label>
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <input type="password" id="my-account-password-confirm" maxlength="{{ validation.password.maxlength }}" class="form-control input-sm" />
+                                            </div>
+                                            <div class="{{ control_offset }}"></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="{{ label_col }}"></div>
+                                            <div class="{{ control_col }}">
+                                                <button type="button" id="my-account-save-password-button" class="btn btn-block btn-sm btn-primary">Update Password</button>
+                                            </div>
+                                            <div class="{{ control_offset }}"></div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="{{ full_col }}">
+                                    <div id="my-account-form-response" class="alert-form-response"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="clearfix">
+                            {#<div class="pull-left">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-primary">Save</button>
+                            </div>#}
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

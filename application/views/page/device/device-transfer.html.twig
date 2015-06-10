@@ -1,0 +1,119 @@
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# allows spacing for x-editable button #}
+                    {% set full_col       = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+                    {% set half_col       = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set third_col      = 'col-lg-4 col-md-4 col-sm-4 col-xs-4' %}
+                    {% set two_thirds_col = 'col-lg-8 col-md-8 col-sm-8 col-xs-8' %}
+
+                    <div class="panel-body clearfix hook-editable-keys" data-user-pk="">
+                        <div class="row">
+
+                            <div class="col-lg-12" style="border-left: 1px solid #dddddd;">
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <h5>Device Transfer</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ full_col }}">
+                                        <div id="vehicle-group-assignment" class="drag-drop drag-drop-simple">
+                                            <div class="row">
+                                                <div class="{{ half_col }}">
+                                                    <div class="row">
+                                                        <div class="{{ full_col }}">
+                                                            <label for="vehicle-group-source">Group:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="margin-bottom: 15px;">
+                                                        <div class="{{ full_col }}">
+                                                            <div class="btn-group">
+                                                                <button type="button" id="vehicle-group-source" value="all" class="btn btn-dropdown btn-default btn-sm"><span class="filter-label">All</span></button>
+                                                                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                    <span class="caret"></span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu">
+                                                                    <li class="transfer-group-id-all"><a data-value="all">All</a></li>
+                                                                    {% for g in vehicle_groups %}
+                                                                    <li data-group-id="{{ g.unitgroup_id }}" class="transfer-group-id-{{ g.unitgroup_id }}"><a data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</a></li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="{{ full_col }}">
+                                                            <label for="filter-available-text" class="sr-only">Filter:</label>
+                                                            <div class="input-group input-group-sm group-filter-container">
+                                                                <input id="filter-available-text" class="form-control input-sm" type="text" placeholder="Filter Devices in Group" />
+                                                                <div class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-filter"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-available">
+
+                                            				{#{% for v in vehicles %}
+                                                                <li data-id="{{ v.unit_id }}" class="drag-drop-item list-group-item">
+                                                                    <div class="list-group-item-text drag-drop-name">{{ v.unitname }}</div>
+                                                                </li>
+
+                                                            {% else %}
+                                                                <li class="list-group-item drag-drop-static">
+                                                                    <div class="list-group-item-text">No Vehicles Available</div>
+                                                                </li>
+                                                            {% endfor %}#}
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="{{ half_col }}">
+                                                        <div class="row">
+                                                            <div class="{{ full_col }}">
+                                                                <label for="vehicle-group-destination">Group:</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" style="margin-bottom: 15px;">
+                                                            <div class="{{ full_col }}">
+                                                                <div class="btn-group">
+                                                                    <button type="button" id="vehicle-group-destination" value="0" class="btn btn-dropdown btn-default btn-sm"><span class="filter-label">Select One</span></button>
+                                                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                                                        <span class="caret"></span>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu" role="menu">
+                                                                        {% for g in vehicle_groups %}
+                                                                        <li data-group-id="{{ g.unitgroup_id }}" class="transfer-group-id-{{ g.unitgroup_id }}"><a data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</a></li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div class="row">
+                                                        <div class="{{ full_col }}">
+                                                            <label for="filter-assigned-text" class="sr-only">Filter:</label>
+                                                            <div class="input-group input-group-sm group-filter-container">
+                                                                <input id="filter-assigned-text" class="form-control input-sm" type="text" placeholder="Filter Devices in Group" />
+                                                                <div class="input-group-addon">
+                                                                    <span class="glyphicon glyphicon-filter"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="drag-drop-container">
+                                                        <ul class="list-group drag-drop-list drag-drop-assigned">
+                                                        
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+

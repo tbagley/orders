@@ -1,0 +1,39 @@
+{% set label_col      = 'col-label col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# label columns #}
+{% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+{% set control_offset = 'col-offset col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# allows spacing for x-editable button #}
+{% set third_col   = 'col-lg-4 col-md-4 col-sm-4 col-xs-4' %}
+{% set half_col    = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+{% set full_col    = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+{% set heading     = '4' %}
+<div class="modal fade" id="modal-session-check" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <div class="pull-left">
+                        <h5 class="modal-title">Are You Still There?</h5>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="pull-right">
+
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <p>Your session will expire soon due to no activity.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="clearfix">
+                        <div class="pull-left">
+                            <a class="btn btn-default btn-sm" href="/logout">Logout</a>
+                        </div>
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Yes, I&#39;m Here</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

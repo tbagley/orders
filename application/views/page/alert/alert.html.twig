@@ -1,0 +1,77 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+    <div id="main-content">
+        <div class="container">
+            <h2><span class="icon alert"></span> Alerts</h2>
+            <hr />
+            <div class="panel panel-default container">
+                <table class="table table-condensed table-hover table-bordered table-striped" style="font-size: 1.3em;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Vehicles</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        <!--nav>
+            <a id="nav-1" class="active"  href="/alert"><span class="icon alert"></span>Alerts</a>
+            <a id="nav-2" href="/alert/history"><span class="icon history"></span>History</a>
+        </nav-->
+        <section id="sub-panel" class="collapsed">
+            <div class="container">
+                <h3>Filter</h3>
+                <form role="form">
+                    {% for f in range(1, 3) %}
+                    <div class="form-group">
+                        <label for="filter-{{ loop.index }}">Filter {{ loop.index }}:</label>
+                        <select id="filter-{{ f }}" class="form-control">
+                            {% for i in range(1, 5) %}
+                            <option value="filter-id-{{ loop.index }}">item {{ loop.index }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endfor %}
+                </form>
+                <hr />
+            </div>
+        </section>
+        <div class="clear"></div>
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+{% block modals %}
+<!-- MODAL BEGIN -->
+<div class="modal fade" id="modal-vehicle-list" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Dialog</h4>
+            </div>
+            <div class="modal-body">
+                {% include('page/vehicle/detail.html.twig') %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL END -->
+{% endblock %}

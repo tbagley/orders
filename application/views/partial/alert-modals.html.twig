@@ -1,0 +1,567 @@
+
+<!-- ALERT LIST MODAL -->
+<!-- ALERT HISTORY MODALS -->
+{% if route == 'alert/list' or route == 'alert/history' %}
+
+        <!-- Modal export csv -->
+        <div class="modal fade" id="modal-export-csv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+                    <div class="modal-pronounce">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            				<h4 class="modal-title" id="myModalLabel">Export CSV</h4>
+            			</div>
+            			<div class="modal-body">
+            				<p>Are you sure want to Download CSV File?</p>
+            
+            				<p class="bg-primary note">This feature allows you to download list of vehicle associated with this account. You may subsequently open the CSV file with your spreadsheet application.</p>
+            			</div>
+            			<div class="modal-footer">
+            				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            				<button type="button" class="btn btn-primary">Download</button>
+            			</div>
+                    </div>
+        		</div>
+        	</div>
+        </div>
+        <!-- END modal export CSV --> 
+        
+        <!-- Modal download PDF -->
+        <div class="modal fade" id="modal-download-pdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+                    <div class="modal-pronounce">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            				<h4 class="modal-title" id="myModalLabel">Download PDF</h4>
+            			</div>
+            			<div class="modal-body">
+            				<p>Are you sure want to Download a PDF File?</p>
+            
+            				<p class="bg-primary note">This feature allows you to download list of vehicle associated with this account. You may subsequently open the PDF file with your PDF viewer such as Adobe<sup>&reg;</sup> Acrobat<sup>&reg;</sup>.</p>
+            
+            			</div>
+            			<div class="modal-footer">
+            				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            				<button type="button" class="btn btn-primary">Download</button>
+            			</div>
+                    </div>
+        		</div>
+        	</div>
+        </div>
+
+        <!-- Add Alert Modal -->
+        <div id="modal-add-alert" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-pronounce">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Add Alert</h4>
+                        </div>
+                        <div class="modal-body" style="min-height:400px;">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-1">
+                                        <label class="control-label pull-right" for="alert-add-name" style="margin-top:7px;">Name:</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="text" id="alert-add-name" name="alert-add-name" class="form-control" placeholder="Alert Name">
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-type" style="margin-top:2px;">Alert Type:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-type" name="alert-add-type" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_alerttypes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-duration">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-duration" style="margin-top:2px;">Duration:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-duration" name="alert-add-duration" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_duration %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-overspeed">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-overspeed" style="margin-top:2px;">Over Speed:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-overspeed" name="alert-add-overspeed" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_overspeed %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-landmarktrigger">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-landmarktrigger" style="margin-top:2px;">Landmark Trigger:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-landmarktrigger" name="alert-add-landmarktrigger" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_landmarktriggers %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-landmarkmode">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-landmarkmode" style="margin-top:2px;">Landmark Mode:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-landmarkmode" name="alert-add-landmarkmode" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_landmarkmodes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-landmark">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-landmark" style="margin-top:2px;">Landmark:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-landmark" name="alert-add-landmark" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_landmarks %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-landmarkgroup">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-landmarkgroup" style="margin-top:2px;">Landmark Group:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-landmarkgroup" name="alert-add-landmarkgroup" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_landmarkgroups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-vehiclemode">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-vehiclemode" style="margin-top:2px;">Vehicle Mode:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-vehiclemode" name="alert-add-vehiclemode" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_vehiclemodes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-vehicle">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-vehicle" style="margin-top:2px;">Vehicle:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-vehicle" name="alert-add-vehicle" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_vehicles %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-vehiclegroup">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-vehiclegroup" style="margin-top:2px;">Vehicle Group:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-vehiclegroup" name="alert-add-vehiclegroup" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_vehiclegroups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row" id="div-alert-add-days">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-days" style="margin-top:2px;">Days:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-days" name="alert-add-days" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_days %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-hours">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-hours" style="margin-top:2px;">Hours:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-hours" name="alert-add-hours" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_hours %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-range">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-range" style="margin-top:2px;">Range:</label>
+                                    </div>
+                                    <div class="col-md-3 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-starthour" name="alert-add-starthour" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_range %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        &nbsp;&nbsp;to&nbsp;&nbsp;
+                                        <select id="alert-add-endhour" name="alert-add-endhour" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_range %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-contactmode">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-contactmode" style="margin-top:2px;">Contact Mode:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-contactmode" name="alert-add-contactmode" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_contactmodes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-contact">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-contact" style="margin-top:2px;">Contact:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-contact" name="alert-add-contact" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_contacts %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-contactgroup">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-contact" style="margin-top:2px;">Contact Group:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-contactgroup" name="alert-add-contactgroup" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_contactgroups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-add-contactmethod">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-add-contactmethod" style="margin-top:2px;">Contact Method:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-add-contactmethod" name="alert-add-contactmethod" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_contactmethods %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-md-1 pull-right">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-1 pull-right">
+                                <button id="alert-add" type="button" class="btn btn-primary create-update">Create Alert</button>
+                            </div>
+                            <div class="col-md-1 pull-right">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-1 pull-right">
+                                <button id="alert-add-cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Add Alert Modal -->
+{% endif %}
+
+<!-- ALERT LIST MODAL -->
+{% if route == 'alert/list' or route == 'alert/contact' %}
+
+        <!-- Edit Alert Modal -->
+        <div id="modal-edit-alert" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-pronounce">
+                        <div class="modal-header">
+                            <button type="button" class="alert-edit-cancel close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Edit Alert</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <div class="col-md-1">
+                                        <label class="control-label pull-right" for="alert-edit-name" style="margin-top:7px;">Name:</label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="text" id="alert-edit-name" name="alert-edit-name" class="form-control" onChange="if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}" placeholder="Alert Name">
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-type" style="margin-top:2px;">Alert Type:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-type" name="alert-edit-type" class="form-control transfer-form" size="1" onChange="if(!(formFillBool)){formFillBool=1;Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');setTimeout('formFillBool=\'\'',1000);}Core.DivControl(this.id,this.value);">
+                                            {% for option in options_alerttypes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-duration">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-duration" style="margin-top:2px;">Duration:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-duration" name="alert-edit-duration" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_duration %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-overspeed">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-overspeed" style="margin-top:2px;">Over Speed:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-overspeed" name="alert-edit-overspeed" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_overspeed %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-landmarktrigger">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-landmarktrigger" style="margin-top:2px;">Landmark Trigger:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-landmarktrigger" name="alert-edit-landmarktrigger" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_landmarktriggers %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-landmarkmode">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-landmarkmode" style="margin-top:2px;">Landmark Mode:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-landmarkmode" name="alert-edit-landmarkmode" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if((!(formFillBool))&&(this.value==3)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_landmarkmodes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-landmark">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-landmark" style="margin-top:2px;">Landmark:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-landmark" name="alert-edit-landmark" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_landmarks %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-landmarkgroup">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-landmarkgroup" style="margin-top:2px;">Landmark Group:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-landmarkgroup" name="alert-edit-landmarkgroup" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_landmarkgroups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-vehiclemode">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-vehiclemode" style="margin-top:2px;">Vehicle Mode:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-vehiclemode" name="alert-edit-vehiclemode" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_vehiclemodes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-vehicle">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-vehicle" style="margin-top:2px;">Vehicle:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-vehicle" name="alert-edit-vehicle" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_vehicles %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-vehiclegroup">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-vehiclegroup" style="margin-top:2px;">Vehicle Group:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-vehiclegroup" name="alert-edit-vehiclegroup" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_vehiclegroups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row" id="div-alert-edit-days">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-days" style="margin-top:2px;">Days:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-days" name="alert-edit-days" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_days %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-hours">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-hours" style="margin-top:2px;">Hours:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-hours" name="alert-edit-hours" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_hours %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-range">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-range" style="margin-top:2px;">Range:</label>
+                                    </div>
+                                    <div class="col-md-3 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-starthour" name="alert-edit-starthour" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_range %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        &nbsp;&nbsp;to&nbsp;&nbsp;
+                                        <select id="alert-edit-endhour" name="alert-edit-endhour" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_range %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-contactmode">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-contactmode" style="margin-top:2px;">Contact Mode:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-contactmode" name="alert-edit-contactmode" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for option in options_contactmodes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-contact">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-contact" style="margin-top:2px;">Contact:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-contact" name="alert-edit-contact" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_contacts %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-contactgroup">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-contact" style="margin-top:2px;">Contact Group:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-contactgroup" name="alert-edit-contactgroup" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_contactgroups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row" id="div-alert-edit-contactmethod">
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="alert-edit-contactmethod" style="margin-top:2px;">Contact Method:</label>
+                                    </div>
+                                    <div class="col-md-4 wizard-div" style="margin-top:1px;">
+                                        <select id="alert-edit-contactmethod" name="alert-edit-contactmethod" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);if(!(formFillBool)){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}">
+                                            {% for option in options_contactmethods %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="modal-footer">
+                            <button id="alert-edit-cancel" type="button" class="alert-edit-cancel btn btn-default pull-right" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Add Alert Modal -->
+
+{% endif %}
+
+<!-- ALERT CONTACT MODAL -->
+{% if route == 'alert/contact' %}
+
+{% endif %}

@@ -1,0 +1,145 @@
+    {% extends "layout/layout-demo.html.twig" %}
+    {% block main_panel %}
+        <!-- MAIN-PANEL BEGIN  -->
+        <div id="main-content">
+            <div class="secondary-bar clearfix">
+                                <div id="secondary-nav" class="pull-left">
+                                    <ul>
+                                        {% for item in secondary_navigation %}
+                                            <li><a class="{% if route == item.route  %} active{% endif %} transition" href="/{{ item.route }}">{{ item.label }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% include 'partial/quickactions/vehicle-list-map.html.twig' %}
+                                {#{% include 'partial/quickactions.html.twig' %}#}
+                            </div>
+            <div id="content-1" class="active map-content panel-content">
+                {#<div class="secondary-bar clearfix">
+                    <div id="secondary-nav" class="pull-left">
+                        <ul>
+                            {% for item in secondary_navigation %}
+                                <li><a class="{% if route == item.route  %} active{% endif %} transition" href="/{{ item.route }}">{{ item.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% include 'partial/quickactions.html.twig' %}
+                </div>#}
+                <div id="map-div"> <!-- use this div for map hook --> </div>
+                <section id="detail-panel">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix navbar-gradient" style="height: 50px;">
+                            <div class="panel-title pull-left">
+
+                                {#<h6><span class="vehicle-label"></span>&nbsp;<small><wbr />@ <span class="vehicle-location-label">1234 Infinite Loop, Someville CA</span></small></h6>#}
+                                <div id="vehicle-bar-info" class="">
+                                    <div class="pull-left vehicle-bar-info-col">
+                                        <div>
+                                            <span class="vehicle-label info-label">Unit Names</span>
+                                        </div>
+                                        <div>
+                                            <span class="info-value vehicle-since-event-label">Ignition Off (1d 12h 5m)</span>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left vehicle-bar-info-col">
+                                        <div>
+                                            <span class="info-label">Location:</span>
+                                            <span class="info-value vehicle-location-label">1234 Drum Circle, Woodstock, NY</span>
+                                        </div>
+                                        <div>
+                                            <span class="info-label">Landmark:</span>
+                                            <span class="info-value vehicle-in-landmark-label">Landmark Name</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="hide-vehicle-panel" class="close" aria-hidden="true">&times;</button>
+                            </div>
+                            {% if context == 'vehicle/demo' %}
+                                <div class="pull-right">
+                                    {% include('page/vehicle/detail-nav.html.twig') %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% include ('page/vehicle/detail.html.twig') %}
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- MAIN-PANEL END  -->
+    {% endblock %}
+    {% block secondary_panel %}
+        {# TODO: Remove unnecessary wrappers in secondary panel (left over from initial wireframes) #}
+        <!-- SECONDARY-PANEL BEGIN  -->
+            <!--nav>
+                <a id="nav-1" class="active"><span class="icon map"></span>Map</a>
+                <a id="nav-2" href="/vehicle/listview"><span class="icon list"></span>List</a>
+            </nav-->
+            <section id="sub-panel" class="collapsed">
+                <div class="container">
+                    <div class="tab-content">
+                        <section id="vehicles-tab" class="tab-pane active">
+                            {% include('partial/secondaryfilter/vehicle-map-list.html.twig') %}
+                            {#<h4 class="clearfix">
+                                <span class="pull-left">
+                                    Vehicles
+                                </span>
+                                <span class="vehicle-toggle pull-right">
+                                    Select:&nbsp;<a id="vehicle-toggle-all">All</a>&nbsp;&#124;&nbsp;<a id="vehicle-toggle-none">None</a>
+                                </span>
+                            </h4>#}
+                            <div class="clearfix" style="position: relative;">
+                                <h4 class="secondary-panel-heading pull-left">Vehicles</h4>
+                                <div class="vehicle-toggle pull-right">
+                                    Select:&nbsp;<a id="vehicle-toggle-all">All</a>&nbsp;&#124;&nbsp;<a id="vehicle-toggle-none">None</a>
+                                </div>
+
+                                {# hiding this till it can be build out
+                                <div class="secondary-panel-select-mode-container pull-right">
+                                    Mode:
+                                    <a class="secondary-select-mode active" data-value="single">One</a>
+                                    &#124;
+                                    <a class="secondary-select-mode" data-value="multi">Mult</a>
+                                </div>
+                                #}
+                            </div>
+                            <form action="#">
+                                <ul id="page-scroll" class="list-group sub-panel-items">
+                                    {% for v in vehicles %}
+                                    <li id="vehicle-li-{{ v.unit_id }}" class="list-group-item clearfix">
+                                        <!--<input type="checkbox" id="vehicle-checkbox-{{ v.unit_id }}" class="hide" />-->
+                                        <label class="" for="vehicle-li-{{ v.unit_id }}"><span>{{ v.name|ellipsis(20) }}</span></label>
+                                        <div class="toggle pull-right">
+                                            <span class="glyphicon glyphicon-pencil"></span>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </form>
+                        </section>
+                    </div>
+                    <div id="secondary-panel-pagination" class="container clearfix" data-vehicle-start-index="0" data-paging="" data-draw-marker="">
+                        <div class="pull-left">
+                            <span class="glyphicon glyphicon-backward"></span>
+                        </div>
+                        <span>Showing <span class="showing">{{vehicle_count_start}}-{{total_vehicle_count}}</span> of <span class="total">{{total_vehicle_count}}</span></span>
+                        <div class="pull-right">
+                            <span class="glyphicon glyphicon-forward{{forward_hidden}}"></span>
+                        </div>
+                        <div id="selected-vehicle-listing-length" class="secondary-panel-pagination-length-container">
+                            View:
+                            <a class="secondary-pagination-length active" data-value="20">20</a>
+                            &#124;
+                            <a class="secondary-pagination-length" data-value="50">50</a>
+                            &#124;
+                            <a class="secondary-pagination-length" data-value="100">100</a>
+                            {#per Page#}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="clear"></div>
+        <!-- SECONDARY-PANEL END  -->
+    {% endblock %}

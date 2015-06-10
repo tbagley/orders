@@ -1,0 +1,70 @@
+
+#device-more-options-toggle small {
+    font-size: 0.704em;
+}
+
+#device-more-options {
+    display: none;
+}
+
+#device-edit-nav > li {
+    float: left;
+}
+
+#modal-device-list .modal-body {
+    height: 350px;
+}
+
+#modal-device-list .drag-drop-container {
+    height: 247px;
+}
+
+#device-edit-nav {
+    margin-bottom: 15px;
+}
+
+/*#modal-device-list h6 {
+    color: #333333;
+}*/
+
+#modal-device-list .tab-content {
+    padding: 0 10px;
+}
+
+/*.device-type-preset {
+    color: #dddddd;
+}
+
+.device-type-custom {
+    color:#5CB85C;
+}*/
+
+#device-type-preset-alert {
+    display: none;
+    padding: 5px 10px;
+    margin-bottom: 0;
+}
+
+.device-type-name-panel {
+    display: none;
+}
+
+
+#modal-device-transfer {
+
+}
+
+#modal-device-transfer label {
+    font-size: 12px;
+}
+
+#modal-device-transfer .btn-dropdown {
+    width: 233px;
+    text-align: left;
+}
+
+
+
+
+
+

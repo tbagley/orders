@@ -1,0 +1,1067 @@
+
+<!-- LANDMARK MAP AND LIST MODAL -->
+{% if route == 'landmark/map' or route == 'landmark/list' %}
+
+        <!-- Modal add landmark -->
+        <div class="modal fade" id="modal-add-landmark" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content" style="min-height:600px;">
+                    <div class="modal-pronounce">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            				<h4 class="modal-title" id="modal-add-landmark-label">Add Landmark</h4>
+                            {#}<span style="font-style:italic;text-grey-10">Enter an Address or Double Click on Map</span>{#}
+            			</div>
+            			<div class="modal-body">
+                			<div class="col-md-6">
+                                <div class="modal-map" id="addmap-div"></div>
+                            </div>
+        
+                            <div class="col-md-6">
+
+            					<div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-name" style="margin-top:7px;">Name:</label>
+                                    </div>
+            						<div class="col-md-9">
+            							<input type="text" id="landmark-add-name" name="landmark-add-name" class="form-control" placeholder="Name of Landmark">
+            						</div>
+            					</div>
+            				
+            					<div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-group" style="margin-top:7px;">Group:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="landmark-add-group">
+                                            {% for option in options_groups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+            					</div>
+
+            					<div class="form-group row" style="display:none;">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-category" style="margin-top:2px;">Category:</label>
+                                    </div>
+                                    <div class="col-md-9 wizard-div" style="margin-top:1px;">
+                                        <select class="form-control" id="landmark-add-category">
+                                            {% for option in options_categories %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+            					</div> 
+
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-street_address" style="margin-top:7px;">Address:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" id="landmark-add-street_address" name="landmark-add-street_address" class="form-control" onKeyUp="Core.AddMap.Address(30);" placeholder="Street Address">
+                                    </div>
+                                </div> 
+       
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-city" style="margin-top:7px;">&nbsp;</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" id="landmark-add-city" name="landmark-add-city" class="form-control" onKeyUp="Core.AddMap.Address(30);" placeholder="City">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control" id="landmark-add-state" onChange="Core.AddMap.Address(1);">
+                                            {% for option in options_states %}
+                                                <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="landmark-add-zip" name="landmark-add-zip" class="form-control" onKeyUp="Core.AddMap.Address(30);" placeholder="Zipcode">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-control" id="landmark-add-country" onChange="Core.AddMap.Address(30);">
+                                            {% for option in options_countries %}
+                                                <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> 
+          
+                                <div class="form-group row">
+                                    <div class="col-md-3">
+                                        <label class="control-label pull-right text-grey" for="landmark-add-latlong" style="margin-top:7px;">or by Lat/Long</label>
+                                    </div>
+                                </div> 
+          
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-latlong" style="margin-top:7px;">&nbsp;</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input type="text" id="landmark-add-latitude" name="landmark-add-latitude" class="form-control" onKeyUp="Core.AddMap.AddressReverse(30);" placeholder="Latitude">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="landmark-add-longitude" name="landmark-add-longitude" class="form-control" onKeyUp="Core.AddMap.AddressReverse(30);" placeholder="Longitude">
+                                    </div>
+                                </div> 
+
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-shape" style="margin-top:7px;">Shape:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="landmark-add-shape" onChange="Core.AddMap.Address(1);">
+                                            {% for option in options_shapes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                                <div id="landmark-add-radius-row" class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-radius" style="margin-top:7px;">Radius:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="landmark-add-radius" onChange="Core.AddMap.Address(1);">
+                                            {% for option in options_radius %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+{#}
+                                    <label class="col-md-1 control-label" for="landmark-add-radius" style="margin-top:2px;">Lat/Lng:</label>
+                                    <div class="col-md-5" style="margin-top:2px;">
+                                        <span id="landmark-add-latitude" name="landmark-add-latitude">&nbsp;</span>
+                                        &nbsp;/&nbsp;
+                                        <span id="landmark-add-longitude" name="landmark-add-longitude">&nbsp;</span>
+                                    </div>
+{#}
+                                </div>  
+                            
+                                <div id="landmark-add-radius-row" class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-add-radius" style="margin-top:7px;">Type:</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select class="form-control" id="landmark-add-type">
+                                            <option value="1">Impound Yard</option>
+                                            <option value="0">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6" id="div-landmark-add-type-other" style="display:none;">
+                                        <input class="form-control" id="landmark-add-type-other" placeholder="Type of Landmark...">
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                </div>  
+                            
+                                <div class="row">&nbsp;</div>
+                                <div class="clearfix"> </div>
+
+                                <div class="modal-footer row">
+                                    <div class="col-md-1 pull-right">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-md-1 pull-right">
+                                        <button id="landmark-add" type="button" class="btn btn-primary create-update pull-right">Add Landmark</button>
+                                    </div>
+                                    <div class="col-md-1 pull-right">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-md-1 pull-right">
+                                        <button id="landmark-add-cancel" type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span id="landmark-error" class="center text-red">error msg</span>
+                                    </div>
+                                </div>
+
+                			</div>
+                        </div>
+                    </div>
+                </div>
+        	</div>
+        </div>
+{% endif %}
+
+
+{% if route == 'landmark/map' or route == 'landmark/list' or route == 'landmark/incomplete' %}
+        <!-- Modal import csv -->
+        <div class="modal fade" id="modal-import-csv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+                    <div class="modal-pronounce">
+                        <form id="landmark-import-csv-form" role="form" action="/ajax/landmark/uploadLandmarks">
+
+                			<div class="modal-header">
+                				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                				<h4 class="modal-title" id="myModalLabel">Import Landmarks via CSV File</h4>
+                			</div>
+
+                			<div class="modal-body">
+
+{#}
+                                <div class="form-group">
+                                    <div class="col-md-1" style="padding-top:11px;">
+                                        <label class="pull-right">Select CSV File</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-default btn-sm btn-file">
+                                                <input id="landmark-import-csv-file" name="landmark-import-csv-file" type="file">
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div id="landmark-import-csv-success-div" style="padding-top:11px;"></div>
+                                    </div>
+                                    <div style="display:none;">
+                                        <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
+                                        <div class="clearfix">
+                                            <div class="input-group input-group-file pull-left">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" id="landmark-import-csv-file-dummy">
+                                                <!-- <input id="landmark-upload-landmark-id" type="hidden" name="landmark-upload-landmark-id" /> -->
+                                            </div>
+                                            <label for="landmark-import-csv-file-dummy" class="sr-only"></label>
+                                        </div>
+                                    </div>
+                                </div>
+{#}
+
+{#}
+                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
+                                <div class="clearfix">
+                                    <div class="pull-left">
+                                        <label for="landmark-import-csv-file">CSV File:</label>
+                                    </div>
+                                    <div class="input-group input-group-file pull-left">
+                                        <input type="text" class="form-control input-sm" readonly="readonly" id="landmark-import-csv-file-dummy">
+                                        <!--input id="landmark-upload-landmark-id" type="hidden" name="landmark-upload-landmark-id" /-->
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-default btn-sm btn-file">
+                                                Browse <input id="landmark-import-csv-file" name="landmark-import-csv-file" type="file">
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <label for="landmark-import-csv-file-dummy" class="sr-only"></label>
+                                </div>
+{#}
+
+                                <div style="padding-top:11px;">
+
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-4 text-12">
+
+                                        &nbsp;<p class="text-18">How to Use this Tool:<br>&nbsp;
+
+                                        <ol>
+                                            <li><button type="button" class="download-landmark-template btn btn-default">Download CSV File Template</button></li>&nbsp;<br>
+                                            <li>Customize the template with your addresses<ul class="text-10">
+                                                    <li><b>LIMITS</b>: One (1) file containing up to 100 records may be uploaded at any one time.
+                                                </ul></li>&nbsp;<br>
+                                            <li>Choose your file<br>
+                                                <span class="btn btn-default btn-sm btn-file">
+                                                    <input id="landmark-import-csv-file" name="landmark-import-csv-file" type="file">
+                                                </span></li>
+                                                &nbsp;<br>
+                                            <li><button type="button" id="popover-landmark-import-confirm" class="btn btn-primary disabled trigger-upload" data-iframe-id="landmark-iframe">Import CSV</button></li>&nbsp;<br>
+                                        </ol>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div style="display:none;">
+                                            <input type="hidden" name="MAX_FILE_SIZE" value="10485760">
+                                            <div class="clearfix">
+                                                <div class="input-group input-group-file pull-left">
+                                                    <input type="text" class="form-control input-sm" readonly="readonly" id="landmark-import-csv-file-dummy">
+                                                </div>
+                                                <label for="landmark-import-csv-file-dummy" class="sr-only"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 background-grey">
+                                        <div id="landmark-import-csv-success-div" style="padding-top:11px;"></div>
+                                        <div id="landmark-import-csv-info-div" class="text-10">
+                                            <p class="bg-primary note"><b>IMPORTANT</b><br>Importing Landmarks requires a file to be in the CSV format.<br>CSV files may be created by exporting from most spreadsheet applications.</p>
+
+                                            The following CSV column order must be used:<br>&nbsp;
+
+                                            <ol>
+                                                <li>Name (Name of the Landmark)</li>
+                                                <li>Street</li>
+                                                <li>City</li>
+                                                <li>State</li>
+                                                <li>Zipcode</li>
+                                                <li>Country</li>
+                                                <li>Latitude</li>
+                                                <li>Longitude</li>
+                                                <li>Radius (miles)</li>
+                                                <li>Landmark Group Name</li>
+                                            </ol>
+                                            
+                                            <p>Note: If the Address fields are used, the Lat/Long fields are not required. Likewise; if the Lat/Long fields are used, the Address fields are not required.</p>
+                                                                                </div>
+                                    </div>
+
+                                    <div class="clearfix">&nbsp;</div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <div class="col-md-6 pull-right">
+                                    <button type="button" id="popover-landmark-import-cancel" class="btn btn-default popover-cancel pull-right" data-dismiss="modal" data-popover-target-id="button-landmark-import">Close</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="pull-left" style="margin-top:7px;"><a href="/assets/media/downloads/import_address_template.csv" target="_csv">Click Here to Download CSV File Template</a></label>
+                                </div>
+                            </div>
+                        </form>
+
+{#}
+            				<div class="form-group">
+                                <div class="col-md-1">
+                					<label class="pull-right" style="margin-top:7px;">CSV File</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <form enctype="multipart/form-data" id="landmark-import-csv-form">
+                                        <input id="landmark-import-csv-file" name="landmark-import-csv-file" type="file" class="form-control">
+                                    </form>
+                                    </div>
+            				</div>
+
+                            <div class="clearfix row">&nbsp;</div>
+                            
+                            <div class="clearfix row">&nbsp;</div>
+                            
+                            <div class="form-group">
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-4 text-18">
+
+                                    &nbsp;<p>How to Use this Tool:<br>&nbsp;
+
+                                    <ol>
+                                        <li>Download our <a href="/assets/media/downloads/import_address_template.csv" target="_csv">CSV File Template</a></li>&nbsp;<br>
+                                        <li>Customize the template with your addresses</li>&nbsp;<br>
+                                        <li>Use the tool in this window to "choose" your file</li>&nbsp;<br>
+                                        <li>Click the "Import CSV" button</li>&nbsp;<br>
+                                    </ol>
+                                </div>
+                                <div class="col-md-1">
+                                </div>
+                                <div class="col-md-5 background-grey">
+                                    <p class="bg-primary note"><b>IMPORTANT</b><br>Importing Landmarks requires a file to be in the CSV format.<br>CSV files may be created by exporting from most spreadsheet applications.</p>
+
+                                    The following column order should be used:<br>&nbsp;
+
+                                    <ol>
+                                        <li>Name – Name of the Landmark</li>
+                                        <li>Street</li>
+                                        <li>City</li>
+                                        <li>State</li>
+                                        <li>Zipcode</li>
+                                        <li>Country</li>
+                                        <li>Latitude</li>
+                                        <li>Longitude</li>
+                                        <li>Radius (miles)</li>
+                                        <li>Landmark Group Name</li>
+                                    </ol>
+                                    
+                                    <p>Note: If the Address fields are used, the Lat/Long fields are not required. Likewise; if the Lat/Long fields are used, the Address fields are not required.</p>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="clearfix">&nbsp;</div>
+                            
+            			</div>
+            			<div class="modal-footer">
+                            <div class="col-md-1 pull-right">
+                                <button type="button" id="popover-landmark-import-confirm" class="btn btn-primary trigger-upload-landmarks" data-iframe-id="landmark-iframe">Import CSV</button>
+                            </div>
+                            <div class="col-md-1 pull-right">
+                            </div>
+                            <div class="col-md-1 pull-right">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                            <div class="col-md-9">
+                                <label class="pull-left" style="margin-top:7px;"><a href="/assets/media/downloads/import_address_template.csv" target="_csv">Click Here to Download CSV File Template</a></label>
+                            </div>
+                        </div>
+{#}
+                    </div>
+        		</div>
+        	</div>
+        </div>
+
+    <!-- LANDMARK LIST MODAL -->
+    {% if context == 'landmark/list' %}
+    
+        <!-- Modal export csv -->
+        <div class="modal fade" id="modal-export-csv" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+                    <div class="modal-pronounce">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            				<h4 class="modal-title" id="myModalLabel">Export CSV</h4>
+            			</div>
+            			<div class="modal-body">
+            				
+            				<p>Are you sure want to Download CSV File?</p>
+            				
+            				<p class="bg-primary note">This feature allows you to download list of vehicle associated with this account. You may subsequently open the CSV file with your spreadsheet application.</p>
+            				
+            			</div>
+            			<div class="modal-footer">
+            				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            				<button type="button" class="btn btn-primary">Download</button>
+            			</div>
+                    </div>
+        		</div>
+        	</div>
+        </div>    
+        <!-- END modal export CSV --> 
+
+
+        <!-- Modal download PDF -->
+        <div class="modal fade" id="modal-download-pdf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+                    <div class="modal-pronounce">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            				<h4 class="modal-title" id="myModalLabel">Download PDF</h4>
+            			</div>
+            			<div class="modal-body">
+            				
+            				<p>Are you sure want to Download a PDF File?</p>
+            				
+            				<p class="bg-primary note">This feature allows you to download list of vehicle associated with this account. You may subsequently open the PDF file with your PDF viewer such as Adobe<sup>&reg;</sup> Acrobat<sup>&reg;</sup>.</p>
+            				
+            			</div>
+            			<div class="modal-footer">
+            				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            				<button type="button" class="btn btn-primary">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!-- END modal download PDF --> 
+    
+    {% endif %}
+
+{% endif %}
+
+
+<!-- LANDMARK INCOMPLETE MODAL -->
+{% if route == 'landmark/incomplete' %}
+
+        <!-- Edit Incomplete Fix Modal -->
+        <div id="modal-fix-landmark" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-pronounce">
+                        <div class="modal-header">
+                            <button type="button" class="close landmark-fix-close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title" id="modal-fix-landmark-title">Pending Landmark</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="col-md-6">
+                                <div id="addmap-div"></div>
+                            </div>
+        
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-fix-name" style="margin-top:7px;">Name:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" id="landmark-fix-name" name="landmark-fix-name" class="form-control" placeholder="Name of Landmark">
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-fix-shape" style="margin-top:2px;">Shape:</label>
+                                    </div>
+                                    <div class="col-md-9 wizard-div" style="margin-top:1px;">
+                                        <select class="form-control" id="landmark-fix-shape" onChange="Core.AddMap.Address(30);">
+                                            {% for option in options_shapes %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-fix-radius" style="margin-top:2px;">Radius:</label>
+                                    </div>
+                                    <div class="col-md-3 wizard-div" style="margin-top:1px;">
+                                        <select class="form-control" id="landmark-fix-radius" onChange="Core.AddMap.Address(30);">
+                                            {% for option in options_radius %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                    <label class="col-md-1 control-label" for="landmark-fix-radius" style="margin-top:2px;">Lat/Lng:</label>
+                                    <div class="col-md-5" style="margin-top:2px;">
+                                        <span id="landmark-fix-latitude" name="landmark-fix-latitude">&nbsp;</span>
+                                        &nbsp;/&nbsp;
+                                        <span id="landmark-fix-longitude" name="landmark-fix-longitude">&nbsp;</span>
+                                    </div>
+                                </div>  
+                            
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-fix-group" style="margin-top:2px;">Group:</label>
+                                    </div>
+                                    <div class="col-md-9 wizard-div" style="margin-top:1px;">
+                                        <select class="form-control" id="landmark-fix-group">
+                                            {% for option in options_groups %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>   
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-fix-category" style="margin-top:2px;">Category:</label>
+                                    </div>
+                                    <div class="col-md-9 wizard-div" style="margin-top:1px;">
+                                        <select class="form-control" id="landmark-fix-category">
+                                            {% for option in options_categories %}
+                                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> 
+
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-fix-street-address" style="margin-top:7px;">Address:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" id="landmark-fix-street-address" name="landmark-fix-street-address" class="form-control" onKeyUp="Core.AddMap.Address(30);" placeholder="Street Address">
+                                    </div>
+                                </div> 
+       
+                                <div class="form-group row">
+                                    <div class="col-md-2">
+                                        <label class="control-label pull-right" for="landmark-fix-city" style="margin-top:7px;">City/State/Zip:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" id="landmark-fix-city" name="landmark-fix-city" class="form-control" onKeyUp="Core.AddMap.Address(30);" placeholder="City">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <select class="form-control" id="landmark-fix-state" onChange="Core.AddMap.Address(30);">
+                                            {% for option in options_states %}
+                                                <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="text" id="landmark-fix-zipcode" name="landmark-fix-zipcode" class="form-control" onKeyUp="Core.AddMap.Address(30);" placeholder="Zipcode">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <select class="form-control" id="landmark-fix-country" onChange="Core.AddMap.Address(30);">
+                                            {% for option in options_countries %}
+                                                <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> 
+
+                                <div class="row">&nbsp;</div>
+                                <div class="clearfix"> </div>
+
+                                <div class="modal-footer row">
+                                    <div class="col-md-1 pull-right"></div>
+                                    <div class="col-md-11 pull-right">
+                                        <button id="landmark-fix-resubmit" type="button" class="btn btn-primary create-update pull-right">Resubmit Landmark</button>
+                                        <div class="pull-right">&nbsp;</div>
+                                        <div class="pull-right">
+                                            <button id="landmark-fix-cancel" type="button" class="btn btn-default pull-right landmark-fix-close" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <!-- END Edit Incomplete Fix Modal -->
+
+{% endif %}
+
+
+<!-- LANDMARK LIST MODALS -->
+{% if route == 'landmark/list' or route == 'landmark/verification' %}
+
+    <!-- Edit Alert Modal -->
+    <div id="modal-edit-landmark" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="height:90%;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header">
+                        <div id="map-div"></div>
+                        <div class="block">            
+                            <div class="block-title">
+                                <h2 class="text-center"><i class="gi gi-flag"></i>
+                                    &nbsp;&nbsp;Landmark
+{#}
+                                    <span id="vehicle-map-html-modal-device">[Tundra]</span>
+                                    <small>
+                                        <span id="vehicle-map-html-modal-details">[Stopped (3 hours 25 minutes ago)]</span>
+                                    </small>
+{#}
+                                </h2>
+                                <button type="button" class="btn btn-default edit-landmark-close pull-right" data-dismiss="modal" style="margin:5px;">Close</button>
+                            </div>
+                        </div>
+        
+        				<div class="modal-body" style="height:120px;">
+                                        
+                            <div class="row"></div>
+                        
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Name:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-name" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Landmark Name]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                           
+                                <div class="row"></div>
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Group:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <select id="landmark-group" name="landmark-group" class="form-control" size="1" onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');">
+                                        {% for option in options_groups %}
+                                            <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                
+                                <div class="row"></div>
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Category:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <select id="landmark-category" name="landmark-category" class="form-control" size="1" onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');">
+                                        {% for option in options_categories %}
+                                            <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+
+                                <div class="row"></div>
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input" style="margin-top:3px;">Map:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <select id="landmark-method2" name="landmark-method2" class="form-control" size="1">
+                                            <option value="manual-entry">Use Address/LatLng to Position Landmark</option>
+                                            <option value="map-click">Use Mouse to Position Landmark</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <div class="btn-group" style="display:none;">
+                                            <!--button type="button" id="landmark-method" value="address" class="btn btn-dropdown btn-default btn-xs disabled"><span class="filter-label">Address</span></button-->
+                                            <button type="button" id="landmark-method" value="manual-entry" class="btn btn-dropdown btn-default btn-xs disabled">Manual Entry</button>
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle " data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <!--li><a data-value="address">Address</a></li>
+                                                <li><a data-value="lat-long">Lat/Long</a></li-->
+                                                <li><a data-value="manual-entry">Manual Entry</a></li>
+                                                <li><a data-value="map-click">Use Map Click</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-5">
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Location:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-street-address" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Landmark Street Address]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+
+                                <div class="row"></div>
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <div style="display:none;">
+                                            <select id="landmark-country" name="landmark-country" class="form-control" size="1" onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');">
+                                            {% for option in options_countries %}
+                                                <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-control col-lg-3 col-md-3 col-sm-3 col-xs-3 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-city" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Landmark City]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <select id="landmark-state" name="landmark-state" class="form-control" size="1" onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');">
+                                        {% for option in options_states %}
+                                            <option value="{{ option.k }}" data-value="{{ option.k }}">{{ option.k }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="landmark-zipcode" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Landmark Zipcode]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+
+                                <div class="row"></div>
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Radius:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <select id="landmark-radius" name="landmark-radius" class="form-control" size="1" onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');">
+                                        {% for option in options_radius %}
+                                            <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+
+                                <div class="row"></div>
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Shape:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <select id="landmark-shape" name="landmark-shape" class="form-control" size="1" onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');">
+                                        {% for option in options_shapes %}
+                                            <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                                        {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+
+{#}
+                                <div class="row"></div>
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-2 col-md-2 col-sm-2 col-xs-2 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Method:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <select id="landmark-method" name="landmark-method" class="form-control" size="1" onChange="Core.Ajax(this.id,this.value,currentLandmarkId,'update');">
+                                            <option value="manual-entry">Manual Entry</option>
+                                            <option value="map-click">Use Map Click</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+{#}
+
+                            </div>
+                            <div class="col-md-3">
+
+                                <div class="form-group">
+                                    <div class="col-control col-lg-4 col-md-4 col-sm-4 col-xs-4 wizard-div">
+                                        <label class="control-label pull-right" for="example-text-input">Lat/Long:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tbody><tr>
+                                            <td align="right" style="width:49%;"><a class="wizard-clickable wizard-editable" id="landmark-latitude" href="javascript:void(0);" onclick="Core.Wizard.Link2Input(this.id,this.text);" onfocus="Core.Wizard.Link2Input(this.id,this.text);">33.6745</a></td>
+                                            <td style="width:2%;">&nbsp;/&nbsp;</td>
+                                            <td align="left" style="width:49%;"><a class="wizard-clickable wizard-editable" id="landmark-longitude" href="javascript:void(0);" onclick="Core.Wizard.Link2Input(this.id,this.text);" onfocus="Core.Wizard.Link2Input(this.id,this.text);">-117.660</a></td>
+                                        </tr></tbody></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    	</div>
+    <!-- END Edit Alert Modal -->
+
+{% endif %}
+
+<!-- LANDMARK GROUP MODAL -->
+{% if route == 'landmark/group' %}
+
+    <!-- Edit landmark group -->      
+    <div id="modal-edit-landmark-group" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header">
+                        <button type="button" class="close edit-landmark-group-close pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <div class="col-md-3">
+                            <h4>Edit&nbsp;Landmark&nbsp;Group</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="edit-landmark-group-title-edit" name="edit-landmark-group-title-edit" onchange="if(this.value){Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');}else{alert('Landmark Group Must Have a Title');}" placeholder="Name this Landmark Group..." value="[ABC Impound]">
+                        </div>
+                        <div class="row clearfix"></div>
+                    </div>
+                    <div class="modal-body tab-pane" style="min-height:320px;">
+                        <div class="row"></div>
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></div>
+                                    <h4>Landmarks</h4>
+                                    <div class="transfer-list-div">
+                                        <ul id="edit-landmark-groups-available" name="user-edit-landmark-groups-available" class="list-group list-available nav nav-pills nav-stacked transfer-list">
+                                            <option value="0">[Landmark Group #0]</option>
+                                            <option value="1">[Landmark Group #1]</option>
+                                            <option value="2">[Landmark Group #2]</option>
+                                            <option value="3">[Landmark Group #3]</option>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <div class="clearfix">&nbsp;<p>&nbsp;</div> 
+                                <div><button type="button" class="btn btn-primary btn-transfer transfer-to" id="edit-landmark-groups-assign">Assign&nbsp;>></button></div>
+                                <div class="clearfix">&nbsp;</div> 
+                                <div><button type="button" class="btn btn-default btn-transfer transfer-from" id="edit-landmark-groups-remove"><<&nbsp;Remove</button></div>
+                                <div class="clearfix">&nbsp;</div> 
+                            </div>
+                            <div class="col-md-1"></div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <span class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></span>
+                                    <h4>Assigned to this Group</h4>
+                                    <div class="transfer-list-div">
+                                        <ul id="edit-landmark-groups-assigned" name="user-edit-landmark-groups-assigned" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                                            <option value="4">[Landmark Group #4]</option>
+                                            <option value="5">[Landmark Group #5]</option>
+                                            <option value="6">[Landmark Group #6]</option>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="modal-footer">
+                        <button id="landmark-edit-cancel" type="button" class="btn btn-default edit-landmark-group-close pull-right" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Edit landmark group -->      
+
+	<!-- Add landmark group -->      
+	<div id="modal-add-landmark-group" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-pronounce">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title clearfix">Add Landmark Group</h4>
+                    </div>
+                    <div class="modal-body" style="min-height:80px;">
+                    	<div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-1">
+                                    <label class="control-label pull-right" for="landmarkgroup-add-name" style="margin-top:7px;">Name:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text" id="landmarkgroup-add-name" name="landmarkgroup-add-name" class="form-control" placeholder="Landmark Group Name">
+                                    &nbsp;<p>Once Created, you will be prompted to add Landmarks to the new Landmark Group.</p>
+                                </div>
+                            </div>
+                    	</div>
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="modal-footer">
+                        <div class="col-md-1 pull-right">
+                            &nbsp;
+                        </div>
+                        <div class="col-md-11 pull-right">
+                            <button id="landmarkgroup-add" type="button" class="btn btn-primary create-update pull-right">Add Landmark Group</button>
+                            <div class="pull-right">&nbsp;</div>
+                            <div class="pull-right">
+                                <button id="landmarkgroup-add-cancel" type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+{% endif %}
+
+
+<!-- LANDMARK VERIFICATION MODAL -->
+{% if route == 'landmark/verification' %}
+
+
+	<!-- Edit Vehicle Modal -->
+	<div id="modal-edit-verification-address" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" style="min-width:900px !important;">
+			<div class="modal-content">
+                <div class="modal-pronounce">
+    				<div class="modal-header">
+    					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    					<h4 class="modal-title clearfix">Home</h4>
+    				</div>
+    				<div class="modal-header">
+    				    <!--div id="map-div"></div-->
+    					<iframe width='100%' height='277px' frameBorder='0' src='http://a.tiles.mapbox.com/v3/map-dev.galkko69/attribution,zoompan,zoomwheel,geocoder,share.html' class="clearfix"></iframe>
+    				</div>
+    				<!-- Landmark Details Block -->
+    				<div class="block">
+    					<!-- Verification Address Title -->
+    					<div class="block-title">
+    						<h2 class="text-center"></i>[Home <small>@ 12345 Dorado Dr, Irvine-Lake Fore, CA, US]</small></h2>
+    					</div>
+    					<!-- END Verification Address Title -->
+
+    					<!-- Verification Address Content -->
+    					<div class="row">
+    						<div class="col-md-4">
+    							<!-- Basic Form Elements Content -->
+    							<div class="form-group" >
+    								<label class="col-md-4 control-label">Landmark Name:</label>
+    								<div class="col-md-8">
+    									<p class="form-control-static">[Home]</p>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label class="col-md-4 control-label">Vehicle:</label>
+    								<div class="col-md-8">
+    									<p class="form-control-static">[Demo Two - K]</p>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label class="col-md-4 control-label" for="example-text-input">Shape:</label>
+    								<div class="col-md-8">
+    									<select id="bordered-select" name="bordered-select" class="form-control" size="1">
+    										<option value="0">[Circle]</option>
+    										<option value="1">[Option #2]</option>
+    										<option value="2">[Option #3]</option>
+    										<option value="3">[Option #4]</option>
+    									</select>
+    								</div>
+    							</div>
+    						</div>
+
+    						<div class="col-md-4">
+    							<!-- Basic Form Elements Content -->
+    							<div class="form-group">
+    								<label class="col-md-4 control-label" for="example-text-input">Radius:</label>
+    								<div class="col-md-8">
+    									<select id="bordered-select" name="bordered-select" class="form-control" size="1">
+    										<option value="0">[1/16 Mile]</option>
+    										<option value="1">[Option #2]</option>
+    										<option value="2">[Option #3]</option>
+    										<option value="3">[Option #4]</option>
+    									</select>
+    								</div>
+    							</div>
+
+    							<div class="form-group">
+    								<label class="col-md-4 control-label" for="example-text-input">Method:</label>
+    								<div class="col-md-8">
+    									<select id="bordered-select" name="bordered-select" class="form-control" size="1">
+    										<option value="0">[Manual Entry]</option>
+    										<option value="1">[Option #2]</option>
+    										<option value="2">[Option #3]</option>
+    										<option value="3">[Option #4]</option>
+    									</select>
+    								</div>
+    							</div>
+
+    							<div class="form-group">
+    								<label class="col-md-4 control-label">Location:</label>
+    								<div class="col-md-8">
+    									<p class="form-control-static"><input type="text" placeholder="Address or Lat/Long"></p>
+    								</div>
+    							</div>
+
+    							<div class="form-group">
+    								<div class="col-md-2"> </div>
+    								<div class="btn-group col-md-10">                                 
+    									<button type="button" class="btn btn-sm btn-primary ">Process Location</button>
+    									<button type="button" class="btn btn-sm btn-primary" disabled>Save</button>                 
+    									<button type="button" class="btn btn-sm btn-warning" disabled>Restore</button>               
+    								</div>
+    							</div>  
+    						</div>    
+
+    						<div class="col-md-3 pull-right">
+    							<div class="form-group">
+    								<a data-toggle="collapse" data-target="#more" href="#">Options</a>
+    								<div id="more" class="collapse out clearfix">
+    									<div class="pull-left" ></div>
+    									<div class="pull-right">
+    										<button type="button" class="btn btn-danger" >Delete</button>
+    									</div>
+    								</div> 
+    							</div>                 
+    						</div>       
+
+    					</div>
+    					<!-- END Verification Address Content -->
+    				</div>
+    				<!-- END Verification Address Block -->
+    				<div class="modal-footer">
+    					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    					<button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+	<!-- END Edit Verification Address Modal -->
+
+{% endif %}
+
+
+

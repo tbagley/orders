@@ -1,0 +1,78 @@
+
+            <div class="sidebar-content">
+            	<div style="padding:10px;">
+                    <a href="">
+                        <img src="/assets_responsive/img/logo.png">
+                    </a>
+            	</div>
+
+                <!-- Wrapper for scrolling functionality -->
+                <div class="sidebar-left-scroll">
+	                <!-- Default Working Tabs Content -->
+
+	                <ul class="nav nav-tabs push" data-toggle="tabs">
+                        <li class="active" style="font-size:10px;"><a href="#tab-search" id="tab-search-link" style="padding:5px;">Search</a></li>
+                        <li style="font-size:10px;"><a href="#tab-filter" id="tab-filter-link" style="padding:5px;">Filter</a></li>
+	                </ul>
+	                <div class="tab-content">
+	                    <div class="tab-pane active" id="tab-search">
+	                    	<form action="#" method="post" class="sidebar-search">
+			                    <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+			                </form>
+	                    </div>
+	                    <div class="tab-pane" id="tab-filter">
+
+                            <div class="col-sm-12">
+                                <small>Group:</small>
+                                <select id="select-vehicle-group-filter" name="select-vehicle-group-filter" class="form-control" size="1">
+                                    <option value="all">All</option>
+                                    {% for g in vehicle_groups %}
+                                        <option value="{{ g.unitgroup_id }}" data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</option>
+            
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-sm-12" style="margin-top:10px;">
+                                <small>Status:</small>
+                                <select id="select-vehicle-attribute-filter" name="select-vehicle-attribute-filter" class="form-control" size="1">
+                                    <option value="all">All</option>
+                                    <option value="in-a-landmark">Inside a Landmark</option>
+                                    <!-- option value="outside-boundary">Outside Boundary</option-->
+                                    <option value="no-movement-in-7-days">No Movement in 7 Days</option>
+                                    <option value="not-reported-in-7-days">Not Reported in 7 Days</option>
+                                    <option value="starter-disabled">Starter Disabled</option>
+                                </select>
+                            </div>
+
+	                    </div>
+	                </div>
+
+	                <!-- END Default Working Tabs Content -->
+
+
+    {% if route == 'vehicle/map' %}
+
+	                <div style="margin-top:20px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+	                	<h4>Vehicles</h4>
+	                </div>
+	                
+                    <form action="#">
+    	                <!-- Categories -->
+                        <div class="col-sm-12 col-md-12 block-section ms-categories">
+                           <ul id="secondary-scroll" class="list-group nav nav-pills nav-stacked sub-panel-items">
+                                {% for v in vehicles %}
+                                <li id="vehicle-li-{{ v.unit_id }}"><a href="#" id="vehicle-li-{{ v.unit_id }}">{{ v.name|ellipsis(20) }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- END Categories -->
+                    </form>
+
+    {% endif %}
+
+
+
+                </div>
+                <!-- END Wrapper for scrolling functionality -->
+            </div>  
+

@@ -1,0 +1,105 @@
+/*
+
+    landmark.css
+
+*/
+
+.landmark-location-label {
+    padding-left: 15px;
+    white-space: nowrap;
+}
+
+#landmark-list-table-wrapper {
+    /*height: 728px;
+    padding-right: 30px;*/
+   /* padding-bottom: 10px;*/
+}
+
+.modal #detail-panel label {
+    display: inline-block;
+    width: 33%;
+}
+
+
+.modal #detail-panel > .panel-body {
+    height: auto;
+}
+
+#popover-landmark-form button.btn-dropdown {
+    text-align: left;
+}
+
+body[data-context="landmark/map"] #popover-landmark-form button.btn-dropdown {
+    width: 128px;
+}
+
+body[data-context="landmark/list"] #popover-landmark-form button.btn-dropdown {
+    width: 151px;
+}
+
+body[data-context="landmark/map"] #landmark-new-geo {
+    width: 152px;
+}
+
+body[data-context="landmark/list"] #landmark-new-geo {
+    width: 175px;
+}
+
+section#secondary-panel button.btn-dropdown {
+    text-align: left;
+    width: 145px;
+}
+
+#temp-landmark-radius-row {
+    display: none;
+}
+
+div.radio label span {
+    font-size: 1.3em;
+    position: relative;
+    top: 5px;
+}
+
+#territory-view-mode-status {
+    font-size: 0.75em;
+    text-transform: uppercase;
+}
+
+#landmark-group-more-options-toggle small {
+    font-size: 0.704em;
+}
+
+#landmark-group-more-options {
+    display: none;
+}
+
+#landmark-group-assignment.drag-drop a.move-to {
+    left: 76px;
+}
+
+#filter-available-go:hover {
+    cursor: pointer;
+}
+
+#detail-panel .editable-input > input ,
+#detail-panel .editable-input > select {
+    width: 143px;
+}
+
+#detail-panel label ,
+#detail-panel .editable-container {
+    height: 30px;
+}
+
+#modal-landmark-group-list #detail-panel .editable-input > input {
+    width: 125px;
+}
+
+#detail-panel .btn-dropdown {
+    width: 179px;
+    text-align: left;
+}
+
+input#landmark-location {
+    width: 204px;
+}

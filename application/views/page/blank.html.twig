@@ -1,0 +1,54 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    <!-- FX Container -->
+    <div id="fx-container" class="fx-opacity">
+        <!-- Page content -->
+        <!-- Block Tabs -->
+        <div class="block block-tabs full">
+            <!-- Block Tabs Title -->
+            <div class="block-title">
+                <ul id="secondaryNav" class="nav nav-tabs">
+                    {% if secondary_navigation is empty %}
+                        <li>&nbsp;&nbsp;Sorry, Your Account Does Not Have Access to this Section</li>
+                    {% else %}
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- END Block Tabs Title -->
+
+            <!-- Tabs Content -->
+            <div class="tab-content">
+
+                <table cellpadding="20px" style="font-size:24px;height:500px;width:100%">
+                    <tr>
+                        <td class="text-center text-warning" valign="center"><span class="text-grey">permission missing for <b>{{ blank }}</b></span><p>&nbsp;<p>Please Choose Another Section</td>
+                    </tr>
+                </table>
+
+            </div>
+
+        <!-- END Block Tabs -->
+        <!-- END Page Content -->
+    </div>
+    <!-- END FX Container -->
+    <!-- MAIN-PANEL END  -->
+    
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+{% endblock %}
+
+    

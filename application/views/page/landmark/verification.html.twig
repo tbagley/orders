@@ -1,0 +1,95 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+    
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <div class="table-options clearfix">
+                	<div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                        <h3 class="heading1">Verification Addresses</h3>
+                    </div>
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-6">
+                        <div class="btn-group btn-group-sm pull-right">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END Table Options -->
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="landmark-verification-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+{#}
+                    <table id="landmark-verification-example-datatable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="font-size:14px;">Verification Name</th>
+                                <th style="font-size:14px;">Vehicle Location</th>
+                                <th style="font-size:14px;">Radius</th>
+                                <th style="font-size:14px;">Verified</th>
+                                <th style="font-size:14px;">Verify Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modal-edit-verification-address" data-toggle="modal">Home</a></td>
+                                <td>Demo One - A</td>
+                                <td>5555 Surf Dr, Costal, CA, US</td>
+                                <td>1/16 Mile</td>
+                                <td><span class="label label-success">Verified</span></td>
+                            </tr>   
+                
+                            <tr>
+                                <td><a href="#modal-edit-verification-address" data-toggle="modal">Home</a></td>
+                                <td>Demo One - A</td>
+                                <td>5555 Surf Dr, Costal, CA, US</td>
+                                <td>1/16 Mile</td>
+                                <td><span class="label label-danger">Not Verified</span></td>
+                            </tr> 
+                        </tbody>
+                    </table>
+{#}
+                        </div>
+                    </div>
+                </div>
+
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/landmark-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/landmark-modals.html.twig') %}
+    <!-- MAP MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/landmark.js"></script>
+{% endblock %}

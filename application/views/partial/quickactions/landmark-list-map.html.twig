@@ -1,0 +1,13 @@
+<div id="quick-actions" class="block-options pull-right">
+
+{% if route == 'landmark/map' or route == 'landmark/list' %}
+    <a href="#modal-add-landmark" data-toggle="modal" data-placement="bottom" onclick="Core.ClearForm('landmark-add');" title="Add Landmark" style="margin-right:15px;"><span class="wtext"><i class="gi gi-plus"></i></span> LANDMARK</a>
+{% endif %}
+
+{% if route == 'landmark/map' or route == 'landmark/list' or route == 'landmark/incomplete' %}
+    <a href="#modal-import-csv" data-toggle="modal" data-placement="bottom" onclick="Core.ClearForm('landmark-import');" title="Import CSV" style="margin-right:15px;"><span class="wtext"><i class="gi gi-disk_import"></i></span> IMPORT </a>
+{% endif %}
+
+</div>
+
+

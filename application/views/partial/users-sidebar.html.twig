@@ -1,0 +1,68 @@
+    <div class="sidebar-content">
+    	<div style="padding:10px;">
+        	<a href="#">
+            	<img src="/assets_responsive/img/logo.png">
+			</a>
+    	</div>
+
+        <!-- Wrapper for scrolling functionality -->
+        <div class="sidebar-left-scroll">
+            
+
+{% if route == 'users/list' %}
+
+        <ul class="nav nav-tabs push" data-toggle="tabs">
+            <li class="active" style="font-size:10px;"><a href="#tab-search" id="tab-search-link" style="padding:5px;">Search</a></li>
+            <li style="font-size:10px;"><a href="#tab-filter" id="tab-filter-link" style="padding:5px;">Filter</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-search">
+            	<form action="#" method="post" class="sidebar-search">
+                    <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+                </form>
+            </div>
+            <div class="tab-pane" id="tab-filter">
+            	<div class="col-sm-12" style="margin-top:10px;">
+            		<small>Type:</small>
+                    <select id="bordered-select" name="bordered-select" class="form-control" size="1">
+                        <option value="all">All</option>
+                    {% for u in usertypes %}
+                        <option value="{{ u.usertype_id }}">{{ u.usertype }}</option>
+                    {% endfor %}
+                    </select>
+            	</div>
+
+            	<div class="col-sm-12" style="margin-top:10px;">
+            		<small>Status:</small>
+                    <select id="bordered-select" name="bordered-select" class="form-control" size="1">
+                        <option value="all">All</option>
+                        <option value="3">Active</option>
+                        <option value="2">Inactive</option>
+                        <option value="1">Pending</option>
+                    </select>
+            	</div>
+            </div>
+        </div>
+
+{% endif %}
+
+
+{% if route == 'users/type' %}
+
+        <ul class="nav nav-tabs push" data-toggle="tabs">
+            <li class="active" style="font-size:10px;"><a href="#tab-search" style="padding:5px;">Search</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-search">
+            	<form action="#" method="post" class="sidebar-search">
+                    <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+
+{% endif %}
+
+
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
+    </div>

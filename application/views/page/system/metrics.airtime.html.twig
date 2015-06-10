@@ -1,0 +1,116 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <!-- END Table Options -->
+
+                <div>
+                    <table>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="text-24 text-grey">&nbsp;&nbsp;{{ todays_date }}</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="system-metrics-div">
+                                    <table class="system-metrics">
+                                        <tr>
+                                            <td class="text-18 text-red" colspan="7">Activations: <span class="text-black">{{ acts_total }} <span class="text-10 text-grey">Active Devices</span></span></td>
+                                        </tr>
+                                    {% for key, year in acts %}
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Year {{ key }}</span></th>
+                                            {% for carrier in year %}
+                                                <td>
+                                                    <span class="center">{{ carrier.units }}</span>
+                                                    <br>
+                                                    <span class="text-10 center">{{ carrier.carrier }}</span>
+                                                    <br>
+                                                    <span class="text-grey text-8 center">{{ carrier.carrier_id }}</span>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="system-metrics-div">
+                                    <table class="system-metrics">
+                                        <tr>
+                                            <td class="text-18 text-red" colspan="7">Airtime: <span class="text-black">{{ airs_total }} <span class="text-10 text-grey">Active Devices</span></span></td>
+                                        </tr>
+                                    {% for air in airs %}
+                                        <tr>
+                                            <th><span class="text-14 pull-right">{{ air.carrier }}</span></th>
+                                            {% for plan in air.plans %}
+                                                <td>
+                                                    <span class="center text-12">{{ plan.count }}</span>
+                                                    <br>
+                                                    <span class="center text-10">{{ plan.percentage }}%</span>
+                                                    <br>
+                                                    <span class="center text-10">{{ plan.plan }}</span>
+                                                </td>
+                                            {% endfor %}
+                                            <td>
+                                                <span class="center text-red">{{ air.device_count }}</span>
+                                                <br>
+                                                <span class="center text-10 text-red">Total</span>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </table>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/device-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+{#}
+        {% include('partial/device-modals.html.twig') %}
+{#}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+{#}
+    <script src="/assets_responsive/js/device.js"></script>
+{#}
+{% endblock %}

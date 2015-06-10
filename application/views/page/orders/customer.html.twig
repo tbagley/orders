@@ -1,0 +1,168 @@
+
+	<h1>CUSTOMER</h1>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Customer:&nbsp;</span></label>
+	<div class="col-md-4">
+		<div class="transfer-list-div">
+			<ul id="customer-customer" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+				<li>New</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<input id="customer-search" class="form-control" placeholder="Search by Company Name... or UM Account Id #...">
+		<div class="clearfix col-md-12 row">&nbsp;</div>
+		<div id="customer-um"></div>
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Company Name:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="customer-company" class="form-control" placeholder="Company Name...">
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Dealer Management System:&nbsp;</span></label>
+	<div class="col-md-7">
+		<select class="form-control" id="customer-dms">
+            <option value=""></option>
+            {% for dms_option in dms %}
+	            <option value="{{ dms_option.dms_id }}">{{ dms_option.dms }}</option>
+            {% endfor %}
+            <option value="1">UNKNOWN - NEED TO ASK</option>
+		</select>
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Resale&nbsp;Tax&nbsp;Number:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="customer-reseller" class="form-control" placeholder="Reseller's License Number...">
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Billing Address:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="customer-billing" class="form-control" placeholder="Billing Address...">
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Shipping Address:&nbsp;</span></label>
+	<div class="col-md-4">
+		<input id="customer-shipping" class="form-control" placeholder="Shipping Address...">
+	</div>
+	<label class="control-label col-md-1 control-label vertical-center"><span class="pull-right">Taxable&nbsp;State:&nbsp;</span></label>
+	<div class="col-md-2">
+		<select class="form-control" id="customer-shipping-state">
+            <option value=""></option>
+            {% for states_option in usa_states %}
+	            <option value="{{ states_option.states_id }}">{{ states_option.statename }}{% if states_option.taxrate %} ( {{ states_option.taxrate }} % ){% endif %}</option>
+            {% endfor %}
+            <option value="99">Other</option>
+		</select>
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Contact:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="customer-contact" class="form-control" placeholder="Billing Contact's Name...">
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Email:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="customer-email" class="form-control" placeholder="Email Address...">
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Phone:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="customer-phone" class="form-control" placeholder="Phone Number...">
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Fax:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="customer-fax" class="form-control" placeholder="Fax Number...">
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right" id="span-verizon-rep">Verizon&nbsp;Rep:&nbsp;</span></label>
+	<div class="col-md-7" id="customer-vzw_rep"></div>
+
+	<div id="customer-new" class="col-md-12">
+		<div class="clearfix col-md-12 row">&nbsp;</div>
+
+		<div class="col-md-3 text-red text-24">
+		</div>
+		<div class="col-md-3 background-red">
+			<span class="center text-24 text-red">
+				Creating New Account
+			</span>
+		</div>
+
+		<label class="control-label col-md-1 control-label vertical-center"><span class="pull-right">Username:&nbsp;</span></label>
+		<div class="col-md-3">
+			<input id="customer-new-username" class="background-green form-control" placeholder="Create a Username...">
+		</div>
+
+		<div class="clearfix col-md-12 row">&nbsp;</div>
+
+		<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Verizon&nbsp;Lead:&nbsp;</span></label>
+		<div class="col-md-3">
+			<input id="vzw_rep-lead" class="background-green form-control" placeholder="Verizon Wireless E-code...">
+		</div>
+
+		<label class="control-label col-md-1 control-label vertical-center"><span class="pull-right">Temp&nbsp;Password:&nbsp;</span></label>
+		<div class="col-md-3">
+			<input id="customer-new-password" class="background-green form-control" placeholder="Configure a Temporary Password..." value="{{ password }}">
+		</div>
+
+		<div class="clearfix col-md-12 row">&nbsp;</div>
+
+		<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">First&nbsp;Name:&nbsp;</span></label>
+		<div class="col-md-3">
+			<input id="customer-new-firstname" class="background-green form-control" placeholder="Owner's First Name...">
+		</div>
+
+		<label class="control-label col-md-1 control-label vertical-center"><span class="pull-right">Last&nbsp;Name:&nbsp;</span></label>
+		<div class="col-md-3">
+			<input id="customer-new-lastname" class="background-green form-control" placeholder="Owner's Last Name...">
+		</div>
+
+		<div class="clearfix col-md-12 row">&nbsp;</div>
+
+		<div class="col-md-6">
+		</div>
+
+		<label class="control-label col-md-1 control-label vertical-center"><span class="pull-right">Timezone:&nbsp;</span></label>
+		<div class="col-md-3">
+			<div class="transfer-list-div">
+				<ul id="customer-new-timezone" class="background-green list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                {% for v in timezones %}
+                    <li data-value="{{ v.timezone_id }}"><a href="javascript:void(0);">{{ v.timezone }}</a></li>
+                {% endfor %}
+				</ul>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<div class="col-md-10">
+		<button id="btn-customer" class="btn btn-primary pull-right">Continue</button>
+	</div>
+
+	<div class="col-md-2">
+		<button id="btn-customer-back" class="btn btn-default pull-left">Cancel</button>
+	</div>

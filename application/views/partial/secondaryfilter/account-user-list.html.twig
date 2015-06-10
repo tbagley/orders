@@ -1,0 +1,61 @@
+
+<div class="nav" id="user-list-search-tab">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#user-search-tab" data-toggle="tab">Search</a></li>
+        <li class=""><a href="#user-filter-tab" data-toggle="tab">Filter</a></li>
+    </ul>
+</div>
+<form role="form">
+    <div class="tab-content">
+        <div id="user-filter-tab" class="tab-pane fade in">
+            <div class="form-group">
+                <label for="user-type-filter">Type:</label><br />
+                <div class="btn-group">
+                    <button type="button" id="user-type-filter" value="All" class="btn btn-dropdown btn-default btn-sm" data-toggle="dropdown" style="width: 145px; text-align: left;">
+                        <span class="filter-label">All</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-value="all">All</a></li>
+                        {% for u in usertypes %}
+                        <li><a href="#" data-value="{{ u.usertype_id }}">{{ u.usertype }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="user-status-filter">Status:</label><br />
+                <div class="btn-group">
+                    <button type="button" id="user-status-filter" value="All" class="btn btn-dropdown btn-default btn-sm" data-toggle="dropdown" style="width: 145px; text-align: left;">
+                        <span class="filter-label">All</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-value="ALL">All</a></li>
+                        <li><a href="#" data-value="3">Active</a></li>
+                        <li><a href="#" data-value="2">Inactive</a></li>
+                        <li><a href="#" data-value="1">Pending</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="user-search-tab" class="tab-pane fade in active">
+            <div class="form-group">
+                <label for="text-user-search">Search:</label>
+
+                <div class="input-group input-group-sm">
+
+                    <input id="text-user-search" type="text" class="form-control" />
+                    <span class="input-group-btn">
+                        <button id="user-search-go" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<hr />

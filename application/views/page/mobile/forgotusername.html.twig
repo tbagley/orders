@@ -1,0 +1,41 @@
+    <div class="vcenter">
+
+        <div class="clearfix">&nbsp;</div>
+
+        <img class="center logo" src="/assets_responsive/img/mobile.png">
+
+        <div class="clearfix">&nbsp;</div>
+
+        <div class="center login-element-container">
+            <h1 class="text-center text-white">Forgot Username</h1>
+        </div>
+
+        <div class="clearfix">&nbsp;</div>
+
+        <form action="/mobile" method="post">
+
+            <div class="center login-element-container">
+                <input type="hidden" id="_remind_user" name="_remind_user" class="form-control input-lg" placeholder="1" maxlength="1" value="1">
+                <input type="text" id="_email" name="_email" class="form-control input-lg" placeholder="Email Address" maxlength="{{ validation.email.maxlength }}">
+            </div>
+    
+            <div class="clearfix"></div>
+
+            <div class="center login-element-container">
+                <button type="submit" class="btn btn-primary btn-huge">Send Username</button>
+            </div>
+
+        </form>
+
+        <div class="clearfix"></div>
+
+        <div class="center login-element-container">
+
+            <small>
+                <a href="javascript:void(0);" id="forgotpassword" class="navigation">Forgot Password?</a>
+                &nbsp;|&nbsp;
+                <a href="javascript:void(0);" id="login" class="navigation">Return to Login</a><p/>
+            </small>
+        </div>
+
+    </div>

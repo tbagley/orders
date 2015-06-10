@@ -1,0 +1,126 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    {% if access.device.write %}
+                    <div id="quick-actions" class="pull-right">
+                        <div class="block-options pull-right">
+                        	<a href="#modal-device-transfer" data-toggle="modal" onclick="Core.ClearForm('device-transfer');" data-placement="bottom" title="Device Transfer" style="margin-right:15px;"><i class="gi gi-transfer"></i> Device Transfer</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <div class="table-options clearfix">
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                        <h3 class="heading1">Devices</h3>
+                    </div> 
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-6">
+                        <div class="btn-group btn-group-sm pull-right">
+                        </div>
+                    </div>
+                </div>
+                <!-- END Table Options -->
+
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="device-list-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+{#}
+                    <table id="device-list-example-datatable" class="table table-bordered table-hover">
+                        <thead>
+
+                            <tr>
+                                <th style="font-size:14px;">Vehicle Name</th>
+                                <th style="font-size:14px;">Group</th>
+                                <th style="font-size:14px;">Serial</th>
+                                <th style="font-size:14px;">VIN</th>
+                                <th style="font-size:14px;">Make</th>
+                                <th style="font-size:14px;">Model</th>
+                                <th style="font-size:14px;">Year</th>
+                                <th style="font-size:14px;">Color</th>
+                                <th style="font-size:14px;">License Plate</th>
+                                <th style="font-size:14px;">Loan Number</th>
+                                <th style="font-size:14px;">Device Status</th>
+                                <th style="font-size:14px;">Purchase Date</th>
+                                <th style="font-size:14px;">Expiration Date</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modal-edit-device" data-toggle="modal">[Test 123]</a></td>
+                                <td>[default]</td>
+                                <td>[000000001]</td>
+                                <td>[vin]</td>
+                                <td>[Honda]</td>
+                                <td>[Civic]</td>
+                                <td>[2007]</td>
+                                <td>[White]</td>
+                                <td>[123456]</td>
+                                <td></td>
+                                <td>[Installed]</td>
+                                <td>[11/29/0001]</td>
+                                <td>[11/30/0001]</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#modal-edit-device" data-toggle="modal">[Test 456]</a></td>
+                                <td>[default]</td>
+                                <td>[000000001]</td>
+                                <td>[vin]</td>
+                                <td>[Toyota]</td>
+                                <td>[Tundra]</td>
+                                <td>[2007]</td>
+                                <td>[White]</td>
+                                <td>[123456]</td>
+                                <td></td>
+                                <td>[Inventory]</td>
+                                <td>[11/29/0001]</td>
+                                <td>[11/30/0001]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+{#}
+                        </div>
+                    </div>
+                </div>
+
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/device-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/device-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/device.js"></script>
+{% endblock %}

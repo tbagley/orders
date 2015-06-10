@@ -1,0 +1,313 @@
+
+<!-- CONTACT MODAL -->
+
+        <!-- Add Contact Modal -->
+        <div id="modal-add-contact" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+              <div class="modal-pronounce">
+          			<div class="modal-header">
+          				<button type="button" class="close add-contact-cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+          				<h4 class="modal-title">Add Contact</h4>
+          			</div>
+
+          			<div class="modal-body">
+        					<div class="col-md-6">
+                    <h4>Contact Details</h4>
+        						<div class="form-group">
+                      <div class="col-md-3">
+          							<label class="control-label pull-right" for="contact-add-first-name">First Name:</label>
+                      </div>
+        							<div class="col-md-9">
+        								<input type="text" id="contact-add-first-name" name="contact-add-first-name" class="form-control" value="[John]">
+        							</div>
+        						</div>
+
+                    <div class="clearfix">&nbsp;</div>
+                    
+        						<div class="form-group">
+                      <div class="col-md-3">
+                        <label class="control-label pull-right" for="contact-add-last-name">Last Name:</label>
+                      </div>
+                      <div class="col-md-9">
+        								<input type="text" id="contact-add-last-name" name="contact-add-last-name" class="form-control" value="[Doe]">
+        							</div>
+        						</div>     
+
+                    <div class="clearfix">&nbsp;</div>
+                    
+        						<div class="form-group">
+                      <div class="col-md-3">
+                        <label class="control-label pull-right" for="contact-add-email">Email:</label>
+                      </div>
+                      <div class="col-md-9">
+        								<input type="text" id="contact-add-email" name="contact-add-email" class="form-control" value="[Doe]">
+        							</div>
+        						</div>             
+
+                    <div class="clearfix">&nbsp;</div>
+
+        						<div class="form-group">
+                      <div class="col-md-3">
+                        <label class="control-label pull-right" for="contact-add-cellnumber">SMS Number:</label>
+                      </div>
+                      <div class="col-md-9">
+        								<input type="text" id="contact-add-cellnumber" name="contact-add-cellnumber" class="form-control" value="[888-555-5555]">
+        							</div>
+                    </div>    
+
+                    <div class="clearfix">&nbsp;</div>
+                    
+                    <div class="form-group">
+                      <div class="col-md-3">
+                        <label class="control-label pull-right" for="contact-add-carrier">Mobile Service Provider:</label>
+                      </div>
+                      <div class="col-md-9 wizard-div" style="margin-top:0px;">
+{#}
+                         <a class="wizard-editable carrier" id="contact-add-carrier" href="javascript:void(0);" onClick="Core.Wizard.Link2Select(this.id,this.text);"  onFocus="Core.Wizard.Link2Select(this.id,this.text);">[Select Carrier]</a>
+                         <ul id="ul-contact-add-carrier" class="dropdown-menu" onMouseLeave="Core.Wizard.DeSelect(this.id);" role="menu"></ul>
+{#}
+                          <select class="form-control" id="contact-add-carrier" size="1">
+                            {% for carriers in sms_carriers %}
+                                <option value="{{ carriers.cellcarrier_id }}" data-value="{{ carriers.cellcarrier_id }}">{{ carriers.cellcarrier }}</option>
+                            {% endfor %}
+                          </select>
+                       </div>
+                    </div>
+
+                  </div>    
+                  <div class="col-md-1">
+                    &nbsp;
+                  </div>    
+                  <div class="col-md-4">
+
+        						<div class="form-group">
+        							<h4>Group Assignment <small>(optional)</small></h4>                      
+        						</div>                                                 
+
+        						<div class="bg-info note">
+        							You may assign a New Contact to a Contact Group. Once saved the New Contact may be assigned to additional Contact Groups. 
+        						</div>
+
+                    <div class="col-md-10 wizard-div" style="margin-top:7px;">
+{#}
+                      <a id="contact-add-group" class="wizard-editable contactgroup" href="javascript:void(0);" onClick="Core.Wizard.Link2Select(this.id,this.text);"  onFocus="Core.Wizard.Link2Select(this.id,this.text);">[Select Group]</a>
+                      <ul id="ul-contact-add-group" class="dropdown-menu" onMouseLeave="Core.Wizard.DeSelect(this.id);" role="menu"></ul>
+{#}
+                      <select class="form-control" id="contact-add-group" size="1">
+                        {% for group in contact_groups %}
+                          <option value="{{ group.contactgroup_id }}">{{ group.contactgroupname }}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+
+        					</div> 
+
+        					<div class="clearfix"> </div>	
+
+          			</div>
+
+          			<div class="modal-footer">
+                  <div class="col-md-1 pull-right"></div>
+                  <div class="col-md-1 pull-right">
+                      <button id="contact-add" type="button" class="btn btn-primary create-update pull-right">Create Contact</button>
+                  </div>
+                  <div class="col-md-1 pull-right"></div>
+                  <div class="col-md-1 pull-right">
+                      <button id="contact-add-cancel" type="button" class="btn btn-default add-contact-cancel pull-right" data-dismiss="modal">Cancel</button>
+                  </div>
+          			</div>
+              </div>
+        		</div>
+        	</div>
+        </div>
+        <!-- END Add Contact Modal -->
+        
+        
+        <!-- Add Group Modal -->
+        <div id="modal-add-group" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+              <div class="modal-pronounce">
+          			<div class="modal-header">
+          				<button type="button" class="close edit-contact-group-cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+          				<h4 class="modal-title">Add Contact Group</h4>
+          			</div>
+          			<div class="modal-body">
+          				<form action="page_forms_general.html" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+          					<div class="col-md-12">
+          						<div class="form-group">
+                        <div class="col-md-1">
+                          <label class="control-label pull-right" for="contactgroup-add-name">Name:</label>
+                        </div>
+                        <div class="col-md-10">
+          								<input type="text" id="contactgroup-add-name" class="form-control">
+          							</div>
+          						</div>
+          					</div> 
+          				</form>
+          			</div>
+                <div class="modal-footer">
+                  <div class="col-md-1 pull-right"></div>
+                  <div class="col-md-1 pull-right">
+                      <button id="contactgroup-add" type="button" class="btn btn-primary create-update pull-right">Create Contact Group</button>
+                  </div>
+                  <div class="col-md-1 pull-right"></div>
+                  <div class="col-md-1 pull-right">
+                      <button id="contactgroup-add-cancel" type="button" class="btn btn-default edit-contact-group-cancel pull-right" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+              </div>
+        		</div>
+        	</div>
+        </div>
+        <!-- END Add Group Modal -->
+  
+        <!-- Edit Contact Group -->      
+        <div id="modal-edit-contact-group" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+              <div class="modal-pronounce">
+          			<div class="modal-header">
+          				<button type="button" class="close edit-contact-group-cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+          				<h4 class="modal-title clearfix"><span class="text-grey">Edit Contact Group</span>&nbsp;&nbsp;<span class="text-black" id="edit-contact-group-title">[contact group name]</span></h4>
+          			</div>
+          			<div class="modal-body">
+          				<div class="tab-pane">
+        						<div class="col-md-4">
+        							<div class="form-group">
+                        <div class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></div>
+        							  <h4>Available Contacts</h4>
+                        <div class="transfer-list-div">
+          								<ul id="edit-contact-group-contacts-available" name="edit-contact-group-contacts-available" class="list-group list-available nav nav-pills nav-stacked transfer-list" multiple size="15">
+                            <li value="0">[Contact]</li>
+                            <li value="0">[Contact]</li>
+                            <li value="0">[Contact]</li>
+                            <li value="0">[Contact]</li>
+          								</ul> 
+          							</div> 
+                      </div>
+                    </div>
+                   <div class="col-md-1">
+                   </div>
+                   <div class="col-md-2">
+                    <div class="clearfix">&nbsp;<p>&nbsp;<p>&nbsp;<p>&nbsp;</div> 
+                    <div><button type="button" class="btn btn-primary btn-transfer transfer-to" id="edit-contact-group-assign">Transfer&nbsp;>></button></div>
+                    <div class="clearfix">&nbsp;</div> 
+                    <div><button type="button" class="btn btn-default btn-transfer transfer-from" id="edit-contact-group-remove"><<&nbsp;Return</button></div>
+                    <div class="clearfix">&nbsp;</div> 
+                   </div>
+                   <div class="col-md-1">
+                   </div>
+                    <div class="col-md-4">  
+        							<div class="form-group">
+                        <div class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></div>
+        							  <h4>Assigned Contacts</h4>
+                        <div class="transfer-list-div">
+          								<ul id="edit-contact-group-contacts-assigned" name="edit-contact-group-contacts-assigned" class="list-group list-assigned nav nav-pills nav-stacked transfer-list" multiple size="15">
+                            <li value="0">[Contact]</li>
+                            <li value="0">[Contact]</li>
+                            <li value="0">[Contact]</li>
+                            <li value="0">[Contact]</li>
+          								</ul> 
+                        </div>
+        							</div>
+          					</div>
+          				</div>
+                </div>          			
+                <div class="clearfix"> </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default edit-contact-group-cancel pull-right" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+        		</div>
+        	</div>
+        </div>      
+        
+        <!-- Edit Contact Modal -->
+        <div id="modal-edit-contact" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-pronounce">
+
+                   <div class="modal-header">
+                      <button type="button" class="close edit-contact-cancel" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title clearfix"><span class="text-grey">Edit Contact</span>&nbsp;&nbsp;<span class="text-black" id="edit-contact-title">[Firstname Lastname]</span></h4>
+                   </div>
+
+                   <div class="modal-body">
+
+                        <div class="col-md-1">
+                         <label class="control-label pull-right" for="edit-contact-first-name" style="margin-top:7px;">First Name:</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input type="text" id="edit-contact-first-name" name="edit-contact-first-name" class="form-control" onChange="Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh',Core.Environment.context());" value="[first name]">
+                        </div>
+                        <div class="col-md-1">&nbsp;</div>
+
+                        <div class="col-md-12 clearfix">&nbsp;</div>
+
+                        <div class="col-md-1">
+                         <label class="control-label pull-right" for="edit-contact-last-name" style="margin-top:7px;">Last Name:</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input type="text" id="edit-contact-last-name" name="edit-contact-last-name" class="form-control" onChange="Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh',Core.Environment.context());" value="[last name]">
+                        </div>
+                        <div class="col-md-1">&nbsp;</div>
+
+                        <div class="col-md-12 clearfix">&nbsp;</div>
+
+                        <div class="col-md-1">
+                         <label class="control-label pull-right" for="edit-contact-email" style="margin-top:7px;">E-Mail:</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input type="text" id="edit-contact-email" name="edit-contact-email" class="form-control" onChange="Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh',Core.Environment.context());" value="[email@domain.com]">
+                        </div>
+                        <div class="col-md-1">&nbsp;</div>
+
+                        <div class="col-md-12 clearfix">&nbsp;</div>
+
+                        <div class="col-md-1">
+                         <label class="control-label pull-right" for="edit-contact-cellnumber" style="margin-top:7px;">SMS Number:</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input type="text" id="edit-contact-cellnumber" name="edit-contact-cellnumber" class="form-control" onChange="Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh',Core.Environment.context());" value="[(415) 555-1212]">
+                        </div>
+                        <div class="col-md-1">&nbsp;</div>
+
+                        <div class="col-md-12 clearfix">&nbsp;</div>
+
+                        <div class="col-md-1">
+                         <label class="control-label pull-right" for="edit-contact-carrier" style="margin-top:7px;">SMS Carrier:</label>
+                        </div>
+                        <div class="col-md-10">
+                          <select id="edit-contact-carrier" name="edit-contact-carrier" class="form-control transfer-form" size="1" onChange="Core.DivControl(this.id,this.value);Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh',Core.Environment.context());">
+                              {% for carriers in sms_carriers %}
+                                  <option value="{{ carriers.cellcarrier_id }}" data-value="{{ carriers.cellcarrier_id }}">{{ carriers.cellcarrier }}</option>
+                              {% endfor %}
+                          </select>
+                        </div>
+                        <div class="col-md-1">&nbsp;</div>
+
+                        <div class="col-md-12 clearfix">&nbsp;</div>
+
+                   </div>
+
+                   <div class="clearfix"> </div>
+
+                   <div class="modal-footer">
+                      <div class="pull-right" >
+                        <button type="button" class="btn btn-default edit-contact-cancel" data-dismiss="modal">Close</button>
+                      </div>
+                   </div>
+
+                </div>
+              </div>
+           </div>
+        </div>
+        <!-- END Edit Contact Modal -->
+
+
+
+
+

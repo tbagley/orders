@@ -1,0 +1,644 @@
+        
+        <!-- Transfer Device to 3rd Party Account Modal -->
+        <div id="modal-transfer-authorize-release" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="min-width:90%;width:90%;">
+                <div class="modal-content">
+                    <div class="modal-pronounce">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Device Transfer Authorization</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="clearfix row">&nbsp;</div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="col-sm-4">
+                                    <h4>Releasing Devices To:</h4>
+                                </div>
+                                <div class="col-sm-8" id="transfer-transferee-detail">[transferee's info]</div>
+                                <div class="col-sm-12 clearfix row">&nbsp;<hr>&nbsp;</div>
+                                <div class="col-sm-4">
+                                    <h4>Device Manifest:</h4>
+                                </div>
+                                <div class="col-sm-8" id="transfer-devices-detail">[list of devices]</div>
+                                <div class="col-sm-12 clearfix row">&nbsp;<hr>&nbsp;</div>
+                                <div>
+                                    <button id="modal-transfer-authorize-release-confirm" class="btn btn-primary pull-right">CONFIRM</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="clearfix row">&nbsp;</div>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-transfer-authorize-release-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Accept Transfer Device from 3rd Party Account Modal -->
+        <div id="modal-transfer-accept" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="min-width:90%;width:90%;">
+                <div class="modal-content">
+                    <div class="modal-pronounce">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Device Transfer Authorization</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="clearfix row">&nbsp;</div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="col-sm-4">
+                                    <h4>Device Manifest:</h4>
+                                </div>
+                                <div class="col-sm-8" id="transfer-manifest-accept">[list of devices]</div>
+                                <div class="col-sm-12 clearfix row">&nbsp;<hr>&nbsp;</div>
+                                <div>
+                                    <button id="modal-transfer-accept-confirm" class="btn btn-primary pull-right">IMPORT</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="clearfix row">&nbsp;</div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-transfer-accept-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reject Transfer Device from 3rd Party Account Modal -->
+        <div id="modal-transfer-reject" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="min-width:90%;width:90%;">
+                <div class="modal-content">
+                    <div class="modal-pronounce">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Reject Device Transfer</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="clearfix row">&nbsp;</div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="col-sm-4">
+                                    <h4>Device Manifest:</h4>
+                                </div>
+                                <div class="col-sm-8" id="transfer-manifest-reject">[list of devices]</div>
+                                <div class="col-sm-12 clearfix row">&nbsp;<hr>&nbsp;</div>
+                                <div>
+                                    <button id="modal-transfer-reject-confirm" class="btn btn-warning pull-right">CONFIRM</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                            </div>
+                            <div class="clearfix row">&nbsp;</div>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-transfer-reject-close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Edit Device Modal -->
+        <div id="modal-edit-device" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="min-width:300px;width:80%;">
+                <div class="modal-content">
+                    <div class="modal-pronounce">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Device Name</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="col-sm-2 col-xs-7 pull-left" style="background-color:#83c240;margin-top:10px;padding:1px;height:93%;min-width:60px;">
+                                <div class="text-grey-10"  data-toggle="tabs" style="background-color:#eeeeee;padding:5px;height:100%;width:100%;">
+                                    Information Panels<br>
+                                    <button id="btn-info-vehicle" class="btn btn-default viewport-adjust-layout active" href="#sub-vehicle-info" data-toggle="tab" style="width:100%;">Vehicle</button>
+                                    <br>
+                                    <button id="btn-info-customer" class="btn btn-default viewport-adjust-layout" href="#sub-customer-info" data-toggle="tab" style="width:100%;">Customer</button>
+                                    <br>
+                                    <button id="btn-info-device" class="btn btn-default viewport-adjust-layout" href="#sub-device-info" data-toggle="tab" style="width:100%;">Device</button>
+                                </div> 
+                            </div>                    
+                            <div class="col-sm-10" style="padding: 0px 20px 0px 20px;">
+                    {#}
+                                <div class="col-md-2" style="display:none;">
+                                    <button class="btn btn-default pull-right">Print</button>
+                                </div>
+                    {#}                   
+                                <!-- Vehicle Details Content -->
+                                <div class="tab-pane active" id="tab-vehicle-detail">&nbsp;
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active in" id="sub-vehicle-info">
+                                            <div class="row">
+                                                <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-name">Vehicle Name:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-name" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Vehicle Name]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-serial">Serial:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p class="form-control-static" id="vehicle-serial">[Serial]]</p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-group">Vehicle Group:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+
+                                                            <select id="vehicle-group" name="vehicle-group" class="form-control" onChange="Core.Ajax(this.id,this.value,currentUnitId,'savechange');" size="1">
+                                                                {% for groups in vehicle_groups %}
+                                                                    <option value="{{ groups.unitgroup_id }}" data-value="{{ groups.unitgroup_id }}">{{ groups.unitgroupname }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                    <!-- 
+                                                            <div class="wizard-div wizard-select"><table class="wizard-join"><tr><td><a class="wizard-clickable unitgroup" id="vehicle-group" href="javascript:void(0);" onClick="Core.Wizard.Link2Select('vehicle-group','unitgroup');"  onFocus="Core.Wizard.Link2Select(this.id,this.text);">[Vehicle Group]</a></td><th><a class="wizard-caret pull-right" href="javascript:void(0);" onClick="Core.Wizard.Link2Select('vehicle-group','unitgroup');">&nabla;</a></th></tr></table></div>
+                                                            <ul id="ul-vehicle-group" class="dropdown-menu" onMouseLeave="Core.Wizard.DeSelect(this.id);" role="menu"></ul>
+                     -->
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-status">Status:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <select id="vehicle-status" name="vehicle-status" class="form-control" onChange="Core.Ajax(this.id,this.value,currentUnitId,'savechange');" size="1">
+                                                                {% for options in vehicle_status %}
+                                                                    <option value="{{ options.v }}" data-value="{{ options.v }}">{{ options.k }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                    <!-- 
+                                                            <div class="wizard-div wizard-select"><table class="wizard-join"><tr><td><a class="wizard-clickable unitstatus" id="vehicle-status" href="javascript:void(0);" onClick="Core.Wizard.Link2Select('vehicle-status','unitstatus');"  onFocus="Core.Wizard.Link2Select('vehicle-status','unitstatus');">[Status]</a></td><th><a class="wizard-caret pull-right" href="javascript:void(0);">&nabla;</a></th></tr></table></div>
+                                                            <ul id="ul-vehicle-status" class="dropdown-menu" onMouseLeave="Core.Wizard.DeSelect(this.id);" role="menu"></ul>
+                     -->
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <!--<div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-device-state">Device State:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <span id="vehicle-device-state" class="">Active</span>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>-->
+                                                </div>
+                                                <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-vin">Vin:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-vin" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Vin]</a></td></tr></table></div>
+                                                        </div>
+                                                        <!--<div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                                            <button id="vin-decoder-button" type="button" class="btn btn-xs btn-default">Decode VIN</button>
+                                                        </div>-->
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-make">Make:</label>
+                                                        </div>
+                                                        <!--div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <a class="form-editable" id="vehicle-make" data-type="select" data-source="/ajax/vehicle/getAllVehicleMake" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                                        </div-->
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-make" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Make]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-model">Model:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-model" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Model]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-vin">Year:</label>
+                                                        </div>
+                                                        <!--div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <a class="form-editable" id="vehicle-year" data-type="select" data-source="/ajax/vehicle/getAllVehicleYear" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                                        </div-->
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-year" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);" data-maxlength="4">[Year]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-color">Color:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-color" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Color]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-stock">Stock:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-stock" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Stock]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-license-plate">Lic Plate:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><a class="wizard-clickable wizard-editable editable-empty" id="vehicle-license-plate" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[License Plate]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-loan-id">Loan ID:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-loan-id" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Loan Id]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-install-date">Install Date:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><a class="wizard-clickable wizard-editable editable-empty" id="vehicle-install-date" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Install Date]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-installer">Installer:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><a class="wizard-clickable wizard-editable editable-empty" id="vehicle-installer" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Installer]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-install-mileage">Install Mileage:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-install-mileage" data-type="text" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Install Mileage]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-driven-miles">Driven Miles:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="vehicle-driven-miles" class="form-control-static">[Driven Miles]</p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="vehicle-total-mileage">Total Mileage:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="vehicle-total-mileage" class="form-control-static">[Total Mileage]</p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade in" id="sub-customer-info">
+                                           <div class="row">
+                                                <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-first-name">First Name:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-first-name" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[First Name]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-last-name">Last Name:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-last-name" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Last Name]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-address">Address:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-address" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Address]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-city">City:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-city" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[City]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-state">State:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-state" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[State]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-zipcode">Zip:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-zipcode" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Zip]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-mobile-phone">Mobile Phone:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-mobile-phone" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Mobile]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-home-phone">Home Phone:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-home-phone" class="wizard-editable editable-empty" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Home Phone]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="customer-email">Email:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-email" href="javascript:void(0);" onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);">[Email]</a></td></tr></table></div>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade in" id="sub-device-info">
+                                           <div class="row">
+                                                <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-serial">Serial:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-serial" class="form-control-static">[Serial]</p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-status">Status:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-status" class="form-control-static">[Status]</p>
+                                                        </div>
+                        {#}
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-status">Status:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-status" class="form-control-static">[Status]</p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                        {#}
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-plan">Plan:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-plan" class="form-control-static"><em>[Plan]</em></p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-purchase-date">Purchase Date:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-purchase-date" class="form-control-static"><em>[Purchase Date]</em></p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-activation-date">Activation Date:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-activation-date" class="form-control-static">[Activation Date]</p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-renewal-date">Renewal Date:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-renewal-date" class="form-control-static"><em>[Renewal Date]</em></p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-last-renewed">Last Renewed On:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-last-renewed" class="form-control-static"><em>[Last Renewed On]</em></p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                            <label class="vertical-center pull-right" for="device-deactivation-date">Deactivation Date:</label>
+                                                        </div>
+                                                        <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                                            <p id="device-deactivation-date" class="form-control-static"><em>[Deactivation Date]</em></p>
+                                                        </div>
+                                                        <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <!-- div.tab-content -->
+                                        <!-- END Customer Details Content -->
+                                        </div>                 
+                                    </div>     
+                                    <!-- END tab info content -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Edit Device Modal -->
+
+       
+        
+        <!-- Device Transfer Modal -->      
+        <div id="modal-device-transfer" class="modal fade tab-pane" tabindex="-1" role="dialog" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+                    <div class="modal-pronounce">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            				<h4 class="modal-title clearfix">Device Transfer Between Groups</h4>
+            			</div>
+            			<div class="modal-body" style="min-height:320px;">
+
+                          <div class="row">
+                             <div class="col-md-12">
+                               <div class="col-md-4">
+                                  <div class="form-group">
+                                    <div class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></div>
+                                    <h4>Group</h4>
+                                    <div class="col-md-6 pull-right">
+                                        <label class="pull-right">
+                                            <div class="transfer-group">
+                                                <input type="text" class="transfer-search transfer-form" placeholder="Search">
+                                                <span class="transfer-group-addon"><i id="search-transfer-from" class="transfer-search-btn fa fa-search" onclick="return false;"></i></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        <select id="transfer-group-from" name="transfer-group-from" class="form-control transfer-form" size="1">
+                                            <option value="0" data-value="0">- ALL -</option>
+                                            {% for groups in vehicle_groups %}
+                                                <option value="{{ groups.unitgroup_id }}" data-value="{{ groups.unitgroup_id }}">{{ groups.unitgroupname }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="row"></div>
+                                    <div class="transfer-list-div">
+                                        <ul id="user-edit-devices-available" name="user-edit-devices-available" class="list-group list-available nav nav-pills nav-stacked transfer-list">
+                                          <option value="0">[Vehicle Group #0]</option>
+                                          <option value="1">[Vehicle Group #1]</option>
+                                          <option value="2">[Vehicle Group #2]</option>
+                                          <option value="3">[Vehicle Group #3]</option>
+                                        </ul>
+                                    </div>
+                                  </div>
+                               </div>
+                               <div class="col-md-1">
+                               </div>
+                               <div class="col-md-2">
+                                <div class="clearfix">&nbsp;<p>&nbsp;<p>&nbsp;<p>&nbsp;</div> 
+                                <div><button type="button" class="btn btn-primary btn-transfer transfer-to" id="edit-user-devices-assign">Transfer&nbsp;>></button></div>
+                                <div class="clearfix">&nbsp;</div> 
+                                <div><button type="button" class="btn btn-default btn-transfer save-to-target transfer-from" id="edit-user-devices-remove"><<&nbsp;Return</button></div>
+                                <div class="clearfix">&nbsp;</div> 
+                               </div>
+                               <div class="col-md-1">
+                               </div>
+                               <div class="col-md-4">
+                                  <div class="form-group">
+                                    <span class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></span>
+                                     <h4>Group</h4>
+                                    <div class="col-md-6 pull-right">
+                                        <label class="pull-right">
+                                            <div class="transfer-group">
+                                                <input type="text" class="transfer-search transfer-form" placeholder="Search">
+                                                <span class="transfer-group-addon"><i id="search-transfer-to" class="transfer-search-btn fa fa-search" onclick="return false;"></i></span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 pull-left">
+                                        <select id="transfer-group-to" name="transfer-group-to" class="form-control transfer-form" size="1">
+                                            {% for groups in vehicle_groups %}
+                                                <option value="{{ groups.unitgroup_id }}" data-value="{{ groups.unitgroup_id }}">{{ groups.unitgroupname }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="row"></div>
+                                     <div class="transfer-list-div">
+                                        <ul id="user-edit-devices-assigned" name="user-edit-devices-assigned" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                                          <option value="4">[Vehicle Group #4]</option>
+                                          <option value="5">[Vehicle Group #5]</option>
+                                          <option value="6">[Vehicle Group #6]</option>
+                                        </ul>
+                                    </div>
+                                  </div>
+                               </div>
+                             </div>
+                          </div>
+
+            			</div>        			
+                        <div class="modal-footer">
+                            <button id="modal-device-transfer-close" type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-primary pull-right">Save</button> -->
+                        </div>
+                    </div>
+                </div>
+        	</div>
+        </div>  
+
+
+
+

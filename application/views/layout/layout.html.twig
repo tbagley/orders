@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<!-- layout -->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+
+        <title>{{ browser_title }} - {{ controller|title }}</title>
+
+        <link rel="apple-touch-icon" href="/assets/media/icons/{{ apple_touch_icon }}"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        {% if revision is defined %}
+        <meta name="revision" content="{{ revision }}" />
+        {% endif %}
+
+    <!-- jQuery Assets -->
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write('<script src="/assets/vendor/jquery/jquery-1.10.2.js">\x3C/script>');
+                console.log('jQuery not loaded from cdn');
+            }
+        </script>
+
+    <!-- DataTables Assets -->
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script>
+            if (typeof $.fn.dataTable == 'undefined') {
+                document.write('<script src="/assets/vendor/datatables/jquery.dataTables.js">\x3C/script>');
+                console.log('DataTables not loaded from cdn');
+            }
+        </script>
+        <script src="/assets/vendor/datatables/dataTables.bootstrap.js"></script>
+
+    <!-- Core Assets -->
+    {% for css in css_files %}
+        <!--link rel="stylesheet" href="/assets/css/{{ css }}.css#{{(CACHE_BUSTER is defined) ? CACHE_BUSTER : ''}}" /-->
+    {% endfor %}
+{#}
+    {% if map_css_link is defined %}
+        <link rel="stylesheet" href="{{ map_css_link }}" />
+    {% endif %}
+{#}
+    <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.css" />
+
+
+    <!-- Stylesheets -->
+        <link rel="stylesheet" href="/assets_responsive/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/map.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/plugins.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/themes.css" />
+    <!-- END Stylesheets -->
+        
+{#}
+    {% if map_api_link is defined %}
+    <script type="text/javascript" src="{{ map_api_link }}"></script>
+    {% endif %}
+    
+{#}
+    <script type="text/javascript" src="https://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.js"></script>
+    <script src="/assets/js/gmap.js"></script>
+    {% for js in js_files %}
+        {% if js != 'vehicle' %}
+    <script type="text/javascript" src="/assets/js/{{ js }}.js#{{(CACHE_BUSTER is defined) ? CACHE_BUSTER : ''}}"></script>
+        {% endif %}
+    {% endfor %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+{#
+        <script>!window.jQuery && document.write(unescape('%3Cscript src="/assets_responsive/js/vendor/jquery-1.11.0.min.js"%3E%3C/script%3E'));</script>
+#}
+        <script src="/assets_responsive/js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+        <script src="/assets_responsive/js/vendor/bootstrap.min.js"></script>
+        <script src="/assets_responsive/js/plugins.js"></script>
+        <script src="/assets_responsive/js/main.js"></script>
+        <script src="/assets/js/vin.js"></script>
+
+    </head>
+
+{% if map_api is defined %}
+    {% set map_api = map_api %} 
+{% else %}
+    {% set map_api = "mapbox" %}
+{% endif %}
+{% if decarta_api_key is defined %}
+    {% set decarta_api_key = decarta_api_key %} 
+{% else %}
+    {% set decarta_api_key = "f3d14f93bd32df23a749d016b554912c" %}
+{% endif %}
+<body class="header-fixed-top sidebar-left-pinned" data-environment="{{ environment }}" data-context="{{ context }}" data-map-api="{{ map_api }}" data-decarta-api-key="{{ decarta_api_key }}" data-session-timeout="{{ session_timeout }}">
+    <div class="wrap">
+        <!-- Left Sidebar -->
+        <div id="sidebar-left" class="enable-hover">
+            {% include('partial/sidebar.html.twig') %}
+{#}
+            {% block secondary_panel %}{% endblock %}
+{#}
+        </div>
+        <!-- Page Container -->
+        <div id="page-container" style="height: 100%;">
+
+            {% include('layout/header-nav.html.twig') %}
+
+            {% include 'partial/noscript.html.twig' %}
+
+            {% block main_panel %}{% endblock %}
+            
+            {% include 'partial/modal-map.html.twig' %}
+            {% block modals %}{% endblock %}
+        </div>
+        <!-- END Page Container -->
+        <div id="system-message" class="modal fade collapsed">
+            <div class="container">
+                <p><span id="system-message-text"></span><br><span id="system-message-type"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partials -->
+    {#% block modals %}{% endblock %#}
+    <!-- Partials: My-Account -->
+    {% include('partial/my-account.html.twig') %}
+    <!-- Partials: Session-Check -->
+    {% include('partial/session-check.html.twig') %}
+    <!-- END Partials -->
+
+    <!-- scripts_panel -->
+    {% block scripts_panel %}{% endblock %}
+    <!-- END scripts_panel -->
+</body>
+</html>

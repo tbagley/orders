@@ -1,0 +1,105 @@
+{% extends "layout/layout-blank.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+        <!-- FX Container -->
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+            <!-- Block Tabs Title -->
+            <div class="block-title">
+            </div>
+            <!-- END Block Tabs Title -->
+
+            <div class="table-options clearfix">
+                <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6">
+                    <h3 class="heading1">WEBSITE TERMS & CONDITIONS OF USE</h3>
+                </div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row"></div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
+                    <label class="pull-right">Version:&nbsp;</label>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        {{ legal_version }}
+                </div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row"></div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"></div>
+                <div class="col-md-10 col-lg-10 col-sm-10 col-xs-10">
+                    <textarea class='width-100' readonly rows="25">
+                        {{ ts_and_cs }}
+                    </textarea>
+                </div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row">&nbsp;</div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"></div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <label class="pull-right">Account:&nbsp;</label>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        <b>{{ account_name }}</b>
+                </div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row">&nbsp;</div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"></div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <label class="pull-right">User:&nbsp;</label>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        {{ user_first }}
+                        {{ user_last }}
+                        ( {{ user_name }} )
+                    <br>
+                        {{ user_email }}
+                </div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row">&nbsp;</div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1"></div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                    <label class="pull-right">Authority:&nbsp;</label>
+                </div>
+                <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2">
+                        {{ user_authority }}
+                </div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row">&nbsp;</div>
+                <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3"></div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <form action="/account/legal" method="post" id="form-legal" class="form-horizontal">
+                        <input id="legal-id" name="_legal-id" type="hidden" value="{{ legal_id }}">
+                        <button class="btn btn-primary">YES, I Agree</button>
+                    </form>
+                </div>
+                <div class="col-md-1 col-lg-1 col-sm-1 col-xs-1">
+                    <form action="/logout" method="post" id="form-legal" class="form-horizontal">
+                        <button class="btn btn-default">No, Thank You</button>
+                    </form>
+                </div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row">&nbsp;</div>
+                <div class="clearfix col-md-12 col-lg-12 col-sm-12 col-xs-12 row">&nbsp;</div>
+            </div>
+            <!-- END Table Options -->
+
+            <!-- END Block Tabs -->
+            <!-- END Page Content -->
+        </div>
+        <!-- END FX Container -->
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    {#<script src="/assets_responsive/js/vehicle.js"></script>#}
+{% endblock %}
+
+

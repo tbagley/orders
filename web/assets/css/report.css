@@ -1,0 +1,270 @@
+#report-table-wrapper,
+#contact-list-table-wrapper {
+    height: 728px;
+    padding-right: 30px;
+}
+
+#report-params-panel {
+    display: none;
+    float: left;
+    height: 795px;
+    left: 0;
+    /*top: 55px;*/
+    width: 200px;
+    position: absolute;
+    background:#FFF;
+    /**/
+    top: 0;
+}
+
+.report-params {
+    display: none;
+}
+
+section#sub-panel label {
+    width: auto;
+}
+
+#contact-filter-tab .btn-dropdown,
+#report-filter-tab .btn-dropdown,
+#report-params-panel .btn-dropdown {
+    width: 145px;
+    text-align: left;
+}
+
+.container-scroll-vertical {
+    height: 687px;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+#scheduled-report-popover .btn-dropdown {
+    width: 116px;
+    text-align: left;
+}
+
+.go-back {
+    height: 26px;
+    line-height: 26px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.go-back:before {
+    content: '';
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    position: relative;
+    top: 6px;
+}
+
+.go-back:after {
+    content: 'Go Back';
+    padding-left: 10px;
+}
+
+.report-hint {
+    height: 26px;
+    line-height: 26px;;
+    font-size: 1.5em;
+    margin-top: 45px;
+}
+
+.report-hint:before {
+    content: '';
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    position: relative;
+    top: 6px;
+}
+
+.report-hint:after {
+    padding-left: 10px;
+}
+
+.report-hint.report:after {
+    content: 'Choose a Report to Get Started';
+}
+
+.report-hint.saved:after {
+    content: 'Choose a Saved Report to Get Started';
+}
+
+.report-hint.scheduled:after {
+    content: 'Choose a Scheduled Report or "New" to Get Started';
+}
+
+/* report tab interface */
+
+.panel-report {
+    margin-bottom: 15px;
+}
+
+.panel-report h1 {
+    font-size: 2em;
+    margin: 0 15px 15px 0;
+}
+
+.panel-report {
+    border-top-left-radius: 0;
+}
+
+.panel-report .panel-body h2 {
+    font-size: 1.3em;
+    margin: 15px 0 0 0;
+
+}
+
+.panel-report .panel-body h2:first-child {
+    margin-top: 0;
+}
+
+.panel-report .panel-footer h3 {
+    margin: 0;
+    font-size: 1.3em;
+}
+
+#report-result-tabs {
+    border-bottom: 0;
+    width: 100%;
+}
+
+#report-result-tabs > li {
+    border-bottom: 0;
+    margin-bottom: -2px;
+    /*width: 12.5%;*/
+    float: left;
+}
+#report-result-tabs > li > a {
+    /*margin-bottom: -2px;*/
+    margin-bottom: 0;
+    border-bottom: 0;
+
+}
+
+#report-result-tabs > li > a .report-title {
+    width: 81px;
+    /*width: 100%;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+/*#report-result-tabs > li.active a {
+    border-bottom: 1px solid #ffffff;
+}*/
+
+#report-result-tabs > li .close {
+    margin-left: 15px;
+    display: inline-block;
+    position: relative;
+    top: -4px;
+}
+
+.report-close {
+    /*display: none !important;*/
+}
+
+dl.report-result-params {
+    font-size: 1.3em;
+    margin-left: 30px;
+}
+
+dl.report-result-params dt {
+    /*width: 120px;*/
+    width: auto;
+    text-align: left;
+    /*border-bottom: 1px dotted #dddddd;*/
+
+}
+
+dl.report-result-params dd {
+    width: auto;
+    margin-left: 0;
+    padding-left: 180px;
+}
+
+.report-head-title {
+    font-size: 1.3em;
+    margin-left: 30px;
+}
+
+.table-summary {
+    position: relative;
+    top: -10px;
+    z-index: 1;
+    font-size: 1.1em;
+    padding: 0 9px;
+}
+
+.table-summary dl {
+    margin-bottom: 10px;
+}
+
+.table-summary dt {
+    width: auto;
+}
+
+#report-result-panes .panel-body > table {
+    position: relative;
+    z-index: 10;
+}
+
+
+#popover-report-schedule-form label {
+    /*width: 58px;
+    display: inline-block;*/
+}
+
+#popover-report-schedule-form .btn-dropdown {
+    width: 128px;
+    text-align: left;
+}
+
+#popover-report-schedule-form input[type="text"] {
+    width: 151px;
+}
+
+#modal-scheduled-report .report-params {
+    display: block;
+}
+
+#report-tabs-container {
+    display: none;
+}
+
+#report-exports {
+    position: absolute;
+    /*top: 84px;*/
+    right: 31px;
+    display: none;
+    border-radius: 4px;
+    padding: 5px;
+    z-index: 100;
+
+    /**/
+    top: 80px;
+}
+
+
+.loading-report {
+    display: none;
+}
+
+#max-report-hint {
+    margin-top: 5px;
+    text-align: center;
+}
+
+/*#max-report-hint.highlight {
+    color: #ffb213;
+}*/
+
+.nav-tabs > li > a {
+    padding: 5px 5px 0 5px;
+}

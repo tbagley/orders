@@ -1,0 +1,41 @@
+<div class="block-options pull-right">
+
+                                <ul  class="nav nav-tabs" role="tablist" id="vehicleTabs">
+                                    {% if permissions_vehicle_device_read or permissions_vehicle_customer_read or permissions_vehicle_device_read %}
+                                        <li class="active">
+                                            <a class="popup-vehicle-panel viewport-adjust-layout" href="#tab-info" role="tab" data-toggle="tab" id="vehicle-detail-info-tab">INFO</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if (permissions_vehicle_starter_write or permissions_vehicle_reminder_write or permissions_vehicle_location_read) %}
+                                        <li{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read is empty %} class="active"{% endif %}>
+                                            <a class="popup-vehicle-panel viewport-adjust-layout" href="#tab-commands" role="tab" data-toggle="tab" id="vehicle-detail-commands-tab">COMMANDS</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if permissions_vehicle_history_read %}
+                                        <li{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read is empty and permissions_vehicle_location_read is empty and permissions_vehicle_starter_read is empty and permissions_vehicle_reminder_read is empty %} class="active"{% endif %}>
+                                            <a class="popup-vehicle-panel viewport-adjust-layout" href="#tab-quick-history" role="tab" data-toggle="tab" id="vehicle-detail-quick-history">QUICK HISTORY</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if permissions_vehicle_reference_address_read %}
+                                        <li{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read is empty and permissions_vehicle_location_read is empty and permissions_vehicle_starter_read is empty and permissions_vehicle_reminder_read is empty and permissions_vehicle_history_read is empty %} class="active"{% endif %}>
+                                            <a class="popup-vehicle-panel viewport-adjust-layout" href="#tab-verification" role="tab" data-toggle="tab" id="vehicle-detail-verification-tab">VERIFICATION</a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% if context == 'vehicle/map' %}
+                                        {#<li><a class="btn-close nohover" href="#"><span class="gi gi-remove_2"></span></a></li>#}
+{#}
+                                        <a href="javascript:void(0);" id="hide-vehicle-panel" class="close">×</a>
+{#}
+                                        <li>
+                                            <a href="javascript:void(0);" id="popndrop-vehicle-panel"><img src="/assets/media/icons/down.gif" title="Down"></a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                                
+                                <!--div class="btn-close nohover pull-right">
+                                    <button type="button" id="hide-vehicle-panel" class="close" aria-hidden="true">&times;</button>
+                                </div!-->
+                                
+
+</div>

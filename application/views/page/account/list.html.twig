@@ -1,0 +1,196 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+    <div id="main-content">
+        <div id="content-1" class="active panel-content">
+            <div class="secondary-bar clearfix">
+                <div id="secondary-nav" class="pull-left">
+                    <ul>
+                        {% for item in secondary_navigation %}
+                            <li><a class="{% if route == item.route  %} active{% endif %} transition" href="/{{ item.route }}/list">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% include 'partial/quickactions/account-users.html.twig' %}
+            </div>
+
+            <div class="container">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4><span class="icon list"></span>&nbsp;Users</h4>
+                    </div>
+                    <div class="pull-right" style="margin-right: 30px;">
+                        {#<div class="btn-group">
+                            <button type="button" class="btn btn-default has-tooltip has-popover" title="Export PDF" data-placement="bottom" data-popover-placement="left" data-popover-title-id="popover-head-user-list-export-pdf" data-popover-content-id="popover-content-user-list-export-pdf"><span class="glyphicon glyphicon-file"></span></button>
+                            <button id="button-user-list-export-csv" type="button" class="btn btn-default has-tooltip has-popover" title="Export CSV" data-placement="bottom" data-popover-placement="left" data-popover-title-id="popover-head-user-list-export-csv" data-popover-content-id="popover-content-user-list-export-csv"><span class="glyphicon glyphicon-export"></span></button>
+                            <button type="button" class="btn btn-default has-tooltip has-popover" title="Print" data-placement="bottom" data-popover-placement="left" data-popover-title-id="popover-head-user-list-print" data-popover-content-id="popover-content-user-list-print"><span class="glyphicon glyphicon-print"></span></button>
+                        </div>#}
+                    </div>
+                </div>
+                <div id="user-list-container">
+                    <div id="user-list-table-wrapper">
+                        <table id="user-list-table" class="table table-condensed table-hover table-striped table-curved">
+                            <thead>
+                                <tr>
+                                    <th class="no-wrap">Name</th>
+                                    <th class="no-wrap">Username</th>
+                                    <th class="no-wrap">User Type</th>
+                                    <th class="no-wrap">Status</th>
+                                    <th class="no-wrap">Email</th>
+                                    <th class="no-wrap">Cell</th>
+                                    <th class="no-wrap">Last Login</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {#% for user in range(1, 60) %}
+                                <tr id="user-id-{{ loop.index }}">
+                                    <td class="col-name"><a href="#">Doe, John</a></td>
+                                    <td class="col-username">jdoe</td>
+                                    <td class="col-role">Lorem Ipsum</td>
+                                    <td class="col-last-login">{{ "now"|date("m/d/Y g:ia") }}</td>
+                                </tr>
+                            {% endfor %#}
+                            </tbody>
+                        </table>
+                    </div>
+
+       {# POPOVERS #}
+            {# PDF Export All #}
+                    <div id="popover-head-user-list-export-pdf" class="hide">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                Export PDF
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="close">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="popover-content-user-list-export-pdf" class="hide">
+                        <p>Are you sure want to Download PDF File?</p>
+                        <div class="well well-sm">
+                            <p>This feature allows you to download a list of all Users. You may subsequently open the PDF file with your PDF viewer such as Adobe&#174; Acrobat&#174;.</p>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-user-list-export-pdf-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-user-list-export-pdf-confirm" class="btn btn-primary">Download</button>
+                            </div>
+                        </div>
+                    </div>
+            {# CSV Export All #}
+                    <div id="popover-head-user-list-export-csv" class="hide">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                Export CSV
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="close">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="popover-content-user-list-export-csv" class="hide">
+                        <p>Are you sure want to Download CSV File?</p>
+                        <div class="well well-sm">
+                            <p>This feature allows you to download a list of all Users. You may subsequently open the CSV file with your spreadsheet application.</p>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-user-list-export-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-user-list-export-confirm" class="btn btn-primary">Download</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+            {# Print Export All #}
+                    <div id="popover-head-user-list-print" class="hide">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                Print
+                            </div>
+                            <div class="pull-right close">&times;</div>
+                        </div>
+                    </div>
+                    <div id="popover-content-user-list-print" class="hide">
+                        <p>Are you sure want to print?</p>
+                        <div class="well well-sm">
+                            <p>This feature will print all Users.</p>
+                        </div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-user-list-print-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-user-list-print-confirm" class="btn btn-primary">Print</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        <!--nav>
+            <a id="nav-1"  href="/vehicle"><span class="icon map"></span>Map</a>
+            <a id="nav-2" class="active"><span class="icon list"></span>List</a>
+        </nav-->
+        <section id="sub-panel" class="collapsed">
+            <div class="container">
+                <div class="tab-content">
+                    <section id="vehicles-tab" class="tab-pane active">
+                        {% include('partial/secondaryfilter/account-user-list.html.twig') %}
+                    </section>
+                </div>
+
+            </div>
+        </section>
+        <div class="clear"></div>
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+{% block modals %}
+<!-- MODAL BEGIN -->
+    <div class="modal fade" id="modal-user-list" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header clearfix">
+                    <div class="pull-left">
+                        <h5 class="modal-title">
+                            <span class="user-label">User</span>
+                            {#<small><wbr />@ <span class="vehicle-location-label">222 some street</span></small>#}
+                        </h5>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="pull-right">
+
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <section id="detail-panel" style="display: block;">
+                        {% include('page/account/user-detail.html.twig') %}
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-primary">Save</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- MODAL END -->
+{% endblock %}

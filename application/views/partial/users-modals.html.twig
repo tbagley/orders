@@ -1,0 +1,503 @@
+
+<!-- USERS LIST MODAL -->
+{% if route == 'users/list' or route == 'admin/users' %}
+
+        <!-- Add Contact Modal -->
+        <div id="modal-add-user" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+              <div class="modal-pronounce">
+          			<div class="modal-header">
+          				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          				<h4 class="modal-title">Add User</h4>
+          			</div>
+          			<div class="modal-body">
+          				&nbsp;<br>
+
+                  <div class="col-md-1 pull-right">
+                  </div>
+
+                  <div class="col-md-2 pull-right">
+                     <div>
+                        &nbsp;<p>
+                        Once saved, an E-mail containing login credentials will be sent to the New User.<br>
+                        &nbsp;<p>
+                        <span class="text-danger">Please contact New Users and advise them to check their SPAM folders</span><br>
+                        &nbsp;<p>
+                        <span class="text-success">For increased <span class="bold">password security</span>
+                        please invite the New User to change his or her password upon initial login (by clicking on the user icon located in the top right hand corner).</span></p>
+                     </div>
+                  </div>
+
+        					<div class="col-md-9 form-group">
+        					
+                       <div class="col-md-1"></div>
+                       <div class="col-md-2">
+                        <label class="control-label pull-right" for="user-add-first-name" style="margin-top:7px;">Name:</label>
+                       </div>
+                       <div class="col-md-4">
+                          <input type="text" id="user-add-first-name" name="user-add-first-name" class="form-control" value="[first name]" placeholder="First Name">
+                       </div>
+                       <div class="col-md-4">
+                          <input type="text" id="user-add-last-name" name="user-add-last-name" class="form-control" value="[last name]" placeholder="Last Name">
+                       </div>
+                       <div class="col-md-1"></div>
+
+                    <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                       <div class="col-md-1"></div>
+                       <div class="col-md-2">
+                        <label class="control-label pull-right" for="user-add-username" style="margin-top:7px;">Username:</label>
+                       </div>
+                       <div class="col-md-8">
+                          <input type="text" id="user-add-username" name="user-add-username" class="form-control" value="[username]" placeholder="Username">
+                       </div>
+                       <div class="col-md-1"></div>
+
+                    <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                       <div class="col-md-1"></div>
+                       <div class="col-md-2">
+                        <label class="control-label pull-right" for="user-add-confirm" style="margin-top:7px;">Password:</label>
+                       </div>
+                       <div class="col-md-4">
+                          <input type="password" id="user-add-password" name="user-add-password" class="form-control" value="[password]" placeholder="Password">
+                       </div>
+                       <div class="col-md-4">
+                          <input type="password" id="user-add-confirm" name="user-add-confirm" class="form-control" value="[confirm]" placeholder="Confirm Password">
+                       </div>
+                       <div class="col-md-1"></div>
+
+                    <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                      <div class="col-md-1"></div>
+                      <div class="col-md-2">
+                        <label class="control-label pull-right" for="user-add-user-type" style="margin-top:7px;">User Type:</label>
+                      </div>
+                      <div class="col-md-8">
+                        <select class="form-control" id="user-add-user-type" size="1">
+                          {% for usertype in usertypes %}
+                            <option value="{{ usertype.usertype_id }}">{{ usertype.usertype }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="col-md-1"></div>
+
+                    <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                       <div class="col-md-1"></div>
+                       <div class="col-md-2">
+                        <label class="control-label pull-right" for="user-add-email" style="margin-top:7px;">E-Mail:</label>
+                       </div>
+                       <div class="col-md-8">
+                          <input type="text" id="user-add-email" name="user-add-email" class="form-control" value="[email@domain.com]" placeholder="Email Address">
+                       </div>
+                       <div class="col-md-1"></div>
+
+                    <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                       <div class="col-md-1"></div>
+                       <div class="col-md-2">
+                        <label class="control-label pull-right" for="user-add-carrier" style="margin-top:7px;">Mobile Number:</label>
+                       </div>
+                       <div class="col-md-4">
+                          <input type="text" id="user-add-mobile-number" name="user-add-mobile-number" class="form-control" value="[(415) 555-1212]" placeholder="Mobile Number">
+                       </div>
+                       <div class="col-md-4">
+                        <select class="form-control" id="user-add-carrier" size="1">
+                          {% for carrier in carriers %}
+                            <option value="{{ carrier.cellcarrier_id }}">{{ carrier.cellcarrier }}</option>
+                          {% endfor %}
+                        </select>
+                       </div>
+                       <div class="col-md-1"></div>
+
+                    <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                       <div class="col-md-1"></div>
+                       <div class="col-md-2">
+                        <label class="control-label pull-right" for="user-add-group" style="margin-top:7px;">Vehicle Groups:</label>
+                       </div>
+                        <div class="col-md-4 pull-left">
+                          <div class="transfer-list-div">
+                              <ul id="user-add-group" name="user-add-group" class="list-group nav nav-pills nav-stacked transfer-list">
+                                {% for groups in vehicle_groups %}
+                                    <li id="{{ groups.unitgroup_id }}">
+                                      <a href="javascript:void(0);">
+                                        <span class="pull-right">
+                                          <input id="input-add-user-vehicle-group-{{ groups.unitgroup_id }}" type="checkbox" class="user-type-permission" onMouseOver="dblCheck=1;" onMouseOut="dblCheck=0;" />
+                                        </span>
+                                        {{ groups.unitgroupname }}
+                                      </a>
+                                    </li>
+
+
+                                {% endfor %}
+                              </ul>
+                          </div>
+                        </div>
+                       <div class="col-md-5">
+                        <label class="control-label pull-left" style="margin-top:4px;"><a href="#" class="transfer-select-all">Select All Groups</a><p><a href="#" class="transfer-select-clear">Clear</a></label>
+                       </div>
+
+        					</div> 
+
+          			</div>
+
+                <div class="modal-footer col-md-12 form-group">
+                  <div class="col-md-1 pull-right"></div>
+                  <div class="col-md-1 pull-right">
+                    <button id="user-add" type="button" class="btn btn-primary create-update pull-right">Save</button>
+                  </div> 
+                  <div class="col-md-1 pull-right"></div>
+                  <div class="col-md-1 pull-right">
+                    <button id="user-add-cancel" type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                  </div> 
+                </div> 
+
+              </div>
+            </div>
+        	</div>
+        </div>
+        <!-- END Add Users Modal -->
+        
+        
+        <!-- Edit User Modal -->
+        <div id="modal-edit-user" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-pronounce">
+                   <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 id="user-edit-title" class="modal-title">User name</h4>
+                   </div>
+                   <div class="modal-body">
+                      <div class="tab-content">
+                         <div class="row">
+                            <div class="col-md-8">
+                               <div class="btn-group pull-left"  data-toggle="tabs">  
+                                  <button class="btn btn-default active" href="#tab-user-detail" id="btn-tab-1" data-toggle="tab">User Details</button>
+                                  <button class="btn btn-default" href="#tab-vehicle-group" id="btn-tab-2" data-toggle="tab">Vehicle Groups</button>
+                                  <button class="btn btn-default" href="#tab-landmark-group" id="btn-tab-3" data-toggle="tab">Landmark Groups</button> 
+                               </div>
+                            </div>
+                         </div>
+                      
+                         <!-- Vehicle Details Content -->
+                         <div class="tab-pane active" id="tab-user-detail">
+                            <div class="row">
+
+                              <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                              <div class="form-group col-md-12">
+                                 <div class="col-md-2">
+                                  <label class="control-label pull-right" for="user-edit-firstname" style="margin-top:7px;">First Name:</label>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <input type="text" id="user-edit-firstname" name="user-edit-firstname" class="form-control" value="[first name]" onChange="Core.Wizard.SaveChange(this.id);">
+                                 </div>
+                              </div>
+
+                              <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                              <div class="form-group col-md-12">
+                                 <div class="col-md-2">
+                                  <label class="control-label pull-right" for="user-edit-lastname" style="margin-top:7px;">Last Name:</label>
+                                </div>
+                                 <div class="col-md-8">
+                                    <input type="text" id="user-edit-lastname" name="user-edit-lastname" class="form-control" value="[last name]" onChange="Core.Wizard.SaveChange(this.id);">
+                                 </div>
+                              </div>
+
+                              <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                              <div class="form-group col-md-12">
+                                <div class="col-md-2">
+                                  <label class="control-label pull-right" for="user-edit-usertype" style="margin-top:7px;">User Type:</label>
+                                </div>
+                                <div class="col-md-8">
+                                  <select class="form-control" id="user-edit-usertype" size="1" onChange="Core.Wizard.SaveChange(this.id);">
+                                    {% for usertype in usertypes %}
+                                      <option value="{{ usertype.usertype_id }}">{{ usertype.usertype }}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                              <div class="form-group col-md-12">
+                                 <div class="col-md-2">
+                                  <label class="control-label pull-right" for="user-edit-email" style="margin-top:7px;">E-Mail:</label>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <input type="text" id="user-edit-email" name="user-edit-email" class="form-control" value="[email@domain.com]" onChange="Core.Wizard.SaveChange(this.id);">
+                                 </div>
+                              </div>
+
+                              <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                              <div class="form-group col-md-12">
+                                <div class="col-md-2">
+                                  <label class="control-label pull-right" for="user-edit-cellcarrier" style="margin-top:7px;">Mobile Service Provider:</label>
+                                </div>
+                                <div class="col-md-8">
+                                  <select class="form-control" id="user-edit-cellcarrier" size="1" onChange="Core.Wizard.SaveChange(this.id);">
+                                    {% for carrier in carriers %}
+                                      <option value="{{ carrier.cellcarrier_id }}">{{ carrier.cellcarrier }}</option>
+                                    {% endfor %}
+                                  </select>
+                                 </div>
+                              </div>
+
+                              <div class="col-md-12 clearfix row">&nbsp;</div> 
+
+                              <div class="form-group col-md-12">
+                                 <div class="col-md-2">
+                                  <label class="control-label pull-right" for="user-edit-cellnumber" style="margin-top:7px;">Mobile Number (for Txt Msgs):</label>
+                                 </div>
+                                 <div class="col-md-8">
+                                    <input type="text" id="user-edit-cellnumber" name="user-edit-cellnumber" class="form-control" value="[(415) 555-1212]" onChange="Core.Wizard.SaveChange(this.id);">
+                                 </div>
+                              </div>
+
+                            </div>
+                            <!-- END User Details Content -->
+                         </div>
+                         <!-- END User tab container -->
+
+
+                         <div class="tab-pane" id="tab-vehicle-group">
+                            <div class="row">
+                               <div class="col-md-12">
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                      <div class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></div>
+                                      <h4>Groups Available</h4>
+                                       <div class="transfer-list-div">
+                                         <ul id="user-edit-vehiclegroups-available" name="user-edit-vehiclegroups-available" class="list-group list-available nav nav-pills nav-stacked transfer-list">
+                                            <option value="0">[Vehicle Group #0]</option>
+                                            <option value="1">[Vehicle Group #1]</option>
+                                            <option value="2">[Vehicle Group #2]</option>
+                                            <option value="3">[Vehicle Group #3]</option>
+                                         </ul>
+                                      </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-1">
+                                 </div>
+                                 <div class="col-md-2">
+                                  <div class="clearfix">&nbsp;<p>&nbsp;</div> 
+                                  <div><button type="button" class="btn btn-primary btn-transfer transfer-to" id="edit-user-vehiclegroups-assign">Assign&nbsp;>></button></div>
+                                  <div class="col-md-12 clearfix row">&nbsp;</div> 
+                                  <div><button type="button" class="btn btn-default btn-transfer transfer-from" id="edit-user-vehiclegroups-remove"><<&nbsp;Remove</button></div>
+                                  <div class="col-md-12 clearfix row">&nbsp;</div> 
+                                 </div>
+                                 <div class="col-md-1">
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                      <span class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></span>
+                                       <h4>Group Assigned</h4>
+                                       <div class="transfer-list-div">
+                                         <ul id="user-edit-vehiclegroups-assigned" name="user-edit-vehiclegroups-assigned" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                                            <option value="4">[Vehicle Group #4]</option>
+                                            <option value="5">[Vehicle Group #5]</option>
+                                            <option value="6">[Vehicle Group #6]</option>
+                                         </ul>
+                                      </div>
+                                    </div>
+                                 </div>
+                               </div>
+                            </div>
+                            <!-- END Vehicle Group Content -->
+                         </div>
+                         
+                         
+                         <div class="tab-pane" id="tab-landmark-group">
+                            <div class="row">
+                               <div class="col-md-12">
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                      <div class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></div>
+                                      <h4>Groups Available</h4>
+                                      <div class="transfer-list-div">
+                                        <ul id="user-edit-landmarkgroups-available" name="user-edit-landmarkgroups-available" class="list-group list-available nav nav-pills nav-stacked transfer-list">
+                                          <option value="0">[Landmark Group #0]</option>
+                                          <option value="1">[Landmark Group #1]</option>
+                                          <option value="2">[Landmark Group #2]</option>
+                                          <option value="3">[Landmark Group #3]</option>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-md-1">
+                                 </div>
+                                 <div class="col-md-2">
+                                  <div class="clearfix">&nbsp;<p>&nbsp;</div> 
+                                  <div><button type="button" class="btn btn-primary btn-transfer transfer-to" id="edit-user-landmarkgroups-assign">Assign&nbsp;>></button></div>
+                                  <div class="col-md-12 clearfix row">&nbsp;</div> 
+                                  <div><button type="button" class="btn btn-default btn-transfer transfer-from" id="edit-user-landmarks-remove"><<&nbsp;Remove</button></div>
+                                  <div class="col-md-12 clearfix row">&nbsp;</div> 
+                                 </div>
+                                 <div class="col-md-1">
+                                 </div>
+                                 <div class="col-md-4">
+                                    <div class="form-group">
+                                      <span class="pull-right"><a href="#" class="transfer-select-all">All</a>&nbsp;|&nbsp;<a href="#" class="transfer-select-clear">Clear</a></span>
+                                       <h4>Group Assigned</h4>
+                                       <div class="transfer-list-div">
+                                         <ul id="user-edit-landmarkgroups-assigned" name="user-edit-landmarkgroups-assigned" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                                            <option value="4">[Landmark Group #4]</option>
+                                            <option value="5">[Landmark Group #5]</option>
+                                            <option value="6">[Landmark Group #6]</option>
+                                         </ul>
+                                      </div>
+                                    </div>
+                                 </div>
+                               </div>
+                            </div>
+                            <!-- END Landmark Group Content -->
+                         </div>
+                         
+                         
+                      </div>
+                   </div>
+                   <div class="modal-footer">
+                      <button id="user-edit-close" type="button" class="btn btn-default close-form pull-right" data-dismiss="modal">Close</button>
+                      <!-- <button type="button" class="btn btn-primary create-update">Save</button> -->
+                   </div>
+                </div>
+              </div>
+           </div>
+        </div>
+        <!-- END Edit User Modal -->
+
+
+
+{% endif %}
+
+
+<!-- USERS TYPE MODALS -->
+{% if route == 'users/type' or route == 'admin/usertypes' %}
+
+      		<!-- Add User Type -->      
+      		<div id="modal-add-usertype" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-pronounce">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title clearfix">Add User Type</h4>
+                  </div>
+                  <div class="modal-body">
+                  	<div class="col-md-12">
+                      <div class="form-group row">
+                        <div class="col-md-2">
+                          <label class="control-label pull-right" for="user-type-add-name" style="margin-top:7px;">Name of User Type:</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" id="user-type-add-name" name="user-type-add-name" class="form-control" placeholder="Create a New User Type...">
+                        </div>
+                      </div>
+                      <div class="col-md-12 clearfix row">&nbsp;</div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button id="user-type-add-cancel" type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                      <button id="user-type-add" type="button" class="btn btn-primary create-update pull-right">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <!-- END Add User Type Modal -->
+        
+        
+          <!-- Edit User Type -->      
+          <div id="modal-edit-usertype" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+          	<div class="modal-dialog">
+          		<div class="modal-content">
+                <div class="modal-pronounce">
+            			<div class="modal-header">
+            				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            				<h4 class="modal-title clearfix">Edit User Type</h4>
+            			</div>
+                  <div class="modal-body">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <div class="col-md-2">
+                          <label class="control-label pull-right" for="user-type-edit-name" style="margin-top:7px;">Name of User Type:</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" class="form-control" id="user-type-edit-name" name="user-type-edit-name" onChange="Core.Ajax(this.id,this.value,this.dataset.uid,'updaterefresh');" placeholder="Re-name this User Type..." value="[ABC Impound]">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 clearfix row">&nbsp;</div>
+                    <div class="col-md-12 permission-list-wrapper">
+                      <div class="form-group permission-list-wrapper">
+                        <div class="row permission-list-wrapper">
+                          <div class="col-md-12 permission-list-wrapper">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-2 permission-list-wrapper">
+                              <div class="form-group permission-list-wrapper">
+                                <h4>Website Sections</h4>
+                                <div class="permission-list-div">
+                                  <ul class="list-group list-permission-groups nav nav-pills nav-stacked">
+                                    <li id="Vehicles"><a href="#">1. Vehicles</a></li>
+                                    <li id="Landmarks"><a href="#">2. Landmarks</a></li>
+                                    <li id="Alerts"><a href="#">3. Alerts</a></li>
+                                    <li id="Reports"><a href="#">4. Reports</a></li>
+                                    <li id="Admin" class="active"><a href="#">5. Admin</a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-7 permission-list-wrapper">
+                              {% for pc in permissioncategory %}
+                                <div class="form-group permission-list-wrapper div-permissions-{{ pc.permissioncategoryname }}" style="display:{% if pc.permissioncategoryname == 'Admin' %} block {% else %} none {% endif %};">
+                                  <div class="pull-right">&nbsp;&nbsp;</div>
+                                  <div class="pull-right"><a href="#" class="permission-toggle-all">All</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" class="permission-toggle-none">None</a>&nbsp;&nbsp;</div>
+                                  <h4 id="permissions-title">Section: {{ pc.permissioncategoryname }}</h4>
+                                  <div class="permission-list-div">
+                                    <ul id="{{ pc.permissioncategoryname }}-detail-list" class="list-group list-permissions nav nav-stacked">
+                                    {% for p in pc.permissions %}
+                                      <li id="{{ pc.permissioncategoryname }}-permission-{{ p.permission_id }}">
+                                        <a href="#">
+                                          <span class="pull-right">
+                                            <input id="input-{{ pc.permissioncategoryname }}-permission-{{ p.permission_id }}" type="checkbox" class="user-type-permission" onMouseOver="dblCheck=1;" onMouseOut="dblCheck=0;" />
+                                          </span>{{ p.label }}</a>&nbsp;&nbsp;
+                                      </li>
+                                    {% endfor %}
+                                    </ul>
+                                  </div>
+                                </div>
+                              {% endfor %}                                    
+                            </div>
+                            <div class="col-md-1">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 clearfix row">&nbsp;</div>
+            		  <div class="modal-footer">
+                    <button id="user-type-edit-cancel" type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                    <!-- <button id="user-type-edit" type="button" class="btn btn-primary create-update pull-right">Save</button> -->
+                  </div>
+                </div>
+              </div>
+          	</div>
+          </div>  
+
+
+{% endif %}
+
+
+
+

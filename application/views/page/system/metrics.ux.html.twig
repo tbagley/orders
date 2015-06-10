@@ -1,0 +1,119 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <!-- END Table Options -->
+
+                <div>
+                    <table>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="text-24 text-grey">&nbsp;&nbsp;{{ todays_date }}</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="system-metrics-div">
+                                    <table class="system-metrics">
+                                        <tr>
+                                            <td class="text-18 text-red" colspan="4">UX, Platforms & Browsers: <span class="text-black">{{ uxs_total }} <span class="text-10 text-grey">Unique User Agents</span></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-12 text-grey">Agent</td>
+                                            <td class="text-12 text-grey pull-right">Count</td>
+                                            <td class="text-12 text-grey">Percentage</td>
+                                            <td class="text-12 text-grey">First&nbsp;Login&nbsp;(UTC)</td>
+                                            <td class="text-12 text-grey">Most&nbsp;Recent&nbsp;(UTC)</td>
+                                        </tr>
+                                    {% for ux in uxs %}
+                                        <tr>
+                                            <th><span class="text-10 pull-right">{{ ux.browser }}</span></th>
+                                            <td><span class="pull-right">{{ ux.count }}</span></td>
+                                            <td><span class="text-10">{{ ux.percentage }}%</span></td>
+                                            <td><span class="text-10">{{ ux.firstlogin }}</span></td>
+                                            <td><span class="text-10">{{ ux.lastlogin }}</span></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </table>
+                                </div>
+                                <div class="system-metrics-div">
+                                    <table class="system-metrics">
+                                        <tr>
+                                            <td class="text-18 text-red" colspan="4">UX, Backend Performance: <span class="text-black">{{ uris_total }} <span class="text-10 text-grey">Apache Cycles</span></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-12 text-grey">Uri / Website Url</td>
+                                            <td class="text-12 text-grey pull-right">Count</td>
+                                            <td class="text-12 text-grey">Percentage</td>
+                                            <td class="text-12 text-grey"><span class="pull-right">High / Low / Ave</span></td>
+                                            <td class="text-12 text-grey"><span class="pull-right">Total</span></td>
+                                            <td class="text-12 text-grey">First&nbsp;Cycle&nbsp;(UTC)</td>
+                                            <td class="text-12 text-grey">Most&nbsp;Recent&nbsp;(UTC)</td>
+                                        </tr>
+                                    {% for uri in uris %}
+                                        <tr>
+                                            <th><span class="text-12 pull-right">{{ uri.uri }}</span></th>
+                                            <td><span class="pull-right">{{ uri.counter }}</span></td>
+                                            <td><span class="text-10">{{ uri.percentage }}%</span></td>
+                                            <td><span class="text-10 pull-right">{{ uri.max }} / {{ uri.min }} / {{ uri.ave }}</span></td>
+                                            <td><span class="text-10 pull-right">{{ uri.seconds }}</span></td>
+                                            <td><span class="text-10">{{ uri.created }}</span></td>
+                                            <td><span class="text-10">{{ uri.updated }}</span></td>
+                                        </tr>
+                                    {% endfor %}
+                                    </table>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/device-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+{#}
+        {% include('partial/device-modals.html.twig') %}
+{#}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+{#}
+    <script src="/assets_responsive/js/device.js"></script>
+{#}
+{% endblock %}

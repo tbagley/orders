@@ -1,0 +1,4 @@
+Name,Street,City,State,Zipcode,Country,Latitude,Longitude,Radius (miles),Landmark Group Name
+Landmark 1 - Address,27 Spectrum Pointe Dr,Lake Forest,CA,92630,USA,33.5092,-117.183,0.125,
+Landmark 2 - Address,1414 N. Harbor,Anaheim,CA,,USA,,,1,
+Landmark 3 - Lat/Long,,,,,,33.5092,-117.183,0.5,

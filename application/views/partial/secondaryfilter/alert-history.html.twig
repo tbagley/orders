@@ -1,0 +1,124 @@
+<div class="nav" id="select-alert-search-tab">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#alert-search-tab" data-toggle="tab">Search</a></li>
+        <li class=""><a href="#alert-filter-tab" data-toggle="tab">Filter</a></li>
+    </ul>
+</div>
+<form role="form">
+    <div class="tab-content">
+        <div id="alert-filter-tab" class="tab-pane fade in">
+            <div class="form-group">
+                <label for="select-history-range-last-filter">Triggered in the Last:</label><br />
+                <div class="btn-group">
+                     <button type="button" id="select-history-range-last-filter" value="last-1-day" class="btn btn-dropdown btn-default btn-sm" data-toggle="dropdown">
+                         <span class="filter-label">1 Day</span>
+                     </button>
+                     <button type="button" class="btn btn-default btn dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="caret"></span>
+                     </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-value="last-1-day">1 Day</a></li>
+                        <li><a href="#" data-value="last-3-days">3 Days</a></li>
+                        <li><a href="#" data-value="last-7-days">7 Days</a></li>
+                        <li><a href="#" data-value="last-30-days">30 Days</a></li>
+                        <li><a href="#" data-value="last-60-days">60 Days</a></li>
+                        <li><a href="#" data-value="last-90-days">90 Days</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="select-history-by-alert-filter">Alert:</label><br />
+                <div class="btn-group">
+                     <button type="button" id="select-alert-id-filter" value="All" class="btn btn-dropdown btn-default btn-sm" data-toggle="dropdown">
+                         <span class="filter-label">All</span>
+                     </button>
+                     <button type="button" class="btn btn-default btn dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="caret"></span>
+                     </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-value="ALL">All</a></li>
+
+                        {% for a in alerts %}
+                        <li><a href="#" data-value="{{ a.alert_id }}">{{ a.alertname }}</a></li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="select-alert-type-filter">Alert Type:</label><br />
+                <div class="btn-group">
+                     <button type="button" id="select-alert-type-filter" value="All" class="btn btn-dropdown btn-default btn-sm" data-toggle="dropdown">
+                         <span class="filter-label">All</span>
+                     </button>
+                     <button type="button" class="btn btn-default btn dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="caret"></span>
+                     </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-value="ALL">All</a></li>
+
+                        {% for at in alerttypes %}
+                        <li><a href="#" data-value="{{ at.alerttype_id }}">{{ at.alerttypename }}</a></li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="select-vehicle-group-filter">Vehicle Group:</label><br />
+                <div class="btn-group">
+                     <button type="button" id="select-vehicle-group-filter" value="All" class="btn btn-dropdown btn-default btn-sm" data-toggle="dropdown">
+                         <span class="filter-label">All</span>
+                     </button>
+                     <button type="button" class="btn btn-default btn dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="caret"></span>
+                     </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-value="ALL">All</a></li>
+
+                        {% for g in vehicle_groups %}
+                        <li><a href="#" data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</a></li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="select-contact-group-filter">Contact Group:</label><br />
+                <div class="btn-group">
+                     <button type="button" id="select-contact-group-filter" value="All" class="btn btn-dropdown btn-default btn-sm" data-toggle="dropdown">
+                         <span class="filter-label">All</span>
+                     </button>
+                     <button type="button" class="btn btn-default btn dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <span class="caret"></span>
+                     </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-value="All">All</a></li>
+                        {% for cg in contact_groups %}
+                        <li><a href="#" data-value="{{ cg.contactgroup_id }}">{{ cg.contactgroupname }}</a></li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="alert-search-tab" class="tab-pane fade in active">
+            <div class="form-group">
+                <label for="text-alert-search">Search:</label>
+
+                <div class="input-group input-group-sm">
+
+                    <input id="text-alert-search" type="text" class="form-control" />
+                    <span class="input-group-btn">
+                        <button id="alert-search-go" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

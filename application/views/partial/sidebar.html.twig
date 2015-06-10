@@ -1,0 +1,812 @@
+    <div class="sidebar-content">
+        <div {% if whitelabel is defined %}class="white-label"{% endif %} style="padding:10px;">
+            <a class="center" href="#" title="Version 15.1.5.1">
+                <img src="{{ logopath }}" style="width:132px;">
+            </a>
+            <a class="pull-right" href="#" id="sidebar-left-link" style="display:none;font-size:22px;font-weight:500;" title="close sidepanel">&equiv;</a>
+            <div style="display:none;"><a href="#modal-sidebar-left" id="link-modal-sidebar-left" data-toggle="modal"></a></div>
+        </div>
+        {% if logo is defined %}
+            <div class="clearfix row" style="padding:1px;">&nbsp;</div>
+        {% endif %}
+        
+{%
+    if route == 'alert/contact'
+    or route == 'alert/history'
+    or route == 'alert/list'
+    or route == 'landmark/list'
+    or route == 'landmark/verification'
+    or route == 'report/contact'
+    or route == 'report/history'
+    or route == 'vehicle/list'
+%}
+
+        <div style="color:#808080;font-size:18px;padding-left:5px;padding-top:15px;">Search Filters</div>
+
+{% endif %}
+
+        <!-- Wrapper for scrolling functionality -->
+        <div class="sidebar-left-scroll">
+
+{# S+F TABS # FILTER TAB ######################################################################################################## BEGIN #}
+{% if route == 'landmark/map' or route == 'vehicle/map' %}
+            <!-- Default Working Tabs Content -->
+            <ul class="nav nav-tabs push" data-toggle="tabs">
+                <li class="active" style="font-size:10px;"><a href="#tab-search" id="tab-search-link" style="padding:5px;">Search</a></li>
+                <li style="font-size:10px;"><a href="#tab-filter" id="tab-filter-link" style="padding:5px;">Filter</a></li>
+            </ul>
+            <div class="tab-content">
+            {% if permissions_vehicle_read == false and (route == 'vehicle/map' or route == 'vehicle/list') %}
+                <div class="sidebar-search tab-pane active" id="tab-search" style="display:none;">
+            {% else %}
+                <div class="sidebar-search tab-pane active" id="tab-search">
+            {% endif %}
+                    <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+                </div>
+                 <div class="tab-pane" id="tab-filter">
+{% endif %}
+{# S+F TABS # FILTER TAB ######################################################################################################## BEGIN #}
+
+
+{% if route == 'alert/history' %}
+<!-- SIDEBAR FILTER: LAST TRIGGER : sidebar-triggered-last -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Triggered in the Last:</small>
+                <select id="sidebar-triggered-last" name="sidebar-triggered-last" class="form-control sidebar-filter" size="1">
+                    <option value="1">1 Day</option>
+                    <option value="3">3 Days</option>
+                    <option value="7">7 Days</option>
+                    <option value="30">30 Days</option>
+                    <option value="60">60 Days</option>
+                    <option value="90">90 Days</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'alert/history' %}
+<!-- SIDEBAR FILTER: ALERT : sidebar-alert-alert -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Alert:</small>
+                <select id="sidebar-alert-alert" name="sidebar-alert-alert" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    {% for a in alerts %}
+                        {% if a.alert_id != '' %}
+                    <option value="{{ a.alert_id }}">{{ a.alertname }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'alert/history' or route == 'alert/list' %}
+<!-- SIDEBAR FILTER: ALERT TYPE : sidebar-alert-type -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Alert Type:</small>
+                <select id="sidebar-alert-type" name="sidebar-alert-type" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    {% for at in alerttypes %}
+                    <option value="{{ at.alerttype_id }}">{{ at.alerttypename }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'alert/history' or route == 'alert/list' or (permissions_vehicle_read != false and (route == 'vehicle/map' or route == 'vehicle/list')) %}
+<!-- SIDEBAR FILTER: VEHICLE LIST : sidebar-vehicle-group ####### bugs.... search for 'sidebar-vehicle-single' ########## -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Vehicle Group:</small>
+    {% if route == 'vehicle/map' %}
+                <select id="sidebar-vehicle-group" name="sidebar-vehicle-group" class="form-control sidebar-options" size="1">
+    {% else %}
+                <select id="sidebar-vehicle-group" name="sidebar-vehicle-group" class="form-control sidebar-filter" size="1">
+    {% endif %}
+                    <option value="all">All</option>
+                    {% for g in vehicle_groups %}
+                        {% if g.unitgroupname == '' %}
+                            <option value="{{ g.unitgroup_id }}" data-value="{{ g.unitgroup_id }}">Group {{ g.unitgroup_id }}</option>
+                        {% else %}
+                            <option value="{{ g.unitgroup_id }}" data-value="{{ g.unitgroup_id }}">{{ g.unitgroupname }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'report/scheduled' %}
+<!-- SIDEBAR FILTER: CONTACT MODE : sidebar-contact-mode -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Contact Mode:</small>
+                <select id="sidebar-contact-mode" name="sidebar-contact-mode" class="form-control sidebar-filter" size="1">
+                    <option value="all" selected>All Contacts</option>
+                    <option value="single">Single Contacts</option>
+                    <option value="group">Contact Group</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'report/scheduled' or route == 'report/history' %}
+<!-- SIDEBAR FILTER: CONTACT SINGLE : sidebar-contact-single -->
+    {% if route == 'report/scheduled' %}
+            <div class="col-sm-12" id="div-sidebar-contact-single" name="div-sidebar-contact-single" style="display:none;margin-top:10px;">
+    {% else %}
+            <div class="col-sm-12" id="div-sidebar-contact-single" name="div-sidebar-contact-single" style="margin-top:10px;">
+    {% endif %}
+                <small>Contact:</small>
+                <select id="sidebar-contact-single" name="sidebar-contact-single" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                {% for u in users %}
+                    <option value="{{ u.user_id }}">{{ u.firstname }} {{ u.lastname }}</option>
+                {% else %}
+                    <option value="">No Contacts Available</option>
+                {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'alert/history' or route == 'alert/contact' or route == 'alert/list' or route == 'report/contact' or route == 'report/scheduled' %}
+<!-- SIDEBAR FILTER: CONTACT GROUP : sidebar-contact-group -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Contact Group:</small>
+                <select id="sidebar-contact-group" name="sidebar-contact-group" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    {% for cg in contact_groups %}
+                    <option value="{{ cg.contactgroup_id }}">{{ cg.contactgroupname }}</option>
+                    {% else %}
+                        <option value="">No Contact Groups Available</option>
+                    {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'alert/contact' or route == 'report/contact' %}
+<!-- SIDEBAR FILTER: CONTACT GROUP : sidebar-contact-method -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Contact Method:</small>
+                <select id="sidebar-contact-method" name="sidebar-contact-method" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    <option value="email">Email</option>
+                    <option value="sms">SMS</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'landmark/map' or route == 'landmark/list' or route == 'landmark/incomplete' %}
+<!-- SIDEBAR FILTER: LANDMARK GROUP : sidebar-landmark-group -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Landmark Group:</small>
+    {% if route == 'landmark/map' %}
+                <select id="sidebar-landmark-group" name="sidebar-landmark-group" class="form-control sidebar-options" size="1">
+    {% else %}
+                <select id="sidebar-landmark-group" name="sidebar-landmark-group" class="form-control sidebar-filter" size="1">
+    {% endif %}
+                    <option value="all">All</option>
+                    {% for lmg in landmark_groups %}
+                        {% if route == 'landmark/incomplete' %}
+                            <option value="{{ lmg.territorygroupname }}">{{ lmg.territorygroupname }}</option>
+                        {% else %}
+                            <option value="{{ lmg.territorygroup_id }}">{{ lmg.territorygroupname }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'landmark/map' or route == 'landmark/list' %}
+<!-- SIDEBAR FILTER: LANDMARK CATEGORIES : sidebar-landmark-categories -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Landmark Category:</small>
+    {% if route == 'landmark/map' %}
+                <select id="sidebar-landmark-categories" name="sidebar-landmark-categories" class="form-control sidebar-options" size="1">
+    {% else %}
+                <select id="sidebar-landmark-categories" name="sidebar-landmark-categories" class="form-control sidebar-filter" size="1">
+    {% endif %}
+                    <option value="all">All</option>
+                {% for tc in territory_categories %}
+                    <option value="{{ tc.territorycategory_id }}">{{ tc.territorycategoryname }}</option>
+                {% endfor %}
+                </select>
+            </div>                        
+{% endif %}
+
+{% if route == 'landmark/incomplete' %}
+<!-- SIDEBAR FILTER: TERRITORY TYPE : sidebar-territory-type -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Landmark Type:</small>
+                <select id="sidebar-territory-type" name="sidebar-territory-type" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    <option value="boundary">Boundary</option>
+                    <option value="landmark">Landmark</option>
+                    <option value="reference">Verification</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'landmark/incomplete' %}
+<!-- SIDEBAR FILTER: REASON : sidebar-reason -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Reason:</small>
+                <select id="sidebar-reason" name="sidebar-reason" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    <option value="duplicate">Duplicate Name</option>
+                    <option value="location">Geocode</option>
+                    <option value="radius">Invalid Radius</option>
+                    <option value="coords">Reverse Geocode</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'landmark/verification' %}
+<!-- SIDEBAR FILTER: VERIFICATION : sidebar-verification -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Verification Status:</small>
+                <select id="sidebar-verification" name="sidebar-verification" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    <option value="verified">Verified</option>
+                    <option value="no-verified">Not Verified</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'landmark/verification' %}
+<!-- SIDEBAR FILTER: VEHICLES : sidebar-vehicle-single -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Vehicle:</small>
+                <select id="sidebar-vehicle-single" name="sidebar-vehicle-single" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                {% for v in vehicles %}
+                    <option value="{{ v.unit_id }}">{{ v.unitname }}</option>
+                {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'report/scheduled' %}
+<!-- SIDEBAR FILTER: RECURRENCE : sidebar-recurrence -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Schedule:</small>
+                <select id="sidebar-recurrence" name="sidebar-recurrence" class="form-control sidebar-filter" size="1">
+                 <option value="all">All</option>
+                 <option value="daily">Daily</option>
+                 <option value="weekly">Weekly</option>
+                 <option value="monthly">Monthly</option>
+                 <option value="quarterly">Quarterly</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'report/history' or route == 'report/scheduled' %}
+<!-- SIDEBAR FILTER: REPORT TYPES : sidebar-report-type -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Report Type:</small>
+                <select id="sidebar-report-type" name="sidebar-report-type" class="form-control sidebar-filter" size="1">
+                    <option value="all" selected>All</option>
+                {% for rt in reporttypes %}
+                    <option value="{{ rt.reporttype_id }}">{{ rt.reporttypename }}</option>
+                {% endfor %}
+                </select>
+            </div>
+{% endif %}
+
+{% if route == 'report/history' %}
+<!-- SIDEBAR FILTER: RAN ON : sidebar-date-range -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Ran On:</small>
+                <select id="sidebar-date-range" name="sidebar-date-range" class="form-control sidebar-filter" size="1">
+                    <option value="all">All</option>
+                    <option value="1">Last 24 Hours</option>
+                    <option value="3">Last 3 Days</option>
+                    <option value="7">Last 7 Days</option>
+                    <option value="30">Last 30 Days</option>
+                    <option value="60">Last 60 Days</option>
+                    <option value="90">Last 90 Days</option>
+                </select>
+            </div>
+{% endif %}
+
+{% if permissions_vehicle_read != false and (route == 'vehicle/map' or route == 'vehicle/list') %}
+<!-- SIDEBAR FILTER: VEHICLE STATUS : sidebar-vehicle-status -->
+            <div class="col-sm-12" style="margin-top:10px;">
+                <small>Vehicle Status:</small>
+    {% if route == 'vehicle/map' %}
+                <select id="sidebar-vehicle-status" name="sidebar-vehicle-status" class="form-control sidebar-options" size="1">
+    {% else %}
+                <select id="sidebar-vehicle-status" name="sidebar-vehicle-status" class="form-control sidebar-filter" size="1">
+    {% endif %}
+                    <option value="all">All</option>
+                    <option value="installed">Installed</option>
+                    <option value="inventory">Inventory</option>
+                    <option value="in-a-landmark">Inside a Landmark</option>
+                    <option value="no-movement-in-7-days">No Movement in 7 Days</option>
+                    <option value="not-reported-in-7-days">Not Reported in 7 Days</option>
+                    <option value="starter-disabled">Starter Disabled</option>
+                    <option value="reminder-on">Reminder On</option>
+                    <option value="repossession">Flagged for Repossesion</option>
+                </select>
+            </div>
+{% endif %}
+
+{# S+F TABS # FILTER TAB ######################################################################################################## END ###}
+{% if route == 'landmark/map' or route == 'vehicle/map' %}
+                    &nbsp;
+                </div>
+            </div>
+{% endif %}
+{# S+F TABS # FILTER TAB ######################################################################################################## END ###}
+
+
+
+
+
+{# NAV LIST OPTIONS ########################################################################################################### BEGIN ###}
+{% if route == 'landmark/map' %}
+            <div style="margin-top:15px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                <div id="div-all-none2" class="pull-right text-grey-8" style="display:none;">
+                    <a href="#" id="refresh-map-markers">refresh</a>
+                    |
+                    <a href="#" class="all-none" id="drill"><span class="text-green-10">drill</span></a>
+                    |
+                    <a href="#" class="all-none" id="drill-in"><span class="text-green-10">drill in</span></a>
+                    |
+                    <a href="#" class="all-none" id="drill-out"><span class="text-green-10">drill out</span></a>
+                    |
+                    <a href="#" class="all-none" id="all"><span class="text-green-10">all</span></a>
+                    |
+                    <a href="#" class="all-none" id="none"><span class="text-green-10">clear</span></a>
+                </div>
+                <h4>Landmarks</h4>
+            </div>
+            <!-- Categories -->
+            <div class="col-sm-12 col-md-12 block-section ms-categories">
+                <ul id="secondary-sidebar-scroll" class="list-group nav nav-pills nav-stacked sub-panel-items sub-panel-resize">
+                    {% for l in landmarks %}
+                    <li id="landmark-li-{{ l.territory_id }}"><a href="#">{{ l.territoryname }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+{% endif %}
+{% if route == 'report/list'%}
+            <div class="tab-content">
+                <!-- report tab pane -->
+                <div class="tab-pane" id="tab-report">    
+                    <div class="col-sm-12">
+                        <form action="#" method="#">
+
+                            <div class="form-group">
+                                <small>Report Type:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="select-report-type" class="btn sidebar-btn-group-box" value="Address Verification">Address Verification</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sub-panel-items" role="menu">
+                                        <li id="14"><a href="#">Address Verification</a></li>
+                                        <li id="1"><a href="#">Alert</a></li>
+                                        <li id="3"><a href="#">Detailed Event</a></li>
+                                        <li id="4"><a href="#">Frequent Stops</a></li>
+                                        <li id="5"><a href="#">Landmark</a></li>
+                                        <li id="15"><a href="#">Last Ten Stops</a></li>
+                                        <li id="6"><a href="#">Mileage Summary</a></li>
+                                        <li id="7"><a href="#">Non Reporting</a></li>
+                                        <li id="8"><a href="#">Speed Summary</a></li>
+                                        <li id="9"><a href="#">Starter Disable Summary</a></li>
+                                        <li id="10"><a href="#">Stationary</a></li>
+                                        <li id="11"><a href="#">Stop</a></li>
+                                        <li id="12"><a href="#">User Command</a></li>
+                                        <li id="13"><a href="#">Vehicle Information</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-vehicle-mode" style="display:none;">
+                                <small>Vehicle Mode:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-vehicle-mode" class="btn sidebar-btn-group-box" value="all">All Vehicles</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="all"><a href="#">All Vehicles</a></li>
+                                        <li id="single"><a href="#">Single Vehicle</a></li>
+                                        <li id="group"><a href="#">Vehicle Group</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-vehicle" style="display:none;">
+                                <small>Vehicle:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-vehicle-single" class="btn sidebar-btn-group-box" value="{{ vehicles ? vehicles[0]['unit_id'] : '' }}">{{ vehicles ? vehicles[0]['unitname'] : 'No Vehicles Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for v in vehicles %}
+                                            <li id="{{ v.unit_id }}"><a href="#">{{ v.unitname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Vehicles Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-vehicle-group" style="display:none;">
+                                <small>Vehicle Group:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-vehicle-group" class="btn sidebar-btn-group-box" value="{{ vehicle_groups ? vehicle_groups[0]['unitgroup_id'] : '' }}">{{ vehicle_groups ? vehicle_groups[0]['unitgroupname'] : 'No Vehicle Groups Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for vg in vehicle_groups %}
+                                            <li id="{{ vg.unitgroup_id }}"><a href="#">{{ vg.unitgroupname }}</a></li>
+                                        {% else %}
+                                            <li id=""><a href="#">No Vehicle Groups Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-verification" style="display:none;">
+                                <small>Verification:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-reference" class="btn sidebar-btn-group-box" value="all">All</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="all"><a href="#">All</a></li>
+                                        <li id="full"><a href="#">Fully Verified</a></li>
+                                        <li id="partial"><a href="#">Partial Verification</a></li>
+                                        <li id="none"><a href="#">No Verification</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-alert-type" style="display:none;">
+                                <small>Alert Type:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-alert" class="btn sidebar-btn-group-box" value="0">All Alert Types</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="0"><a href="#">All Alert Types</a></li>
+                                        <li id="2"><a href="#">Extended Stops</a></li>
+                                        <li id="3"><a href="#">Landmark</a></li>
+                                        <li id="4"><a href="#">Low Voltage</a></li>
+                                        <li id="5"><a href="#">Moving</a></li>
+                                        <li id="6"><a href="#">Non Reporting</a></li>
+                                        <li id="7"><a href="#">Over Speed</a></li>
+                                        <li id="8"><a href="#">Tow</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group tab-content" id="div-report-date-range" style="display:none;">
+                                <div class="tab-pane active" id="tab-date-preset">    
+                                    <small>Date Range:</small>
+                                    <div class="btn-group sidebar-div">
+                                        <button type="button" id="report-dates" class="btn sidebar-btn-group-box" value="Today">Today</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                            <li id="Today"><a href="#">Today</a></li>
+                                            <li id="Yesterday"><a href="#">Yesterday</a></li>
+                                            <li id="Last 7 Days"><a href="#">Last 7 Days</a></li>
+                                            <li id="Last 30 Days"><a href="#">Last 30 Days</a></li>
+                                            <li id="Last 60 Days"><a href="#">Last 60 Days</a></li>
+                                            <li id="Last 90 Days"><a href="#">Last 90 Days</a></li>
+                                            <li id="This Month"><a href="#">This Month</a></li>
+                                            <li id="Last Month"><a href="#">Last Month</a></li>
+                                            <li id="Custom Range"><a href="#tab-date-custom" data-toggle="tab">Custom Range</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-date-custom">    
+                                    <small>Custom Date Range From:</small>
+                                    <input type="text" id="date-range-picker_start" placeholder="08/01/2014" class="input-datepicker">                                   
+                                    <small>To</small>
+                                    <input type="text" id="date-range-picker_end" placeholder="08/25/2014" class="input-datepicker">
+                                    <a href="/report/list">start over</a>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group" id="div-report-landmark-mode" style="display:none;">
+                                <small>Landmark Mode:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-landmark-mode" class="btn sidebar-btn-group-box" value="all">All Landmarks</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="all"><a href="#">All Landmarks</a></li>
+                                        <li id="single"><a href="#">Single Landmark</a></li>
+                                        <li id="group"><a href="#">Landmark Group</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-landmark" style="display:none;">
+                                <small>Landmark:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-landmark-single" class="btn sidebar-btn-group-box" value="{{ landmarks ? landmarks[0]['territory_id'] : '' }}">{{ landmarks ? landmarks[0]['territoryname'] : 'No Landmarks Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for lm in landmarks %}
+                                            <li id="{{ lm.territory_id }}"><a href="#">{{ lm.territoryname }}</a></li>
+                                        {% else %}
+                                            <li id=""><a href="#">No Landmarks Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-landmark-group" style="display:none;">
+                                <small>Landmark Group:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-landmark-group" class="btn sidebar-btn-group-box" value="{{ landmark_groups ? landmark_groups[0]['territorygroup_id'] : '' }}">{{ landmark_groups ? landmark_groups[0]['territorygroupname'] : 'No Landmark Groups Available' }}</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for lg in landmark_groups %}
+                                            <li id="{{ lg.territorygroup_id }}"><a href="#">{{ lg.territorygroupname }}</a></li>
+                                        {% else %}
+                                            <li><a data-value="">No Landmark Groups Available</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-total-miles-filter" style="display:none;">
+                                <small>Total Miles Filter:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-mileage-summary" class="btn sidebar-btn-group-box" value="50000">&gt;50,000</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="0"><a href="#">None</a></li>
+                                        <li id="50000"><a href="#">&gt;50,000</a></li>
+                                        <li id="75000"><a href="#">&gt;75,000</a></li>
+                                        <li id="100000"><a href="#">&gt;100,000</a></li>
+                                        <li id="150000"><a href="#">&gt;150,000</a></li>
+                                        <li id="200000"><a href="#">&gt;200,000</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-not-reported-in" style="display:none;">
+                                <small>Not Reported In:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-non-reporting" class="btn sidebar-btn-group-box" value="7">&gt;7 Days</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="7"><a href="#">&gt;7 Days</a></li>
+                                        <li id="14"><a href="#">&gt;14 Days</a></li>
+                                        <li id="30"><a href="#">&gt;30 Days</a></li>
+                                        <li id="60"><a href="#">&gt;60 Days</a></li>
+                                        <li id="90"><a href="#">&gt;90 Days</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-speed-filter" style="display:none;">
+                                <small>Speed Filter:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-speed-summary" class="btn sidebar-btn-group-box" value="75">&gt;75 MPH</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="75"><a href="#">&gt;75 MPH</a></li>
+                                        <li id="80"><a href="#">&gt;80 MPH</a></li>
+                                        <li id="85"><a href="#">&gt;85 MPH</a></li>
+                                        <li id="90"><a href="#">&gt;90 MPH</a></li>
+                                        <li id="95"><a href="#">&gt;95 MPH</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-stationary-filter" style="display:none;">
+                                <small>Stationary Filter:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-stationary" class="btn sidebar-btn-group-box" value="3">&gt;3 Days</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="3"><a href="#">&gt;3 Days</a></li>
+                                        <li id="7"><a href="#">&gt;7 Days</a></li>
+                                        <li id="14"><a href="#">&gt;14 Days</a></li>
+                                        <li id="30"><a href="#">&gt;30 Days</a></li>
+                                        <li id="60"><a href="#">&gt;60 Days</a></li>
+                                        <li id="90"><a href="#">&gt;90 Days</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-stop-threshold" style="display:none;">
+                                <small>Stop Threshold:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-stop" class="btn sidebar-btn-group-box" value="30">&gt;30 Minutes</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        <li id="5"><a href="#">&gt;5 Minutes</a></li>
+                                        <li id="30"><a href="#">&gt;30 Minutes</a></li>
+                                        <li id="60"><a href="#">&gt;1 Hour</a></li>
+                                        <li id="240"><a href="#">&gt;4 Hour</a></li>
+                                        <li id="720"><a href="#">&gt;12 Hours</a></li>
+                                        <li id="1440"><a href="#">&gt;1 Day</a></li>
+                                        <li id="10080"><a href="#">&gt;7 Days</a></li>
+{#}
+                                        <li id="20160"><a href="#">&gt;14 Days</a></li>
+                                        <li id="43200"><a href="#">&gt;30 Days</a></li>
+{#}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="div-report-users" style="display:none;">
+                                <small>Users:</small>
+                                <div class="btn-group sidebar-div">
+                                    <button type="button" id="report-user-command" class="btn sidebar-btn-group-box" value="">[Select User]</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle sidebar-btn-group-caret" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu sidebar-btn-group" role="menu">
+                                        {% for u in users %}
+                                            <li id="{{ u.user_id }}"><a href="#">{{ u.firstname }} {{ u.lastname }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <small>Name:</small>
+                                <input type="text" id="report-name" name="report-name" value="Address Verification Report 1">
+                            </div>        
+
+                            <hr>
+
+                            <div class="pull-right">
+                                <button class="btn btn-default sidebar-btn-schedule" data-toggle="modal" data-target="#modal-schedule-report" id="report-schedule" onClick="return false;">Schedule</button> 
+                                <button class="btn btn-primary sidebar-btn-run" id="report-run" onClick="return false;">Run</button>            
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- END report tab pane -->
+                
+                <!-- category tab pane -->
+                <div class="tab-pane active" id="tab-reports"> 
+                    <div style="margin-top:20px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                        <h4>Reports</h4>
+                    </div>
+                    <div class="col-sm-12 col-md-12 block-section ms-categories">
+                        <ul id="secondary-sidebar-scroll" class="nav nav-pills nav-stacked sub-panel-items sub-panel-resize">
+                            <li id="14"><a href="#tab-report" data-toggle="tab">Address Verification</a></li>
+                            <li id="1"><a href="#tab-report" data-toggle="tab">Alert</a></li>
+                            <li id="3"><a href="#tab-report" data-toggle="tab">Detailed Event</a></li>
+                            <li id="4"><a href="#tab-report" data-toggle="tab">Frequent Stops</a></li>
+                            <li id="5"><a href="#tab-report" data-toggle="tab">Landmark</a></li>
+                            <li id="15"><a href="#tab-report" data-toggle="tab">Last Ten Stops</a></li>
+                            <li id="6"><a href="#tab-report" data-toggle="tab">Mileage Summary</a></li>
+                            <li id="7"><a href="#tab-report" data-toggle="tab">Non Reporting</a></li>
+                            <li id="8"><a href="#tab-report" data-toggle="tab">Speed Summary</a></li>
+                            <li id="9"><a href="#tab-report" data-toggle="tab">Starter Disable Summary</a></li>
+                            <li id="10"><a href="#tab-report" data-toggle="tab">Stationary</a></li>
+                            <li id="11"><a href="#tab-report" data-toggle="tab">Stop</a></li>
+                            <li id="12"><a href="#tab-report" data-toggle="tab">User Command</a></li>
+                            <li id="13"><a href="#tab-report" data-toggle="tab">Vehicle Information</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END category tab pane -->
+            </div>
+{% endif %}
+{% if route == 'vehicle/map' %}
+            <div style="margin-top:15px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                <div class="pull-right text-grey-8" style="display:none;">
+                    <a href="#" id="refresh-map-markers">refresh</a>
+                    |
+                    <a href="#" class="all-none" id="drill"><span class="text-green-10">drill</span></a>
+                    |
+                    <a href="#" class="all-none" id="drill-in"><span class="text-green-10">drill in</span></a>
+                    |
+                    <a href="#" class="all-none" id="drill-out"><span class="text-green-10">drill out</span></a>
+                    |
+                </div>
+                <div id="div-all-none" class="pull-right text-grey-8" style="display:none;">
+                    <a href="#" class="all-none" id="all"><span class="text-green-10">show all</span></a>
+                </div>
+                <div id="div-all-none-clear" class="pull-right text-grey-8" style="display:none;">
+                    <a href="#" class="all-none" id="none"><span class="text-green-10">clear</span></a>
+                </div>
+                    <h4>Vehicles</h4> 
+            </div>
+            <div class="clearfix col-sm-12 col-md-12 block-section ms-categories">
+                <form action="#">
+                <!-- Categories -->
+                    <ul id="secondary-sidebar-scroll" class="list-group nav nav-pills nav-stacked sub-panel-items sub-panel-resize">
+                        {% for v in vehicles %}
+                        <li id="vehicle-li-{{ v.unit_id }}" title="Events: {{ v.db_records }}">
+{#}
+                            <a href="#">{{ v.name|ellipsis(20) }}</a>
+{#}
+                            <a href="#"{% if v.unitstatus_id == '2' %} class="li-inventory" title="Inventory"{% else %}{% if v.unitstatus_id == '3' %} class="li-repossession" title="Repossession"{% endif %}{% endif %}>{{ v.name }}</a>
+                            <div class="toggle pull-right" style="display: none;">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                <!-- END Categories -->
+                </form>
+            </div>
+{% endif %}
+{# NAV LIST OPTIONS ############################################################################################################# END ###}
+
+{% if route == 'admin/export' %}
+            <div class="text-grey-12" style="margin-top:15px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                Use this tool to transfer one or more devices between third-party accounts.
+            </div>
+            <div style="margin-top:15px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                <b>STEP ONE: Coordinate Transfer</b>
+                <ol class="text-grey-10">
+                    <li>Request Routing Number from Transferee</li>
+                    <li>(copy and paste into email to reduce errors)</li>
+                </ol>
+                <p></p>
+                <b>STEP TWO: Transferor Authorizes Export</b>
+                <ol class="text-grey-10">
+                    <li>Visit Export page</li>
+                    <li>Enter Transferee's Routing Number</li>
+                    <li>Select Device(s)</li>
+                    <li>Click "Authorize Release" Button</li>
+                    <li>Click "Confirm" Button</li>
+                </ol>
+                <p></p>
+                <b>STEP THREE: Transferee Authorizes Import</b>
+                <ol class="text-grey-10">
+                    <li>Visit Import page</li>
+                    <li>Select Device(s)</li>
+                    <li>Click "Accept Transfer" Button</li>
+                    <li>Click "Import" Button</li>
+                </ol>
+            </div>
+{% endif %}
+
+{% if route == 'landmark/incomplete' %}
+            <div class="text-grey-12" style="margin-top:15px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                &nbsp;
+                <p></p>
+                Use this report to repair landmark records missing critical data.
+            </div>
+            <div style="margin-top:15px; margin-bottom:20px; padding-right:10px; padding-left:10px;">
+                <b>STEP ONE: Click on a Pending record</b>
+                <p></p>
+                <b>STEP TWO: Adjust Data</b>
+                <ol class="text-grey-10">
+                    <li>Address</li>
+                    <li>Latitude / Longitude</li>
+                    <li>Zone Radius</li>
+                </ol>
+                <p></p>
+                <b>STEP THREE: Click the 'Resubmit Landmark' button</b>
+            </div>
+{% endif %}
+
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
+
+    </div>

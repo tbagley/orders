@@ -1,0 +1,16 @@
+
+<div id="quick-actions" class="pull-right">
+    <div class="block-options pull-right">
+
+    {% if route == 'users/list' or route == 'admin/users' %}
+    	<a href="#modal-add-user" data-toggle="modal" data-placement="bottom" onClick="Core.ClearForm('user-add');" title="Add User" style="margin-right:15px;"><i class="gi gi-plus"></i> User</a>
+    {% endif %}
+
+
+    {% if route == 'users/type' or route == 'admin/usertypes' %}
+    	<a href="#modal-add-usertype" data-toggle="modal" data-placement="bottom" onClick="Core.ClearForm('user-type-add');" title="Add User Type" style="margin-right:15px;"><i class="gi gi-plus"></i> User Type</a>
+    {% endif %}
+
+    </div>
+</div>
+

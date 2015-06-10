@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+    <head>
+        <title>Position Plus Orders</title>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" href="/assets/media/icons/apple-touch-114-positionplus-mobile.png"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- jQuery Assets -->
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        
+    <!-- DataTables Assets -->
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script src="/assets/vendor/datatables/dataTables.bootstrap.js"></script>
+
+    <!-- Stylesheets -->
+        <link rel="stylesheet" href="http://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/mobile.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/map.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/plugins.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/themes.css" />
+    <!-- END Stylesheets -->
+        <script src="/assets/js/orders.js"></script>
+    </head>
+    <body data-environment="{{ environment }}" data-context="{{ context }}" data-map-api="{{ map_api }}" data-decarta-api-key="{{ decarta_api_key }}" data-session-timeout="{{ session_timeout }}">
+
+        <div class="pull-left" style="padding:10px;">
+            <a class="center" href="#">
+                <img src="/assets_responsive/img/logo.png" style="width:132px;">
+            </a>
+        </div>
+
+        <div class="pull-left" style="padding:10px;">
+            <ul class="nav header-nav pull-left">
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-pending">Pending Approval</a>
+                </li>
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-approved">Approved</a>
+                </li>
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-inventoried">Inventoried</a>
+                </li>
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-labeled">Labeled</a>
+                </li>
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-shipped">Shipped</a>
+                </li>
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-invoiced">Invoiced</a>
+                </li>
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-read_only">All Orders</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="pull-right" style="padding:10px;">
+            <ul class="nav header-nav pull-right">
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-activations">Activations Pending</a>
+                </li>
+                <li style="display: none;">
+                    <a class="li-a-navigation" href="javascript:void(0);" id="li-a-activations_issued">Activations Issued</a>
+                </li>
+            </ul>
+            <div style="display:none;">
+                <a class="navigation" href="javascript:void(0);" id="login">Login</a>
+                |
+                <a class="navigation" href="javascript:void(0);" id="pending">Pending Approval</a>
+                |
+                <a class="navigation" href="javascript:void(0);" id="approved">Approved</a>
+                |
+                <a class="navigation" href="javascript:void(0);" id="labeled">Labeled</a>
+                |
+                <a class="navigation" href="javascript:void(0);" id="inventoried">Inventoried</a>
+                |
+                <a class="navigation" href="javascript:void(0);" id="shipped">Shipped</a>
+                |
+                <a class="navigation" href="javascript:void(0);" id="invoiced">Invoiced</a>
+                |
+                <a class="navigation" href="javascript:void(0);" id="read_only">All Orders</a>
+                |
+                <a class="navigation pull-right" href="javascript:void(0);" id="activations_issued">Activations Issued</a>
+                |
+                <a class="navigation pull-right" href="javascript:void(0);" id="activations">Activations Pending</a>
+            </div>
+        </div>
+
+        <div id="div-login" class="div-navigation active" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                {% include('page/orders/login.html.twig') %}
+            </div>
+        </div>
+
+        <div id="div-pending" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div>
+                    {% include('page/orders/pending.html.twig') %}
+                </div>
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-pending-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-approved" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div>
+                    {% include('page/orders/approved.html.twig') %}
+                </div>
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-approved-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-labeled" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div>
+                    {% include('page/orders/labeled.html.twig') %}
+                </div>
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-labeled-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-inventoried" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div>
+                    {% include('page/orders/inventoried.html.twig') %}
+                </div>
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-inventoried-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-shipped" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div>
+                {% include('page/orders/shipped.html.twig') %}
+                </div>
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-shipped-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-invoiced" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div>
+                    {% include('page/orders/invoiced.html.twig') %}
+                </div>
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-invoiced-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-read_only" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-read_only-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-activations" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-activations-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="div-activations_issued" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="fulfillment-activations_issued-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,233 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <!-- END Table Options -->
+
+                <div>
+                    <table>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="text-24 text-grey">&nbsp;&nbsp;{{ todays_date }}</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <div class="system-metrics-div">
+                                    <table class="system-metrics">
+                                        <tr>
+                                            <td class="text-18 text-red" colspan="2">Devices: <span class="text-black">{{ devices_total }} <span class="text-10 text-grey">Unique Serial Numbers</span></span></td>
+{#}
+                                            <th class="text-14 text-grey" colspan="4">Sweep: <span class="text-black">{{ devices.sweep }}</span> &nbsp;&nbsp; Updated: <span class="text-black">{{ devices.fix }}</span></th>
+{#}
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Active</span></th>
+                                            <td><span class="pull-right text-14 text-black">{{ devices.active.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.active.percentage }}%</span></td>
+                                        </tr>
+{#}
+                                        <tr>
+                                            <td class="text-12 text-grey"></td>
+                                            <td class="text-12 text-grey"><span class="pull-right">Reporting</span></td>
+                                            <td class="text-12 text-grey" style="width:70px;">%</td>
+                                            <td class="text-12 text-grey"><span class="pull-right">Non-Reporting</span></td>
+                                            <td class="text-12 text-grey" style="width:70px;">%</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+{#}
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Last 3 Days Reporting</span></th>
+                                            <td><span class="pull-right text-14 text-green">{{ devices.reporting3.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.reporting3.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.no_report3.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.no_report3.percentage }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Last 7 Days Reporting</span></th>
+                                            <td><span class="pull-right text-14 text-green">{{ devices.reporting7.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.reporting7.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.no_report7.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.no_report7.percentage }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Last 15 Days Reporting</span></th>
+                                            <td><span class="pull-right text-14 text-green">{{ devices.reporting15.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.reporting15.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.no_report15.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.no_report15.percentage }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Empty Timestamps</span></th>
+                                            <td><span class="pull-right text-14 text-black">{{ devices.reporting0.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.reporting0.percentage }}%</span></td>
+{#}
+                                            <td colspan="3"><span class="text-10 text-italic text-grey">this metric explains gap between reports</span></td>
+{#}
+                                        </tr>
+                                        <tr>
+                                            <td class="text-12 text-grey" style="width:200px;"></td>
+                                            <td class="text-12 text-grey"><span class="pull-right">Subscribers</span></td>
+                                            <td class="text-12 text-grey" style="width:70px;">%</td>
+                                            <td class="text-12 text-grey"><span class="pull-right">Unit&nbsp;Management</span></td>
+                                            <td class="text-12 text-grey" style="width:70px;">%</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Reposession</span></th>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.repossession.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.repossession.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.repossession_um.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.repossession_um.percentage }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Starter&nbsp;Disabled</span></th>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.starterstatus.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.starterstatus.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.starterstatus_um.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.starterstatus_um.percentage }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Reminder&nbsp;On</span></th>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.reminderstatus.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.reminderstatus.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-red">{{ devices.reminderstatus_um.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.reminderstatus_um.percentage }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Installed</span></th>
+                                            <td><span class="pull-right text-14 text-black">{{ devices.installed.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.installed.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-black">{{ devices.installed_um.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.installed_um.percentage }}%</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th><span class="text-14 pull-right">Inventory</span></th>
+                                            <td><span class="pull-right text-14 text-grey">{{ devices.inventory.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.inventory.percentage }}%</span></td>
+                                            <td><span class="pull-right text-14 text-grey">{{ devices.inventory_um.count }}</span></td>
+                                            <td><span class="text-10 text-grey">{{ devices.inventory_um.percentage }}%</span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="system-metrics-div">
+                                    <table class="system-metrics">
+                                        <tr>
+                                            <td class="text-18 text-red" colspan="3">Non-Reporting: <span class="text-black">{{ nons_total }} <span class="text-10 text-grey">Devices</span></span></td>
+                                            <td class="text-12 text-grey" colspan="4">Events: <span class="text-black">{{ nons_total_db_records }} <span class="text-10 text-grey">Previously&nbsp;Reported&nbsp;from&nbsp;Flagged&nbsp;Devices</span></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-12 text-grey" style="width:15px;">#</td>
+                                            <td class="text-12 text-grey">Account</td>
+                                            <td class="text-12 text-grey" style="width:100px;">Account&nbsp;Size</td>
+                                            <td class="text-12 text-grey" style="width:80px;">Flagged&nbsp;Devices</td>
+                                            {#}
+                                            <td class="text-12 text-grey" style="width:100px;">Past&nbsp;Events</td>
+                                            {#}
+                                            <td class="text-12 text-grey" style="width:100px;">%&nbsp;of&nbsp;Account</td>
+                                            <td class="text-12 text-grey" style="width:100px;">%&nbsp;of&nbsp;Non&nbsp;Reporting</td>
+                                        </tr>
+                                    {% for non in nons %}
+                                        <tr>
+                                            <td><span class="text-10 center">{{ non.row }}</span></td>
+                                            {#}
+                                            <td><a class="text-12" href="javascript:void(0);" onclick="Core.Toggle('fsr-details-{{ non.row }}')">{{ non.accountname }}</a></td>
+                                            {#}
+                                            <td class="text-12">{{ non.accountname }}</td>
+                                            <td><span class="text-12 center">{{ non.deployed }}</span></td>
+                                            <td><span class="text-14 center">{{ non.devicecount }}</span></td>
+                                            {#}
+                                            <td><span class="text-12 center">{{ non.db_records }}</span></td>
+                                            {#}
+                                            <td><span class="text-10 text-grey center">{{ non.deployed_percentage }}%</span></td>
+                                            <td><span class="text-10 text-grey center">{{ non.percentage }}%</span></td>
+                                        </tr>
+                                        {#}
+                                        <tr>
+                                            <th class="fsr" colspan="7">
+                                                <div class="background-green" id="fsr-details-{{ non.row }}" style="display: none;">
+                                                    <table class="background-green" style="width:100%;">
+                                                        <tr>
+                                                            <td class="text-10 text-grey" style="width:15px;">#</td>
+                                                            <td class="text-10 text-grey">Name&nbsp;/ Serial&nbsp;Number</td>
+                                                            <td class="text-10 text-grey">Status&nbsp;/ Reminder&nbsp;/ Starter</td>
+                                                            <td class="text-10 text-grey">Manufacturer&nbsp;/ Version</td>
+                                                            <td class="text-10 text-grey">Last&nbsp;Report&nbsp;/ Unit&nbsp;Id&nbsp;-&nbsp;Events&nbsp;To&nbsp;Date&nbsp;-&nbsp;Subscription</td>
+                                                            <th style="width:20px;"><a class="pull-right" href="javascript:void(0);" onclick="Core.Toggle('fsr-details-{{ non.row }}')">X&nbsp;</a></th>
+                                                        </tr>
+                                                        {% for unit in non.units %}
+                                                            <tr>
+                                                                <td><span class="text-10">{{ unit.row }}</span></td>
+                                                                <td><span class="text-10">{{ unit.unitname }}</span><br><span class="text-10">{{ unit.serialnumber }}</span></td>
+                                                                <td><span class="text-10">{{ unit.unitstatusname }}</span><br><span class="text-10">{{ unit.reminderstatus }}</span> / <span class="text-10">{{ unit.starterstatus }}</span><br></td>
+                                                                <td><span class="text-10">{{ unit.manufacturer }}</span><br><span class="text-10">{{ unit.version }}</span></td>
+                                                                <td><span class="text-10">{{ unit.lastreport }}</span><br><span class="text-10">{{ unit.unit_id }} - {{ unit.db_records }} - {{ unit.subscription }}</span></td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        <tr>
+                                                            <th colspan="6">
+                                                                <a class="pull-right" href="javascript:void(0);" onclick="Core.Toggle('fsr-details-{{ non.row }}')">close&nbsp;&nbsp;&nbsp;</a>
+                                                            </th>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        {#}
+                                    {% endfor %}
+                                    </table>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+
+            <!-- END FX Container -->
+
+        </div>
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/device-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+{#}
+        {% include('partial/device-modals.html.twig') %}
+{#}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+{#}
+    <script src="/assets_responsive/js/device.js"></script>
+{#}
+{% endblock %}

@@ -1,0 +1,46 @@
+    <!-- Tools Container -->
+    <div id="tools-container">
+
+        <div style="margin-left:10px;margin-right:10px;margin-bottom:10px;">
+            <span class="pull-right" style="margin: 5px 0px 5px 0px;">
+                <a href="javascript:void(0);" id="vehicles" class="navigation">Vehicles</a>
+                &nbsp;|&nbsp;
+                <a href="javascript:void(0);" id="groups" class="navigation">Groups</a>
+                &nbsp;|&nbsp;
+                <a href="javascript:void(0);" id="logout" class="navigation">Logout</a>
+            </span>
+            <img src="/assets_responsive/img/logo.png">
+        </div>
+
+        <!-- Page Content -->
+        <div class="block remove-all-margins remove-all-padding">
+
+            <div class="block-header remove-all-margins">
+                <div class="header-section" style="height:8px; padding:0px 0px 0px 0px; margin-bottom:0px;">
+{#}
+                    <div class="center">
+                        &nbsp;|&nbsp;
+                        <a href="javascript:void(0);" id="commands" class="navigation">Commands</a>
+                        &nbsp;|&nbsp;
+                        <a href="javascript:void(0);" id="login" class="navigation">Logout</a>
+                    </div>
+{#}
+                </div>
+            </div>
+
+            <div id="div-welcome" class="div-navigation div-2 center active">
+            </div>
+            <div id="div-groups" class="div-navigation div-2">
+                {% include('page/mobile/groups.html.twig') %}
+            </div>
+            <div id="div-map" class="div-navigation div-2 pad-10">
+                {% include('page/mobile/map.html.twig') %}
+                {% include('page/mobile/commands.html.twig') %}
+            </div>
+            <div id="div-vehicles" class="div-navigation div-2">
+                {% include('page/mobile/vehicles.html.twig') %}
+            </div>
+
+        </div>
+
+    </div>

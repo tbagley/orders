@@ -1,0 +1,310 @@
+
+	<h1>ORDER DETAIL</h1>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Discount Reason:&nbsp;</span></label>
+	<div class="col-md-7">
+		<select id="orderform-override-reason" class="">
+			<option selected></option>
+			<option>Charter Customer</option>
+			<option>First Order</option>
+			<option>High-Volume Customer</option>
+		</select>
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Product Type:&nbsp;</span></label>
+	<div class="col-md-7">
+		<select id="orderform-product">
+            {% for v in versions %}
+                <option value="{{ v.unitversion_id }}">{{ v.nickname }} ({{ v.manufacturer }}: {{ v.version }})</option>
+            {% endfor %}
+		</select>
+		{#}
+		<div class="transfer-list-div">
+			<ul id="orderform-product" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                {% for v in versions %}
+                    <li data-value="{{ v.unitversion_id }}"><a href="javascript:void(0);">{{ v.nickname }} ({{ v.manufacturer }}: {{ v.version }})</a></li>
+                {% endfor %}
+			</ul>
+		</div>
+		{#}
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Service Plan:&nbsp;</span></label>
+	<div class="col-md-7">
+		<select id="orderform-plan">
+            {% for p in plans %}
+                <option value="{{ p.subscription_id }}">{{ p.plan }}</option>
+            {% endfor %}
+		</select>
+		{#}
+		<div class="transfer-list-div">
+			<ul id="orderform-plan" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                {% for p in plans %}
+                    <li data-value="{{ p.subscription_id }}"><a href="javascript:void(0);">{{ p.plan }}</a></li>
+                {% endfor %}
+			</ul>
+		</div>
+		{#}
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Accessories:&nbsp;</span></label>
+	<div class="col-md-7">
+		<select id="orderform-accessories">
+            {% for a in accessories %}
+                <option value="{{ a.accessories_id }}">{{ a.nickname }}: ${{ a.cost }} per unit</option>
+            {% endfor %}
+		</select>
+		{#}
+		<div class="transfer-list-div">
+			<ul id="orderform-accessories" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                {% for a in accessories %}
+                    <li data-value="{{ a.accessories_id }}"><a href="javascript:void(0);">{{ a.nickname }} <span class="text-grey text-10">${{ a.cost }} per unit</span></a></li>
+                {% endfor %}
+			</ul>
+		</div>
+		{#}
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Shipping:&nbsp;</span></label>
+	<div class="col-md-7">
+		<select id="orderform-shipping-method">
+            {% for sm in shipping_methods %}
+                <option value="{{ sm.shipping_id }}">{{ sm.shipping_method }}: ${{ sm.cost }} per unit</option>
+            {% endfor %}
+		</select>
+		{#}
+		<div class="transfer-list-div">
+			<ul id="orderform-shipping-method" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                {% for sm in shipping_methods %}
+                    <li data-value="{{ sm.shipping_id }}"><a href="javascript:void(0);">{{ sm.shipping_method }} <span class="text-grey text-10">${{ sm.cost }} per unit</span></a></li>
+                {% endfor %}
+			</ul>
+		</div>
+		{#}
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Payment Method:&nbsp;</span></label>
+	<div class="col-md-7">
+		<select id="orderform-payment-method">
+            {% for pm in payment_methods %}
+                <option value="{{ pm.payment_id }}">{{ pm.payment_method }}</option>
+            {% endfor %}
+		</select>
+		{#}
+		<div class="transfer-list-div">
+			<ul id="orderform-payment-method" class="list-group list-assigned nav nav-pills nav-stacked transfer-list">
+                {% for pm in payment_methods %}
+                    <li data-value="{{ pm.payment_id }}"><a href="javascript:void(0);">{{ pm.payment_method }}</a></li>
+                {% endfor %}
+			</ul>
+		</div>
+		{#}
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Quantity:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">&nbsp;&nbsp;</span>
+		<input id="orderform-quantity" class="background-override dollar-sign" placeholder="Units...">
+	</div>
+	<div class="col-md-3">
+		<h4>Special Pricing</h4>
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Product&nbsp;Unit&nbsp;Price:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-rate" class="background-red dollar-sign" placeholder="Product Price per Unit..." readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-rate-override" class="background-override dollar-sign" placeholder="Price per Unit">
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-rate">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Accessory&nbsp;Unit&nbsp;Price:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-arate" class="background-red dollar-sign" placeholder="Accessory Price per Unit..." readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-arate-override" class="background-override dollar-sign" placeholder="Price per Accessory">
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-arate">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Handling:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-handling-fee" class="background-red dollar-sign" placeholder="Handling Fee..." readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-handling-override" class="background-override dollar-sign" placeholder="Handling Fee...">
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-handling">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Order Extended:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended" class="background-white dollar-sign" placeholder="Sub-total..." readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended-override" class="background-white dollar-sign" placeholder="Sub-total" readonly>
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-extended">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Taxes:&nbsp;</span></label>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended-taxes" class="background-white dollar-sign" placeholder="0.00" readonly>
+	</div>
+	<div class="col-md-1" id="orderform-extended-taxrate">
+		0%
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended-taxes-override" class="background-white dollar-sign" placeholder="0.00" readonly>
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-taxes">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Sub-Total:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended-subtotal" class="background-white dollar-sign" placeholder="Sub-total..." readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended-subtotal-override" class="background-white dollar-sign" placeholder="Sub-total" readonly>
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-subtotal">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Shipping:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-shipping-fee" class="background-red dollar-sign" placeholder="Shipping Fee..." readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-shipping-override" class="background-override dollar-sign" placeholder="Shipping Fee...">
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-shipping">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Shipping Extended:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended-shipping" class="background-white dollar-sign" placeholder="Sub-total..." readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-extended-shipping-override" class="background-white dollar-sign" placeholder="Sub-total" readonly>
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-shipping-extended">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Total:&nbsp;</span></label>
+	<div class="col-md-3">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-total" class="background-green dollar-sign text-bold text-18" placeholder="$ 0.00" readonly>
+	</div>
+	<div class="col-md-2">
+		<span class="dollar-sign">$</span>
+		<input id="orderform-total-override" class="background-green dollar-sign text-bold text-18" placeholder="Grand Total" readonly>
+	</div>
+	<div class="col-md-4 text-red" id="orderform-diff-total">
+		0%
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">PO #:&nbsp;</span></label>
+	<div class="col-md-7">
+		<input id="orderform-po" class="form-control" placeholder="Purchase Order">
+	</div>
+
+	<div id="orderform-cc">
+		<div id="orderform-cc_file">
+			<div class="clearfix col-md-12 row">&nbsp;</div>
+			<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Credit Card On File:&nbsp;</span></label>
+			<div class="col-md-4" id="orderform-cc_onfile"></div>
+			<div class="col-md-2">
+				<span class="pull-right">Use CC On File</span>
+			</div>
+			<div class="col-md-1">
+				<input class="checkbox" id="orderform-cc_onfile_use" type="checkbox">
+			</div>
+		</div>
+		<div class="clearfix col-md-12 row">&nbsp;</div>
+		<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">New Credit Card #:&nbsp;</span></label>
+		<div class="col-md-3">
+			<input id="orderform-cc_num" class="cc-new form-control" placeholder="Credit Card Number">
+		</div>
+		<div class="col-md-2">
+			<input id="orderform-cc_ver" class="cc-new form-control" placeholder="Verification Number">
+		</div>
+		<div class="col-md-2">
+			<input id="orderform-cc_exp" class="cc-new form-control" placeholder="Expiration Date">
+		</div>
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<label class="control-label col-md-3 control-label vertical-center"><span class="pull-right">Notes:&nbsp;</span></label>
+	<div class="col-md-7">
+		<textarea id="orderform-notes" class="form-control" placeholder="Notes..."></textarea>
+	</div>
+
+	<div class="clearfix col-md-12 row">&nbsp;</div>
+
+	<div class="col-md-10">
+		<button id="btn-orderform" class="btn btn-primary pull-right">Preview Order</button>
+	</div>
+
+	<div class="col-md-2">
+		<button id="btn-orderform-back" class="btn btn-default pull-left">Back</button>
+	</div>

@@ -1,0 +1,1182 @@
+<div class="tab-content" >
+
+    <div id="tab-commands" class="tab-pane fade in{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read is empty and ( permissions_vehicle_location_read or permissions_vehicle_starter_read or permissions_vehicle_reminder_read ) %} active{% endif %}">
+{#
+        <div class="col-md-4">
+            <h5>Current Location</h5>
+            <div class="form-group" >
+                <label class="control-label vertical-center col-md-4 control-label">Vehicle&nbsp;Name:</label>
+                <div class="col-md-8">
+                    <button class="btn btn-primary">Get Current Location*</button><br>
+                    <button id="get-current-location-button" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Get Current Location*</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h5>Starter Enable / Disable</h5>
+            <div class="form-group">
+                <button class="btn btn-default">Starter Enable</button>     
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default">Starter Disable</button>        
+            </div>         
+        </div>
+#}
+        <div class="row">
+            <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered" id="div-command-last-event" style="display:block;">
+                <h5>Current Location</h5>
+                <div class="form-group">
+                    <button id="get-current-location-button" type="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Get Current Location</button><br>
+                </div>
+            </div>
+            <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered" id="div-command-locate" style="display: block;">
+                <h5>Locate On Demand</h5>
+                <div class="form-group">
+                    <button id="locate-on-demand-button-confirm" type="button" class="btn btn-sm btn-primary has-popover" data-popover-placement="right" data-popover-content-id="popover-content-locate-on-demand" data-original-title="" title="">Locate</button>
+                </div>
+                <p><span id="div-command-locate-span"></span></p>
+            </div>
+            <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered" id="div-command-starter" style="display: block;">
+                <h5>Starter Enable/Disable</h5>
+                <div class="form-group">
+                    <button id="starter-enable-button" type="button" class="btn btn-sm btn-default has-popover" data-popover-placement="right" data-popover-content-id="popover-content-starter-enable" data-original-title="" title="">Starter Enable</button>
+                </div>
+                <div class="form-group">
+                    <button id="starter-disable-button" type="button" class="btn btn-sm btn-default has-popover" data-popover-placement="right" data-popover-content-id="popover-content-starter-disable" data-original-title="" title="">Starter Disable</button>
+                </div>
+                <p><span id="div-command-starter-span"></span></p>
+            </div>
+            <div class="col-command col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered" id="div-command-reminder" style="display: block;">
+                <h5>Payment Reminder</h5>
+                <div class="form-group">
+                    <button id="reminder-on-button" type="button" class="btn btn-sm btn-default has-popover" data-popover-placement="right" data-popover-content-id="popover-content-reminder-enable" data-original-title="" title="">Reminder On</button>
+                </div>
+                <div class="form-group">
+                    <button id="reminder-off-button" type="button" class="btn btn-sm btn-default has-popover" data-popover-placement="right" data-popover-content-id="popover-content-reminder-disable" data-original-title="" title="">Reminder Off</button>
+                </div>
+                <p><span id="div-command-reminder-span"></span></p>
+            </div>
+        </div>
+        <!-- END col -->
+
+    {# Commands Popovers #}
+        {# Locate On Demand #}
+        <div id="popover-content-locate-on-demand" class="hide command-popup-width">
+            <div id="popover-content-locate-on-demand-panels" class="panel-group panel-commands">
+                <div class="panel panel-clear">
+                    <div id="popover-content-locate-on-demand-panel-1" class="panel-collapse collapse in" data-parent="#popover-content-locate-on-demand-panels">
+                        <p>This command will <strong>locate</strong> the vehicle's current location. Are you sure?</p>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-locate-on-demand-confirm" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-locate-on-demand-panel-2">Locate</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-locate-on-demand-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-clear">
+                    <div id="popover-content-locate-on-demand-panel-2" class="panel-collapse collapse" data-parent="#popover-content-locate-on-demand-panels">
+                        <!-- <p>Locate On Demand command response:</p> -->
+                        <div id="locate-on-demand-response" class="well well-commands well-small text-coal text-10">Waiting...</div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-locate-on-demand-retry" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-locate-on-demand-panel-1">Retry</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-locate-on-demand-cancel" class="btn btn-default popover-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Reminder #}
+        <div id="popover-content-reminder-enable" class="hide">
+            <div id="popover-content-reminder-enable-panels" class="panel-group panel-commands">
+                <div class="panel panel-clear">
+                    <div id="popover-content-reminder-enable-panel-1" class="panel-collapse collapse in" data-parent="#popover-content-reminder-enable-panels">
+                        <p>This command will <strong>turn on</strong> the vehicle's reminder. Are you sure?</p>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-reminder-enable-confirm" class="btn btn-warning" data-toggle="collapse" data-target="#popover-content-reminder-enable-panel-2">On</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-reminder-enable-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-clear">
+                    <div id="popover-content-reminder-enable-panel-2" class="panel-collapse collapse" data-parent="#popover-content-reminder-enable-panels">
+                        <!-- <p>Reminder On command response:</p> -->
+                        <div id="reminder-enable-response" class="well well-commands well-small text-coal text-10">Waiting...</div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-reminder-enable-retry" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-reminder-enable-panel-1">Retry</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-reminder-enable-close" class="btn btn-default popover-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popover-content-reminder-disable" class="hide">
+            <div id="popover-content-reminder-disable-panels" class="panel-group panel-commands">
+                <div class="panel panel-clear">
+                    <div id="popover-content-reminder-disable-panel-1" class="panel-collapse collapse in" data-parent="#popover-content-reminder-disable-panels">
+                        <p>This command will <strong>turn off</strong> the vehicle's reminder. Are you sure?</p>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-reminder-disable-confirm" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-reminder-disable-panel-2">Off</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-reminder-disable-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-clear">
+                    <div id="popover-content-reminder-disable-panel-2" class="panel-collapse collapse" data-parent="#popover-content-reminder-disable-panels">
+                        <!-- <p>Reminder Off command response:</p> -->
+                        <div id="reminder-disable-response" class="well well-commands well-small text-coal text-10">Waiting...</div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-reminder-disable-retry" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-reminder-disable-panel-1">Retry</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-reminder-disable-close" class="btn btn-default popover-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Starter #}
+        <div id="popover-content-starter-enable" class="hide">
+            <div id="popover-content-starter-enable-panels" class="panel-group panel-commands">
+                <div class="panel panel-clear">
+                    <div id="popover-content-starter-enable-panel-1" class="panel-collapse collapse in" data-parent="#popover-content-starter-enable-panels">
+                        <p>This command will <strong>enable</strong> the vehicle's starter. Are you sure?</p>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-starter-enable-confirm" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-starter-enable-panel-2">Enable</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-starter-enable-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-clear">
+                    <div id="popover-content-starter-enable-panel-2" class="panel-collapse collapse" data-parent="#popover-content-starter-enable-panels">
+                        <!-- <p>Starter Enable command response:</p> -->
+                        <div id="starter-enable-response" class="well well-commands well-small text-coal text-10">Waiting...</div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-starter-enable-retry" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-starter-enable-panel-1">Retry</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-starter-enable-close" class="btn btn-default popover-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="popover-content-starter-disable" class="hide">
+            <div id="popover-content-starter-disable-panels" class="panel-group panel-commands">
+                <div class="panel panel-clear">
+                    <div id="popover-content-starter-disable-panel-1" class="panel-collapse collapse in" data-parent="#popover-content-starter-disable-panels">
+                        <p>This command will <strong>disable</strong> the vehicle's starter. Are you sure?</p>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-starter-disable-confirm" class="btn btn-warning" data-toggle="collapse" data-target="#popover-content-starter-disable-panel-2">Disable</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-starter-disable-cancel" class="btn btn-default popover-cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-clear">
+                    <div id="popover-content-starter-disable-panel-2" class="panel-collapse collapse" data-parent="#popover-content-starter-disable-panels">
+                        <!-- <p>Starter Disable command response:</p> -->
+                        <div id="starter-disable-response" class="well well-commands well-small text-coal text-10">Waiting...</div>
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-starter-disable-retry" class="btn btn-primary" data-toggle="collapse" data-target="#popover-content-starter-disable-panel-1">Retry</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-starter-disable-close" class="btn btn-default popover-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+                  
+    <div id="tab-quick-history" class="tab-pane fade in{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read is empty and permissions_vehicle_location_read is empty and permissions_vehicle_starter_read is empty and permissions_vehicle_reminder_read is empty and permissions_vehicle_history_read %} active{% endif %}">
+        <div class="table-responsive"{% if permissions_vehicle_history_read is empty %}" style="display:none;"{% endif %}>
+            <div class="col-sm-6 col-xs-6 pull-left" style="margin-top:10px;padding:1px;">
+                <button id="btn-stops-recent" class="btn btn-default btn-tiny event-type-button" href="#sub-recent-stops" data-toggle="tab" style="width:33%;" value="recent">Recent Stops</button>
+                <button id="btn-stops-frequent" class="btn btn-default btn-tiny event-type-button" href="#sub-frequent-stops" data-toggle="tab" style="width:34%;" value="frequent">Frequent Stops</button>
+                <button id="btn-stops-all" class="btn btn-default btn-tiny active event-type-button" href="#sub-all-events" data-toggle="tab" style="width:33%;" value="all">All Events</button> 
+            </div>           
+            <div class="col-sm-6 col-xs-6">
+                <table cellspacing="8px" style="height:50px;width:100%;">
+                    <tr>
+                        <td><select id="stops-date-range" name="stops-date-range" class="form-control quick-history-options btn-tiny" size="1" style="width:125px;" title="Date Range">
+                                <option value="0" selected>Today</option>
+                                <option value="1">Since Yesterday</option>
+                                <option value="3">Last 3 Days</option>
+                                <option value="7">Last 7 Days</option>
+                                <option value="14">Last 14 Days</option>
+                                <option value="30">Last 30 Days</option>
+                                <option value="60">Last 60 Days</option>
+                                <option value="90">Last 90 Days</option>
+                        </select></td>
+                        <td>&nbsp;</td>
+                        <td><div id="div-stops-duration" name="div-stops-duration"><select id="stops-duration" name="stops-duration" class="form-control quick-history-options btn-tiny" size="1" style="width:70px;" title="Duration">
+                                <option value="0" selected>All</option>
+                                <option value="300">5+ Mins</option>
+                                <option value="1800">30+ Mins</option>
+                                <option value="3600">1+ Hour</option>
+                                <option value="14400">4+ Hours</option>
+                                <option value="43200">12+ Hours</option>
+                                <option value="86400">1+ Day</option>
+                                <option value="604800">7+ Days</option>
+                        </select></div></td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                        <td style="margin-top:5px;">
+                            <a id="breadcrumbs" name="breadcrumbs" href="javascript:void(0);" class="quick-history-options">Show&nbsp;On&nbsp;Map</a>
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;</td>
+                        <td style="margin-top:5px;">
+                            <div class="btn-group pull-right" style="width:100px;">
+                                <button type="button" id="popover-vehicle-history-export-csv-confirm" class="btn btn-primary" title="Export CSV"><span class="hi hi-export"></span></button>
+                                <button type="button" id="popover-vehicle-history-export-pdf-confirm" class="btn btn-primary" title="Print PDF"><span class="fa fa-print"></span></button>
+                            </div>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td style="margin-top:5px;width:130px;">
+                            <div class="btn-group pull-right" style="width:120px;">
+                                <div class="input-group input-group-sm">
+                                    <input type="text" id="quick-history-export-email" class="form-control" placeholder="E-Mail Addresses" maxlength="32">
+                                </div>
+                            </div>
+                        </td>
+                        <td style="margin-top:5px;width:50px;">
+                            <div class="btn-group pull-right" style="width:50px;">
+                                <button type="button" id="popover-history-email-confirm" class="btn btn-primary" title="Send Report to Email Address"><span class="fa fa-envelope"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-12 col-xs-12">
+                <div class="tab-content">
+                    <div class="tab-pane fade in" id="sub-recent-stops">
+                        <div class="table-responsive">
+                            <div class="dataTables_wrapper form-inline" role="grid">
+                                <div id="stops-report-recent" class="noborder report-master">
+                                    {% include('partial/report-table.html.twig') %}
+                                </div>                      
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade in" id="sub-frequent-stops">
+                        <div class="table-responsive">
+                            <div class="dataTables_wrapper form-inline" role="grid">
+                                <div id="stops-report-frequent" class="noborder report-master">
+                                    {% include('partial/report-table.html.twig') %}
+                                </div>                      
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade in active" id="sub-all-events">
+                        <div class="table-responsive">
+                            <div class="dataTables_wrapper form-inline" role="grid">
+                                <div id="stops-report-all" class="noborder report-master">
+                                    {% include('partial/report-table.html.twig') %}
+                                </div>                      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{#}
+            <table id="quick-history-recent-table" class="table table-condensed table-hover table-striped table-curved tables dataTable" aria-describedby="quick-history-recent-table_info">
+            <table id="example-datatable" class="table table-bordered table-hover">
+                <thead>
+                    <tr role="row">
+                        <th class="header" role="columnheader" tabindex="0" aria-controls="quick-history-recent-table" rowspan="1" colspan="1" aria-label="Map Point: activate to sort column ascending">Map Point</th>
+                        <th class="header headerSortUp" role="columnheader" tabindex="0" aria-controls="quick-history-recent-table" rowspan="1" colspan="1" aria-label="Date &amp;amp; Time: activate to sort column ascending">Date &amp; Time</th>
+                        <th class="header" role="columnheader" tabindex="0" aria-controls="quick-history-recent-table" rowspan="1" colspan="1" aria-label="Event: activate to sort column ascending">Event</th>
+                        <th class="header" role="columnheader" tabindex="0" aria-controls="quick-history-recent-table" rowspan="1" colspan="1" aria-label="Location: activate to sort column ascending">Location</th>
+                        <th class="header" role="columnheader" tabindex="0" aria-controls="quick-history-recent-table" rowspan="1" colspan="1" aria-label="Duration: activate to sort column ascending">Duration</th>
+                    </tr>
+                </thead>
+                <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    <tr class="odd">
+                        <td valign="top" colspan="5" class="dataTables_empty">No data available in table</td>
+                    </tr>
+                </tbody>
+            </table>
+#}
+        </div>                    
+    </div> 
+        
+    <div id="tab-verification" class="tab-pane fade in{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read is empty and permissions_vehicle_location_read is empty and permissions_vehicle_starter_read is empty and permissions_vehicle_reminder_read is empty and permissions_vehicle_history_read is empty %} active{% endif %}">
+
+    <div class="table-responsive" {% if permissions_vehicle_reference_address_read is empty %} style="display:none;"{% endif %}>
+
+        <div class="dataTables_wrapper form-inline" role="grid">
+
+            <div id="div-verification-address-add" style="display: none;">
+
+                <div class="center verification-add">
+
+                    <div class="col-md-12">
+                        <h4>New Verification Address</h4>
+                    </div>
+
+                    <div class="col-md-12 text-8">&nbsp;</div>
+
+                    <div class="col-md-2">
+                        <label class="control-label pull-right" for="verification-add-address" style="margin-top:7px;">Name:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control width-100" id="verification-address-name" placeholder="Name of Verification Landmark" maxlength="64">
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+
+                    <div class="col-md-12 text-8">&nbsp;</div>
+
+                    <div class="col-md-2">
+                        <label class="control-label pull-right" for="verification-add-address" style="margin-top:7px;">Address:</label>
+                    </div>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control width-100" id="verification-address-address" placeholder="Address" maxlength="64">
+                        <div style="display: none;">
+                            <span class="input-group-btn"><button type="button" class="btn btn-sm btn-default" id="verification-address-locate">Locate on Map</button></span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+
+                    <div class="col-md-12 text-8">&nbsp;</div>
+
+                    <div class="col-md-2">
+                        <label class="control-label pull-right" for="verification-address-radius" style="margin-top:7px;">Radius:</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="verification-address-radius">
+                            {% for option in options_radius %}
+                                <option value="{{ option.v }}" data-value="{{ option.v }}">{{ option.k }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="control-label pull-right" for="verification-address-latlng" style="margin-top:7px;">Lat/Long:</label>
+                    </div>
+                    <div class="col-md-3" style="padding: 6px;">
+                        <span class="text-14 text-grey" id="verification-address-latlng">0.00 / 0.00</span>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+
+                    <div class="col-md-12 text-8">&nbsp;</div>
+
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="verification-add-cancel">Cancel</button>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-primary pull-left" id="verification-add-confirm">Add</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="div-verification-address-report">
+                <div id="verification-report-recent" class="noborder report-master">
+                    {% include('partial/report-table.html.twig') %}
+                </div>                      
+            </div>                      
+
+        </div>
+
+    </div>                      
+{#}
+        <table id="example-datatable" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="font-size:14px;">Name</th>
+                    <th style="font-size:14px;">Address</th>
+                    <th style="font-size:14px;">Lat/Long</th>
+                    <th style="font-size:14px;">Radius</th>           
+                    <th style="font-size:14px;">Verified</th>
+                    <th style="font-size:14px;">Last at Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>[The Name]</td>
+                    <td>[555 Address, City, State, ZIP, USA]</td>
+                    <td>[33.65971/-117.69657]</td>
+                    <td>[1/16 Mile]</td>
+                    <td><span class="label label-danger">[Not Verified]</span></td>
+                    <td>[8/17/2014]</td>
+                </tr>   
+                <tr> 
+                    <td>[The Name 2]</td>
+                    <td>[555 Address, City, State, ZIP, USA]</td>
+                    <td>[33.65972/-117.69652]</td>
+                    <td>[1/16 Mile]</td>
+                    <td><span class="label label-success">[Verified]</span></td>
+                    <td>[8/17/2014]</td>
+                </tr>  
+            </tbody>
+        </table>
+{#}
+    </div>                                     
+
+    <div id="tab-info" class="tab-pane fade in{% if permissions_vehicle_device_read or permissions_vehicle_customer_read %} active{% endif %}">
+        <div class="col-sm-12" style="padding: 0px 0px 0px 0px;">
+{#}
+        <div class="col-sm-2 col-xs-7 pull-left" style="background-color:#83c240;margin-top:10px;padding:1px;height:93%;min-width:60px;">
+            <div class="text-grey-10"  data-toggle="tabs" style="background-color:#eeeeee;padding:5px;height:100%;width:100%;">
+                Information Panels<br>
+                <button id="btn-info-vehicle" class="btn btn-default viewport-adjust-layout active" href="#sub-vehicle-info" data-toggle="tab" style="width:100%;">Vehicle</button>
+                <br>
+                <button id="btn-info-customer" class="btn btn-default viewport-adjust-layout" href="#sub-customer-info" data-toggle="tab" style="width:100%;">Customer</button>
+                <br>
+                <button id="btn-info-device" class="btn btn-default viewport-adjust-layout" href="#sub-device-info" data-toggle="tab" style="width:100%;">Device</button>
+            </div> 
+{#}
+            <div class="col-sm-6" data-toggle="tabs">
+                {% if permissions_vehicle_device_read %}
+                    <a id="btn-info-vehicle" class="btn btn-default btn-tiny active" href="#sub-vehicle-info" data-toggle="tab">Vehicle</a>
+                {% endif %}
+                {% if permissions_vehicle_customer_read %}
+                    <a id="btn-info-customer" class="btn btn-default btn-tiny{% if permissions_vehicle_device_read is empty %} active{% endif %}" href="#sub-customer-info" data-toggle="tab">Customer</a>
+                {% endif %}
+                {% if permissions_vehicle_device_read %}
+                    <a id="btn-info-device" class="btn btn-default btn-tiny" href="#sub-device-info" data-toggle="tab">Device</a>
+                {% endif %}
+            </div> 
+        </div>                    
+        <div class="col-sm-12 row" style="padding: 0px 20px 0px 20px;">
+{#}
+            <div class="col-md-2" style="display:none;">
+                <button class="btn btn-default pull-right">Print</button>
+            </div>
+{#}                   
+            <!-- Vehicle Details Content -->
+            <div class="tab-pane active" id="tab-vehicle-detail">&nbsp;
+                <div class="tab-content">
+                    <div id="sub-vehicle-info" class="tab-pane fade in{% if permissions_vehicle_device_read %} active{% else %}" style="display:none;{% endif %}">
+                        <div class="row">
+                            <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-name">Vehicle&nbsp;Name:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-name" href="javascript:void(0);" {% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Vehicle Name]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-serial">Serial:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p class="form-control-static" id="vehicle-serial">[Serial]]</p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-group">Vehicle&nbsp;Group:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+
+                                        <select id="vehicle-group" name="vehicle-group" class="form-control"{% if permissions_vehicle_write %} onChange="Core.Ajax(this.id,this.value,currentUnitId,'updateSelect');"{% else %} disabled{% endif %} size="1">
+                                            {% for groups in vehicle_groups %}
+                                                <option value="{{ groups.unitgroup_id }}" data-value="{{ groups.unitgroup_id }}">{{ groups.unitgroupname }}</option>
+                                            {% endfor %}
+                                        </select>
+<!-- 
+                                        <div class="wizard-div wizard-select"><table class="wizard-join"><tr><td><a class="wizard-clickable unitgroup" id="vehicle-group" href="javascript:void(0);" onClick="Core.Wizard.Link2Select('vehicle-group','unitgroup');"  onFocus="Core.Wizard.Link2Select(this.id,this.text);">[Vehicle Group]</a></td><th><a class="wizard-caret pull-right" href="javascript:void(0);" onClick="Core.Wizard.Link2Select('vehicle-group','unitgroup');">&nabla;</a></th></tr></table></div>
+                                        <ul id="ul-vehicle-group" class="dropdown-menu" onMouseLeave="Core.Wizard.DeSelect(this.id);" role="menu"></ul>
+ -->
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-status">Status:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <select id="vehicle-status" name="vehicle-status" class="form-control"{% if permissions_vehicle_write %} onChange="Core.Ajax(this.id,this.value,currentUnitId,'updateSelect');"{% else %} disabled{% endif %} size="1">
+                                            {% for options in vehicle_status %}
+                                                <option value="{{ options.v }}" data-value="{{ options.v }}">{{ options.k }}</option>
+                                            {% endfor %}
+                                        </select>
+<!-- 
+                                        <div class="wizard-div wizard-select"><table class="wizard-join"><tr><td><a class="wizard-clickable unitstatus" id="vehicle-status" href="javascript:void(0);" onClick="Core.Wizard.Link2Select('vehicle-status','unitstatus');"  onFocus="Core.Wizard.Link2Select('vehicle-status','unitstatus');">[Status]</a></td><th><a class="wizard-caret pull-right" href="javascript:void(0);">&nabla;</a></th></tr></table></div>
+                                        <ul id="ul-vehicle-status" class="dropdown-menu" onMouseLeave="Core.Wizard.DeSelect(this.id);" role="menu"></ul>
+ -->
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <!--<div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-device-state">Device State:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <span id="vehicle-device-state" class="">Active</span>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>-->
+                            </div>
+                            <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-vin">Vin:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-vin" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Vin]</a></td></tr></table></div>
+                                    </div>
+                                    <!--<div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                        <button id="vin-decoder-button" type="button" class="btn btn-xs btn-default">Decode VIN</button>
+                                    </div>-->
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-make">Make:</label>
+                                    </div>
+                                    <!--div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <a class="form-editable" id="vehicle-make" data-type="select" data-source="/ajax/vehicle/getAllVehicleMake" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                    </div-->
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-make" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Make]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-model">Model:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-model" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Model]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-vin">Year:</label>
+                                    </div>
+                                    <!--div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <a class="form-editable" id="vehicle-year" data-type="select" data-source="/ajax/vehicle/getAllVehicleYear" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                    </div-->
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-year" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);"  onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %} data-maxlength="4">[Year]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-color">Color:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-color" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Color]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-stock">Stock:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-stock" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Stock]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-license-plate">Lic Plate:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><a class="wizard-clickable wizard-editable editable-empty" id="vehicle-license-plate" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[License Plate]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-loan-id">Loan ID:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-loan-id" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Loan Id]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-install-date">Install&nbsp;Date:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+{#}
+                                        <div class="wizard-div wizard-edit"><a class="wizard-clickable wizard-editable editable-empty" id="vehicle-install-date" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Install Date]</a></td></tr></table></div>
+{#}
+                                        <div class="wizard-div wizard-edit"><a class="wizard-clickable{% if permissions_vehicle_write %} input-datepicker{% endif %}" id="vehicle-install-date" href="javascript:void(0);">[Install Date]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-installer">Installer:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><a class="wizard-clickable wizard-editable editable-empty" id="vehicle-installer" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Installer]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-install-mileage">Install&nbsp;Mileage:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable wizard-editable" id="vehicle-install-mileage" data-type="text" href="javascript:void(0);"{% if permissions_vehicle_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Install Mileage]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-driven-miles">Driven&nbsp;Miles:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="vehicle-driven-miles" class="form-control-static">[Driven Miles]</p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="vehicle-total-mileage">Total&nbsp;Mileage:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="vehicle-total-mileage" class="form-control-static">[Total Mileage]</p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row pull-right">
+                                    <a class="viewport-adjust-layout btn btn-primary" href="#" id="print-button" target="_blank">PRINT</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sub-customer-info" class="tab-pane fade in{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read %} active{% endif %}">
+                       <div class="row">
+                            <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-first-name">First Name:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-first-name" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[First Name]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-last-name">Last&nbsp;Name:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-last-name" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Last Name]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-address">Address:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-address" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Address]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-city">City:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-city" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[City]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-state">State:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-state" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[State]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-zipcode">Zip:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-zipcode" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Zip]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-mobile-phone">Mobile&nbsp;Phone:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-mobile-phone" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Mobile]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-home-phone">Home&nbsp;Phone:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-home-phone" class="wizard-editable editable-empty" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Home Phone]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="customer-email">Email:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="customer-email" href="javascript:void(0);"{% if permissions_vehicle_customer_write %} onClick="Core.Wizard.Link2Input(this.id,this.text);" onFocus="Core.Wizard.Link2Input(this.id,this.text);"{% endif %}>[Email]</a></td></tr></table></div>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="sub-device-info" class="tab-pane fade in{% if permissions_vehicle_device_read is empty and permissions_vehicle_customer_read is empty and permissions_vehicle_device_read %} active{% endif %}">
+                       <div class="row">
+                            <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-serial">Serial:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-serial" class="form-control-static">[Serial]</p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-status">Status:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <div class="wizard-div wizard-edit"><table class="wizard-join"><tr><td><a class="wizard-clickable" id="device-status" href="javascript:void(0);" onClick="Core.Wizard.Jump(this.id);">[Status]</a></td></tr></table></div>
+                                    </div>
+    {#}
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-status">Status:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-status" class="form-control-static">[Status]</p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+    {#}
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-plan">Plan:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-plan" class="form-control-static"><em>[Plan]</em></p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-purchase-date">Purchase&nbsp;Date:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-purchase-date" class="form-control-static"><em>[Purchase Date]</em></p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-activation-date">Activation&nbsp;Date:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-activation-date" class="form-control-static">[Activation Date]</p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-renewal-date">Renewal&nbsp;Date:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-renewal-date" class="form-control-static"><em>[Renewal Date]</em></p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                            <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-last-renewed">Last&nbsp;Renewed&nbsp;On:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-last-renewed" class="form-control-static"><em>[Last Renewed On]</em></p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                        <label class="control-label vertical-center pull-right" for="device-deactivation-date">Deactivation&nbsp;Date:</label>
+                                    </div>
+                                    <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+                                        <p id="device-deactivation-date" class="form-control-static"><em>[Deactivation Date]</em></p>
+                                    </div>
+                                    <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- div.tab-content -->
+            </div>
+
+
+
+
+
+{# MG's tabs don't work
+        <div class="tab-pane active" id="tab-vehicle-detail"> 
+            <div class="row">
+                <div class="col-md-4">
+                    
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group" >
+                            <label class="control-label vertical-center col-md-4 control-label">Vehicle&nbsp;Name:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-name" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="32">vehicle-name</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Serial #:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static" id="vehicle-serial">vehicle-serial</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Vehicle&nbsp;Group:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-group" data-type="select" data-source="/ajax/vehicle/getVehicleGroupOptions" data-url="/ajax/vehicle/updateAssignedVehicleGroup">vehicle-group</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Status:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-status" data-type="select" data-source="/ajax/vehicle/getVehicleStatusOptions" data-url="/ajax/vehicle/updateVehicleInfo">vehicle-status</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Install&nbsp;Mileage:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-install-mileage" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="6">vehicle-install-mileage</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        
+                <div class="col-md-4">
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">VIN:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-vin" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="17">vehicle-vin</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Make:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-make" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="16">vehicle-make</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Model:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-model" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="16">vehicle-model</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Year:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-year" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="4">vehicle-year</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Color:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-color" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="16">vehicle-color</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Driven&nbsp;Miles:</label>
+                            <div class="col-md-8">
+                                <p id="vehicle-driven-miles" class="form-control-static">vehicle-driven-miles</p>
+                            </div>
+                        </div>                        
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Stock #:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-stock" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="32">vehicle-stock</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Lic. Plate:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable editable-empty" id="vehicle-license-plate" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="8">vehicle-license-plate</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Loan ID:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable" id="vehicle-loan-id" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="16">vehicle-loan-id</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Install&nbsp;Date:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable editable-empty" id="vehicle-install-date" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo">vehicle-install-date</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Installer:</label>
+                            <div class="col-md-8">
+                                <a class="wizard-editable editable-empty" id="vehicle-installer" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="32">vehicle-installer</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Total&nbsp;Mileage:</label>
+                            <div class="col-md-8">
+                                <p id="vehicle-total-mileage" class="form-control-static">vehicle-total-mileage</p>
+                            </div>
+                        </div>                        
+                    </form>
+                </div>
+            </div>
+            <!-- END Vehicle Details Content -->
+        </div>   
+#}
+
+        <!-- END vehicle tab container -->
+
+       <div class="tab-pane" id="tab-customer-detail" style="display:none;"> 
+            <div class="row">
+                <div class="col-md-4">
+                    
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group" >
+                            <label class="control-label vertical-center col-md-4 control-label">First Name:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[First Name]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Last&nbsp;Name</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Last Name]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Vehicle&nbsp;Group:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Vehicle Group]</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                    
+                <div class="col-md-4">
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Address:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Address]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">City:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[City]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">State:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[State]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">ZIP:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Zip]</p>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Mobile Phone:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Mobile]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Home Phone:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Home]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Install&nbsp;Date:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Install Date]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Installer:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Installer]</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END Customer Details Content -->
+        </div>
+                        
+                            
+        <div class="tab-pane" id="tab-device-detail" style="display:none;"> 
+            <div class="row">
+                <div class="col-md-4">
+                    
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group" >
+                            <label class="control-label vertical-center col-md-4 control-label">Serial:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Serial]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Status:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Status]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Plan:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Plan]</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                    
+                <div class="col-md-4">
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Purchase&nbsp;Date:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Purchase Date]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Activation&nbsp;Date:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Activation Date]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Renewal&nbsp;Date:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Renewal Date]</p>
+                            </div>
+                        </div>
+                      
+                        
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <!-- Basic Form Elements Content -->
+                    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Last&nbsp;Renewed&nbsp;On:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Last Renewed On]</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label vertical-center col-md-4 control-label">Deactivation&nbsp;Date:</label>
+                            <div class="col-md-8">
+                                <p class="form-control-static">[Deactivation Date]</p>
+                            </div>
+                        </div>
+                  
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- END Customer Details Content -->
+                             
+        </div>     
+        <!-- END tab info content -->
+    </div>
+                                          
+</div>

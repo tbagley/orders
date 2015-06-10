@@ -1,0 +1,58 @@
+{# QUICK ACTIONS #}
+<div id="quick-actions" class="pull-right">
+    <form role="form">
+        <ul>
+            <li>
+                <a id="popover-landmark-group-new" class="has-popover has-tooltip" data-placement="bottom" title="Add Landmark Group" data-popover-placement="bottom" data-popover-title-id="popover-head-landmark-group-new" data-popover-content-id="popover-content-landmark-group-new" data-popover-position-right="25">
+                    <span class="icon16 icon16-plus"></span> <span style="color: #999999; font-size: 0.9em; text-transform: uppercase; position: relative; top: -3px;">Landmark Group</span>
+                </a>
+            </li>
+        </ul>
+    </form>
+</div>
+{# QUICK ACTION POPOVERS #}
+<div id="popover-head-landmark-group-new" class="hide">
+    <div class="clearfix">
+        <div class="pull-left">
+            Add Landmark Group
+        </div>
+        <div class="pull-right">
+            <button type="button" class="close">&times;</button>
+        </div>
+    </div>
+</div>
+<div id="popover-content-landmark-group-new" class="hide">
+    {% set label_col   = 'col-lg-4 col-md-4 col-sm-4 col-xs-4' %}
+    {% set control_col = 'col-lg-8 col-md-8 col-sm-8 col-xs-8' %}
+    {% set half_col    = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+    {% set full_col    = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+    <div class="row">
+        <div class="{{ full_col }}">
+            <div class="row">
+                <div class="{{ label_col }}">
+                    <label for="landmark-group-name-new">Name:</label>
+                </div>
+                <div class="{{ control_col }}">
+                    <input id="landmark-group-name-new" type="text" class="form-control" maxlength="{{ validation.group_name.maxlength }}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="{{ full_col }}">
+                    <div class="well well-sm">
+                        <p>Once saved, you will be prompted to add Landmarks to the new Landmark Group.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="clearfix">
+        <div class="pull-left">
+            <button type="button" id="popover-new-landmark-group-cancel" class="btn btn-default popover-cancel">Cancel</button>
+        </div>
+        <div class="pull-right">
+            <button type="button" id="popover-new-landmark-group-confirm" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</div>
+

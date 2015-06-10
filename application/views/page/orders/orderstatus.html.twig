@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+    <head>
+        <title>Position Plus Orders</title>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" href="/assets/media/icons/apple-touch-114-positionplus-mobile.png"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- jQuery Assets -->
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        
+    <!-- DataTables Assets -->
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script src="/assets/vendor/datatables/dataTables.bootstrap.js"></script>
+
+    <!-- Stylesheets -->
+        <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/mobile.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/map.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/plugins.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/themes.css" />
+    <!-- END Stylesheets -->
+        
+        <script type="text/javascript" src="https://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.js"></script>
+        <script src="/assets/js/mapbox.js"></script>
+        <script src="/assets/js/gmap.js"></script>
+        <script src="/assets/js/map.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="/assets_responsive/js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+        <script src="/assets_responsive/js/vendor/bootstrap.min.js"></script>
+        <script src="/assets_responsive/js/plugins.js"></script>
+        <script src="/assets/js/orders.js"></script>
+    </head>
+    <body data-environment="{{ environment }}" data-context="{{ context }}" data-map-api="{{ map_api }}" data-decarta-api-key="{{ decarta_api_key }}" data-session-timeout="{{ session_timeout }}">
+
+        <div class="pull-left" style="padding:10px;">
+            <a class="center" href="#">
+                <img src="/assets_responsive/img/logo.png" style="width:132px;">
+            </a>
+        </div>
+
+        <div class="pull-right" style="display:none;padding:10px;">
+            <a class="navigation" href="javascript:void(0);" id="orderstatus">Order Status</a>
+        </div>
+
+        <div id="div-orderstatus" class="div-navigation active" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <table class="orderstatus width-100">
+                    <tr>
+                        <td><span class="pull-right">Customer&nbsp;</span></td><th>{{ order.account_name }}</th>
+                    </tr>
+                    <tr>
+                        <td class="padding-10"><span class="pull-right">Order #</span></td>
+                        <th class="padding-10">{{ order.orders_id }}</th>
+                        <td class="padding-10">{% if order.shipping_track %}<span class="center">FedEX Tracking:&nbsp;&nbsp;&nbsp;<a href="https://www.fedex.com/apps/fedextrack/?tracknumbers={{ order.shipping_track }}&cntry_code=us" target="_fedex">{{ order.shipping_track }}</a>&nbsp;&nbsp;&nbsp;</span>{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="background-green" colspan="2">
+                            <table class="width-100">
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <th><h4 class="pull-right text-grey">CUSTOMER&nbsp;</h4></th>
+                                    <th>&nbsp;</th>
+                                    <th><h4 class="pull-right text-grey">POSITION PLUS&nbsp;</h4></th>
+                                    <th>&nbsp;</th>
+                                    {% if order.m2m_e_code %}
+                                    <th><h4 class="pull-right text-grey">VERIZON WIRELESS&nbsp;</h4></th>
+                                    <th>&nbsp;</th>
+                                    {% else %}
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    {% endif %}
+                                    <th>&nbsp;</th>
+                                </tr>
+                                {% if order.po %}
+                                <tr>
+                                    <td><span class="pull-right">Purchase Order #</span></td><th>{{ order.po }}</th>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <td><span class="pull-right">Billing Contact:&nbsp;</span></td><th>{{ order.account_contact }}</th>
+                                    <td><span class="pull-right">Sales Contact:&nbsp;</span></td><th>{{ order.rep_name }}</th>
+                                    {% if order.m2m_e_code %}
+                                    <td><span class="pull-right">Sales Contact:&nbsp;</span></td><th>{{ order.m2m_name }} - {{ order.m2m_e_code }}</th>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Email:&nbsp;</span></td><th>{{ order.account_email }}</th>
+                                    <td><span class="pull-right">Email:&nbsp;</span></td><th>{{ order.rep_email }}</th>
+                                    {% if order.m2m_e_code %}
+                                    <td><span class="pull-right">Email:&nbsp;</span></td><th>{{ order.m2m_email }}</th>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Phone:&nbsp;</span></td><th>{{ order.account_phone }}</th>
+                                    <td><span class="pull-right">Phone:&nbsp;</span></td><th>{{ order.rep_phone }}</th>
+                                    {% if order.m2m_e_code %}
+                                    <td><span class="pull-right">Phone:&nbsp;</span></td><th>{{ order.m2m_phone }}</th>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <th><h4 class="pull-right text-grey">ORDER&nbsp;</h4></th>
+                                    <th>&nbsp;</th>
+                                    <th><h4 class="pull-right text-grey">SHIPPING&nbsp;</h4></th>
+                                    <th>&nbsp;</th>
+                                    {% if order.inventory %}
+                                    <th><h4 class="pull-right text-grey">INVENTORY&nbsp;</h4></th>
+                                    <th>&nbsp;</th>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Quantity:&nbsp;</span></td><th>{{ order.quantity }}</th>
+                                    {% if order.shipping_track %}
+                                    <td><span class="pull-right">FedEX Tracking:&nbsp;</td><th><a href="https://www.fedex.com/apps/fedextrack/?tracknumbers={{ order.shipping_track }}&cntry_code=us" target="_fedex">{{ order.shipping_track }}</a>&nbsp;&nbsp;&nbsp;</span></th>
+                                    {% else %}
+                                    <td colspan="2">&nbsp;</td>
+                                    {% endif %}
+                                    {% if order.inventory %}
+                                    <td><span class="pull-right">Devices:&nbsp;</span></td><th rowspan="4"><textarea class="background-green width-90" rows="5" readonly>{{ order.inventory }}</textarea></th>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Product:&nbsp;</span></td><th>{{ order.rate }} - {{ order.manufacturer }} {{ order.version }} ({{ order.plan }}) &nbsp;&nbsp;<span class="text-green">{{ order.discount_rate }}</span></th>
+                                    <td><span class="pull-right">Shipping Method:&nbsp;</span></td><th>{{ order.shipping }} &nbsp;&nbsp;<span class="text-green">{{ order.discount_shipping }}</span></th>
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Accessories:&nbsp;</span></td><th>{{ order.accessories_cost }} - {{ order.accessories_name }} &nbsp;&nbsp;<span class="text-green">{{ order.discount_arate }}</span></th>
+                                    <td><span class="pull-right">Payment Method:&nbsp;</span></td><th>{{ order.payment }} &nbsp;&nbsp;<span class="text-green">{{ order.discount_handling }}</span></th>
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Handling:&nbsp;</span></td><th>{{ order.rate_handling }}</th>
+                                    <td><span class="pull-right">Shipping:&nbsp;</span></td><th>{{ order.rate_shipping }}</th>
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Extended:&nbsp;</span></td><th>{{ order.extended_total }} &nbsp;&nbsp;<span class="text-red">{{ order.discount_extended }}</th>
+                                    <td><span class="pull-right">Extended:&nbsp;</span></td><th>{{ order.extended_ship }} &nbsp;&nbsp;<span class="text-red">{{ order.discount_shipping }}</span></th>
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Taxes:&nbsp;</span></td><th>{{ order.taxes }} &nbsp;&nbsp;<span class="text-grey">{{ order.taxes_description }}</span></th>
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Sub-Total:&nbsp;</span></td><th>{{ order.subtotal }} &nbsp;&nbsp;<span class="text-red">{{ order.discount_subtotal }}</th>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td><h1 class="pull-right">Grand Total:</h1>&nbsp;</td><th class="text-red" colspan="2"><h1>{{ order.grand_total }}&nbsp;<span class="text-12">{% if order.discount_reason %}{{ order.discount_reason_label }}&nbsp;{{ order.discount_reason }}{% endif %}</span></h1></th>
+                                </tr>
+                                {% if order.notes %}
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Notes:&nbsp;</span></td><th colspan="5"><textarea class="background-green" readonly>{{ order.notes }}</textarea></th>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="pull-right">Last Update:&nbsp;</span></td><th>{{ order.updated }}</th>
+                                    <td><span class="pull-right">Created:&nbsp;</span></td><th>{{ order.createdate }}</th>
+                                    <td><span class="pull-right">Created By:&nbsp;</span></td><th>{{ order.rep_name }}</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td><span class="pull-right">Approved:&nbsp;</span></td><th>{{ order.approvedate }}</th>
+                                    <td><span class="pull-right">Approved By:&nbsp;</span></td><th>{{ order.approved_by }}</th>
+                                </tr>
+                                {% if order.invoice_number %}
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td><span class="pull-right">Invoiced On:&nbsp;</span></td><th>{{ order.invoicedate }}</th>
+                                    <td><span class="pull-right">Invoice #&nbsp;</span></td><th>{{ order.invoice_number }}</th>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </body>
+</html>

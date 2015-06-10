@@ -1,0 +1,386 @@
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# allows spacing for x-editable button #}
+                    {% set command_col    = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %} {# allows spacing for x-editable button #}
+                    {% set half_col       = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set full_col       = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %}
+                    {% set device_editable = (access.device.write) ? 'form-editable' : 'form-noneditable form-control-static disabled' %}
+                    {% set device_editable = (access.device.write) ? 'form-editable' : 'form-noneditable form-control-static disabled' %}
+
+
+                            <div class="tab-content panel-body hook-editable-keys" data-vehicle-pk="" data-customer-pk="">
+
+{# INFO #}
+                                <section class="tab-pane container active fade in" id="vehicle-info-tab">
+                                    <div class="clearfix">
+
+                                        <div class="">
+                                            <div class="tab-content" style="/*font-size: 1.2em;*/">{# TODO: remove inline style here #}
+    {# VEHICLE INFO #}
+                                                {% set vehicle_editable = (access.vehicle.write) ? 'form-editable' : 'form-noneditable form-control-static disabled' %}
+                                                <div class="tab-pane active fade in" id="sub-vehicle-info">
+                                                    <div class="row">
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-name">Vehicle Name:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-name" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.vehicle_name.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div> 
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-serial">Serial:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p class="form-control-static" id="vehicle-serial">[Serial]</p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-group">Vehicle Group:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-group" data-type="select" data-source="/ajax/vehicle/getVehicleGroupOptions" data-url="/ajax/vehicle/updateAssignedVehicleGroup"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>                                                                                                                                                                               
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-status">Status:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-status" data-type="select" data-source="/ajax/vehicle/getVehicleStatusOptions" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <!--<div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-device-state">Device State:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <span id="vehicle-device-state" class="">Active</span>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>-->                                                            
+                                                        </div>
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-vin">Vin:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-vin" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.vin_number.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-make">Make:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-make" data-type="select" data-source="/ajax/vehicle/getAllVehicleMake" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-model">Model:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-model" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.vehicle_model.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>                                                            
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-vin">Year:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-year" data-type="select" data-source="/ajax/vehicle/getAllVehicleYear" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-color">Color:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-color" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.vehicle_color.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-stock">Stock:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-stock" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.stock_number.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-license-plate">Lic Plate:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-license-plate" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.license_plate.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-loan-id">Loan ID:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-loan-id" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.loan_id.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>                                                            
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-install-date">Install Date:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-install-date" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-installer">Installer:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-installer" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.installer_name.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <div class="row">
+                                                        <div class="{{ info_col }}">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-install-mileage">Install Mileage:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <a class="{{ vehicle_editable }}" id="vehicle-install-mileage" data-type="text" data-url="/ajax/vehicle/updateVehicleInfo" data-maxlength="{{ validation.odometer.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ info_col }}">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-driven-miles">Driven Miles:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <p id="vehicle-driven-miles" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ info_col }}">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="vehicle-total-mileage">Total Mileage:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <p id="vehicle-total-mileage" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    {# CUSTOMER INFO #}
+                                                {% set customer_editable = (access.vehicle_customer.write) ? 'form-editable' : 'form-noneditable form-control-static disabled' %}
+                                                <div class="tab-pane fade in" id="sub-customer-info">
+
+                                                    <div class="row">
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-first-name">First Name:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-first-name" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.first_last_name.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-last-name">Last Name:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-last-name" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.first_name.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-address">Address:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-address" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.address_street.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-city">City:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-city" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.address_city.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-state">State:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-state" class="{{ customer_editable }}" data-type="select" data-source="/ajax/vehicle/getStatesOptions" data-url="/ajax/vehicle/updateCustomerInfo"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-zipcode">Zip:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-zipcode" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.address_zip.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>                                                                                                                                                                                    
+                                                        </div>
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-mobile-phone">Mobile Phone:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-mobile-phone" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.phone_number.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-home-phone">Home Phone:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-home-phone" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.phone_number.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="customer-email">Email:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <a id="customer-email" class="{{ customer_editable }}" data-type="text" data-url="/ajax/vehicle/updateCustomerInfo" data-maxlength="{{ validation.email.maxlength }}"></a>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+    {# DEVICE INFO ##}
+                                                <div class="tab-pane fade in" id="sub-device-info">
+                                                    <div class="row">
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-serial">Serial:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p id="device-serial" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-status">Status:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }}">
+                                                                    <p id="device-status" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-plan">Plan:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p id="device-plan" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-purchase-date">Purchase Date:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p id="device-purchase-date" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-activation-date">Activation Date:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p id="device-activation-date" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-renewal-date">Renewal Date:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p id="device-renewal-date" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="{{ info_col }} col-bordered">
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-last-renewed">Last Renewed On:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p id="device-last-renewed" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="{{ label_col }}">
+                                                                    <label for="device-deactivation-date">Deactivation Date:</label>
+                                                                </div>
+                                                                <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                                                    <p id="device-deactivation-date" class="form-control-static"></p>
+                                                                </div>
+                                                                <div class="{{ control_offset }}"></div>
+                                                            </div>                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                            </div>
+

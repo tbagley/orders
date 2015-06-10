@@ -1,0 +1,1047 @@
+api:
+    pattern: '/api'
+    defaults: { _controller: 'Controllers\Api::apiJsClass' }
+
+api_ajax:
+    pattern: /api/ajax
+    defaults: { _controller: 'Controllers\Api::apiAjax' }
+
+api_json:
+    pattern: '/api/json/{partner}/{subscriber}/{script}/{p}'
+    defaults: { _controller: 'Controllers\Api::apiJson' }
+
+api_xml:
+    pattern: '/api/xml/{partner}/{subscriber}/{script}/{p}'
+    defaults: { _controller: 'Controllers\Api::apiXml' }
+
+api_js_class_key:
+    pattern: '/api/js/{partner}/{subscriber}'
+    defaults: { _controller: 'Controllers\Api::apiJsRestrict' }
+
+api_key_script_params:
+    pattern: '/api/{partner}/{subscriber}/{script}/{p}'
+    defaults: { _controller: 'Controllers\Api::api' }
+
+mobile:
+    pattern: /mobile
+    defaults: { _controller: 'Controllers\Mobile::mobile' }
+
+orders_orders:
+    pattern: '/orders'
+    defaults: { _controller: 'Controllers\Orders::orders' }
+
+orders_ajax:
+    pattern: /orders/ajax
+    defaults: { _controller: 'Controllers\Ajax\Orders::Ajax' }
+
+orders_ajax_reports:
+    pattern: /orders/ajax/reports
+    defaults: { _controller: 'Controllers\Ajax\Orders::Reports' }
+
+orders_fulfillment:
+    pattern: '/fulfillment'
+    defaults: { _controller: 'Controllers\Orders::fulfillment' }
+
+orders_fulfillment_warehouse:
+    pattern: '/warehouse'
+    defaults: { _controller: 'Controllers\Orders::warehouse' }
+
+orders_fulfillment_reports:
+    pattern: /fulfillment/ajax/reports
+    defaults: { _controller: 'Controllers\Ajax\Orders::Reports' }
+
+orders_orderstatus:
+    pattern: '/orderstatus/{uri}'
+    defaults: { _controller: 'Controllers\Orders::orderstatus' }
+
+repo:
+    pattern: '/repo/{repoKey}'
+    defaults: { _controller: 'Controllers\Device::repolink' }
+
+admin_repo:
+    pattern: /admin/repo
+    defaults: { _controller: 'Controllers\Device::repo' }
+
+core_ajax:
+    pattern: /ajax/core/ajax
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::ajax' }
+
+fix_landmark:
+    pattern: /ajax/core/fixLandmark
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::fixLandmark' }
+
+admin_index:
+    pattern: /admin
+    defaults: { _controller: 'Controllers\Device::index' }
+
+admin_admin:
+    pattern: /admin/admin
+    defaults: { _controller: 'Controllers\Device::admin' }
+
+admin_users:
+    pattern: /admin/users
+    # defaults: { _controller: 'Controllers\Device::users' }
+    defaults: { _controller: 'Controllers\Users::listview' }
+
+admin_usertypes:
+    pattern: /admin/usertypes
+    # defaults: { _controller: 'Controllers\Device::usertypes' }
+    defaults: { _controller: 'Controllers\Users::type' }
+
+admin_list:
+    pattern: /admin/list
+    defaults: { _controller: 'Controllers\Device::listview' }
+
+admin_export:
+    pattern: /admin/export
+    defaults: { _controller: 'Controllers\Device::export' }
+
+device_index:
+    pattern: /device
+    defaults: { _controller: 'Controllers\Device::index' }
+
+device_admin:
+    pattern: /device/admin
+    defaults: { _controller: 'Controllers\Device::admin' }
+
+device_users:
+    pattern: /device/users
+    # defaults: { _controller: 'Controllers\Device::users' }
+    defaults: { _controller: 'Controllers\Users::listview' }
+
+device_usertypes:
+    pattern: /device/usertypes
+    # defaults: { _controller: 'Controllers\Device::usertypes' }
+    defaults: { _controller: 'Controllers\Users::type' }
+
+device_list:
+    pattern: /device/list
+    defaults: { _controller: 'Controllers\Device::listview' }
+
+device_export:
+    pattern: /device/export
+    defaults: { _controller: 'Controllers\Device::export' }
+
+# 
+# routes above manually inserted/modifed by Todd Bagley
+# 
+
+account_index:
+    pattern: /account
+    defaults: { _controller: 'Controllers\Account::index' }
+
+demo:
+    pattern: '/demo/{sudoStr}'
+    defaults: { _controller: 'Controllers\Account::demo' }
+
+account_demo:
+    pattern: '/account/demo/{sudoStr}'
+    defaults: { _controller: 'Controllers\Account::demo' }
+
+login:
+    pattern: /login
+    defaults: { _controller: 'Controllers\Account::login' }
+
+account_login:
+    pattern: /account/login
+    defaults: { _controller: 'Controllers\Account::login' }
+
+account_legal:
+    pattern: /account/legal
+    defaults: { _controller: 'Controllers\Account::legal' }
+
+registration:
+    pattern: '/registration/{token}'
+    defaults: { _controller: 'Controllers\Account::registration' }
+
+account_registration:
+    pattern: '/account/registration/{token}'
+    defaults: { _controller: 'Controllers\Account::registration' }
+
+forgotusername:
+    pattern: /forgotusername
+    defaults: { _controller: 'Controllers\Account::forgotusername' }
+
+account_forgotusername:
+    pattern: /account/forgotusername
+    defaults: { _controller: 'Controllers\Account::forgotusername' }
+
+forgotpassword:
+    pattern: /forgotpassword
+    defaults: { _controller: 'Controllers\Account::forgotpassword' }
+
+account_forgotpassword:
+    pattern: /account/forgotpassword
+    defaults: { _controller: 'Controllers\Account::forgotpassword' }
+
+changepassword:
+    pattern: '/changepassword/{token}'
+    defaults: { _controller: 'Controllers\Account::changepassword' }
+
+account_changepassword:
+    pattern: '/account/changepassword/{token}'
+    defaults: { _controller: 'Controllers\Account::changepassword' }
+
+sudo:
+    pattern: '/sudo/{sudoStr}'
+    defaults: { _controller: 'Controllers\Account::sudo' }
+
+account_sudo:
+    pattern: '/account/sudo/{sudoStr}'
+    defaults: { _controller: 'Controllers\Account::sudo' }
+
+account_getmyaccountinfo:
+    pattern: /ajax/account/getMyAccountInfo
+    defaults: { _controller: 'Controllers\Ajax\Account::getMyAccountInfo' }
+
+account_updatemyaccountinfo:
+    pattern: /ajax/account/updateMyAccountInfo
+    defaults: { _controller: 'Controllers\Ajax\Account::updateMyAccountInfo' }
+
+alert_getfilteredalerts:
+    pattern: /ajax/alert/getFilteredAlerts
+    defaults: { _controller: 'Controllers\Ajax\Alert::getFilteredAlerts' }
+
+alert_getalerthistory:
+    pattern: /ajax/alert/getAlertHistory
+    defaults: { _controller: 'Controllers\Ajax\Alert::getAlertHistory' }
+
+alert_addalert:
+    pattern: /ajax/alert/addAlert
+    defaults: { _controller: 'Controllers\Ajax\Alert::addAlert' }
+
+alert_updatealertinfo:
+    pattern: /ajax/alert/updateAlertInfo
+    defaults: { _controller: 'Controllers\Ajax\Alert::updateAlertInfo' }
+
+alert_deletealert:
+    pattern: /ajax/alert/deleteAlert
+    defaults: { _controller: 'Controllers\Ajax\Alert::deleteAlert' }
+
+alert_getalertoptions:
+    pattern: '/ajax/alert/getAlertOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Alert::getAlertOptions', placeholder: null, value: '' }
+
+alert_getalerttypeoptions:
+    pattern: /ajax/alert/getAlertTypeOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getAlertTypeOptions' }
+
+alert_getdaysoptions:
+    pattern: '/ajax/alert/getDaysOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Alert::getDaysOptions', placeholder: null, value: '' }
+
+alert_gethoursoptions:
+    pattern: /ajax/alert/getHoursOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getHoursOptions' }
+
+alert_getvoltageoptions:
+    pattern: /ajax/alert/getVoltageOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getVoltageOptions' }
+
+alert_getextendedstopoptions:
+    pattern: /ajax/alert/getExtendedStopOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getExtendedStopOptions' }
+
+alert_getnonreportingoptions:
+    pattern: /ajax/alert/getNonReportingOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getNonReportingOptions' }
+
+alert_getoverspeedoptions:
+    pattern: /ajax/alert/getOverSpeedOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getOverSpeedOptions' }
+
+alert_gettowoptions:
+    pattern: /ajax/alert/getTowOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getTowOptions' }
+
+alert_getmovingoptions:
+    pattern: /ajax/alert/getMovingOptions
+    defaults: { _controller: 'Controllers\Ajax\Alert::getMovingOptions' }
+
+alert_getalertbyid:
+    pattern: /ajax/alert/getAlertById
+    defaults: { _controller: 'Controllers\Ajax\Alert::getAlertById' }
+
+alert_exportalerthistory:
+    pattern: '/ajax/alert/exportAlertHistory/{format}/{filterType}/{filterValue1}/{filterValue2}/{filterValue3}/{filterValue4}/{filterValue5}/{filterValue6}'
+    defaults: { _controller: 'Controllers\Ajax\Alert::exportAlertHistory' }
+
+boundary_getboundaryoptions:
+    pattern: '/ajax/boundary/getBoundaryOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Boundary::getBoundaryOptions', placeholder: null, value: '' }
+
+boundary_getboundarygroupoptions:
+    pattern: /ajax/boundary/getBoundaryGroupOptions
+    defaults: { _controller: 'Controllers\Ajax\Boundary::getBoundaryGroupOptions' }
+
+contact_updatecontactinfo:
+    pattern: /ajax/contact/updateContactInfo
+    defaults: { _controller: 'Controllers\Ajax\Contact::updateContactInfo' }
+
+contact_updatecontactgroupinfo:
+    pattern: /ajax/contact/updateContactGroupInfo
+    defaults: { _controller: 'Controllers\Ajax\Contact::updateContactGroupInfo' }
+
+contact_getcontactoptions:
+    pattern: '/ajax/contact/getContactOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Contact::getContactOptions', placeholder: null, value: '' }
+
+contact_getcontactgroupoptions:
+    pattern: '/ajax/contact/getContactGroupOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Contact::getContactGroupOptions', placeholder: null, value: '' }
+
+contact_getsmscarrieroptions:
+    pattern: /ajax/contact/getSMSCarrierOptions
+    defaults: { _controller: 'Controllers\Ajax\Contact::getSMSCarrierOptions' }
+
+contact_getcontactmethodoptions:
+    pattern: /ajax/contact/getContactMethodOptions
+    defaults: { _controller: 'Controllers\Ajax\Contact::getContactMethodOptions' }
+
+contact_addcontact:
+    pattern: /ajax/contact/addContact
+    defaults: { _controller: 'Controllers\Ajax\Contact::addContact' }
+
+contact_getfilteredcontacts:
+    pattern: /ajax/contact/getFilteredContacts
+    defaults: { _controller: 'Controllers\Ajax\Contact::getFilteredContacts' }
+
+contact_getfilteredcontactgroups:
+    pattern: /ajax/contact/getFilteredContactGroups
+    defaults: { _controller: 'Controllers\Ajax\Contact::getFilteredContactGroups' }
+
+contact_getcontactbyid:
+    pattern: /ajax/contact/getContactById
+    defaults: { _controller: 'Controllers\Ajax\Contact::getContactById' }
+
+contact_getcontactgroupbyid:
+    pattern: /ajax/contact/getContactGroupById
+    defaults: { _controller: 'Controllers\Ajax\Contact::getContactGroupById' }
+
+contact_deletecontact:
+    pattern: /ajax/contact/deleteContact
+    defaults: { _controller: 'Controllers\Ajax\Contact::deleteContact' }
+
+contact_deletecontactgroup:
+    pattern: /ajax/contact/deleteContactGroup
+    defaults: { _controller: 'Controllers\Ajax\Contact::deleteContactGroup' }
+
+contact_updatecontactgroupcontact:
+    pattern: /ajax/contact/updateContactGroupContact
+    defaults: { _controller: 'Controllers\Ajax\Contact::updateContactGroupContact' }
+
+contact_addcontactgroup:
+    pattern: /ajax/contact/addContactGroup
+    defaults: { _controller: 'Controllers\Ajax\Contact::addContactGroup' }
+
+contact_getcontactgroupsbyaccountid:
+    pattern: /ajax/contact/getContactGroupsByAccountId
+    defaults: { _controller: 'Controllers\Ajax\Contact::getContactGroupsByAccountId' }
+
+device_getdevicetransferdatabyaccountid:
+    pattern: /ajax/device/getDeviceTransferDataByAccountId
+    defaults: { _controller: 'Controllers\Ajax\Device::getDeviceTransferDataByAccountId' }
+
+device_getfiltereddevicelist:
+    pattern: /ajax/device/getFilteredDeviceList
+    defaults: { _controller: 'Controllers\Ajax\Device::getFilteredDeviceList' }
+
+device_getdevicedatainfo:
+    pattern: /ajax/device/getDeviceDataInfo
+    defaults: { _controller: 'Controllers\Ajax\Device::getDeviceDataInfo' }
+
+device_updatevehicleinfo:
+    pattern: /ajax/device/updateVehicleInfo
+    defaults: { _controller: 'Controllers\Ajax\Device::updateVehicleInfo' }
+
+landmark_getlandmarksbygroupids:
+    pattern: /ajax/landmark/getLandmarksByGroupIds
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarksByGroupIds' }
+
+landmark_getfilteredlandmarks:
+    pattern: /ajax/landmark/getFilteredLandmarks
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getFilteredLandmarks' }
+
+landmark_getfilteredlandmarkslist:
+    pattern: /ajax/landmark/getFilteredLandmarksList
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getFilteredLandmarksList' }
+
+landmark_getincompletelandmarkslist:
+    pattern: /ajax/landmark/getIncompleteLandmarksList
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getIncompleteLandmarksList' }
+
+landmark_getfilteredverificationlist:
+    pattern: /ajax/landmark/getFilteredVerificationList
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getFilteredVerificationList' }
+
+landmark_getverifacationaddressbyids:
+    pattern: /ajax/landmark/getVerifacationAddressByIds
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getVerifacationAddressByIds' }
+
+landmark_getlandmarkgrouplist:
+    pattern: /ajax/landmark/getLandmarkGroupList
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkGroupList' }
+
+landmark_getlandmarkbyids:
+    pattern: /ajax/landmark/getLandmarkByIds
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkByIds' }
+
+landmark_getincompletelandmarkbyids:
+    pattern: /ajax/landmark/getIncompleteLandmarkByIds
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getIncompleteLandmarkByIds' }
+
+landmark_savelandmark:
+    pattern: /ajax/landmark/saveLandmark
+    defaults: { _controller: 'Controllers\Ajax\Landmark::saveLandmark' }
+
+landmark_deletelandmark:
+    pattern: /ajax/landmark/deleteLandmark
+    defaults: { _controller: 'Controllers\Ajax\Landmark::deleteLandmark' }
+
+landmark_deletelandmarkupload:
+    pattern: /ajax/landmark/deleteLandmarkUpload
+    defaults: { _controller: 'Controllers\Ajax\Landmark::deleteLandmarkUpload' }
+
+landmark_getlandmarkgroupinfo:
+    pattern: /ajax/landmark/getLandmarkGroupInfo
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkGroupInfo' }
+
+landmark_fetchlandmarkcsvimporttemplate:
+    pattern: /ajax/landmark/fetchLandmarkCSVImportTemplate
+    defaults: { _controller: 'Controllers\Ajax\Landmark::fetchLandmarkCSVImportTemplate' }
+
+landmark_uploadlandmarks:
+    pattern: /ajax/landmark/uploadLandmarks
+    defaults: { _controller: 'Controllers\Ajax\Landmark::uploadLandmarks' }
+
+landmark_exportfilteredlandmarklist:
+    pattern: '/ajax/landmark/exportFilteredLandmarkList/{format}/{filterType}/{filterValue1}/{filterValue2}'
+    defaults: { _controller: 'Controllers\Ajax\Landmark::exportFilteredLandmarkList' }
+
+landmark_exportlandmark:
+    pattern: '/ajax/landmark/exportLandmark/{format}/{landmark_id}'
+    defaults: { _controller: 'Controllers\Ajax\Landmark::exportLandmark' }
+
+landmark_updatelandmarkinfo:
+    pattern: /ajax/landmark/updateLandmarkInfo
+    defaults: { _controller: 'Controllers\Ajax\Landmark::updateLandmarkInfo' }
+
+landmark_getlandmarkgroupoptions:
+    pattern: /ajax/landmark/getLandmarkGroupOptions
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkGroupOptions' }
+
+landmark_getlandmarkunitoptions:
+    pattern: /ajax/landmark/getLandmarkUnitOptions
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkUnitOptions' }
+
+landmark_getlandmarktypeoptions:
+    pattern: '/ajax/landmark/getLandmarkTypeOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkTypeOptions', placeholder: null, value: null }
+
+landmark_getlandmarkradiusoptions:
+    pattern: /ajax/landmark/getLandmarkRadiusOptions
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkRadiusOptions' }
+
+landmark_getlandmarkmethodoptions:
+    pattern: /ajax/landmark/getLandmarkMethodOptions
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkMethodOptions' }
+
+landmark_getlandmarktriggeroptions:
+    pattern: /ajax/landmark/getLandmarkTriggerOptions
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkTriggerOptions' }
+
+landmark_getlandmarkoptions:
+    pattern: '/ajax/landmark/getLandmarkOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkOptions', placeholder: null, value: '' }
+
+landmark_getlandmarkcategoryoptions:
+    pattern: /ajax/landmark/getLandmarkCategoryOptions
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getLandmarkCategoryOptions' }
+
+landmark_getreferenceoptions:
+    pattern: '/ajax/landmark/getReferenceOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getReferenceOptions', placeholder: null, value: null }
+
+landmark_reversegeocode:
+    pattern: /ajax/landmark/reverseGeocode
+    defaults: { _controller: 'Controllers\Ajax\Landmark::reverseGeocode' }
+
+landmark_addlandmarkgrouptouser:
+    pattern: /ajax/landmark/addLandmarkGroupToUser
+    defaults: { _controller: 'Controllers\Ajax\Landmark::addLandmarkGroupToUser' }
+
+landmark_removelandmarkgroupfromuser:
+    pattern: /ajax/landmark/removeLandmarkGroupFromUser
+    defaults: { _controller: 'Controllers\Ajax\Landmark::removeLandmarkGroupFromUser' }
+
+landmark_addlandmarkstogroup:
+    pattern: /ajax/landmark/addLandmarksToGroup
+    defaults: { _controller: 'Controllers\Ajax\Landmark::addLandmarksToGroup' }
+
+landmark_removelandmarksfromgroup:
+    pattern: /ajax/landmark/removeLandmarksFromGroup
+    defaults: { _controller: 'Controllers\Ajax\Landmark::removeLandmarksFromGroup' }
+
+landmark_addlandmarkgroup:
+    pattern: /ajax/landmark/addLandmarkGroup
+    defaults: { _controller: 'Controllers\Ajax\Landmark::addLandmarkGroup' }
+
+landmark_deletelandmarkgroup:
+    pattern: /ajax/landmark/deleteLandmarkGroup
+    defaults: { _controller: 'Controllers\Ajax\Landmark::deleteLandmarkGroup' }
+
+landmark_updatelandmarkgroupinfo:
+    pattern: /ajax/landmark/updateLandmarkGroupInfo
+    defaults: { _controller: 'Controllers\Ajax\Landmark::updateLandmarkGroupInfo' }
+
+landmark_getfilteredavailablelandmarks:
+    pattern: /ajax/landmark/getFilteredAvailableLandmarks
+    defaults: { _controller: 'Controllers\Ajax\Landmark::getFilteredAvailableLandmarks' }
+
+report_runreport:
+    pattern: /ajax/report/runReport
+    defaults: { _controller: 'Controllers\Ajax\Report::runReport' }
+
+report_saveschedulereport:
+    pattern: /ajax/report/saveScheduleReport
+    defaults: { _controller: 'Controllers\Ajax\Report::saveScheduleReport' }
+
+report_testrunreport:
+    pattern: /ajax/report/testRunReport
+    defaults: { _controller: 'Controllers\Ajax\Report::testRunReport' }
+
+report_exportreport:
+    pattern: '/ajax/report/exportReport/{format}/{reporthistory_id}'
+    defaults: { _controller: 'Controllers\Ajax\Report::exportReport' }
+
+report_getfilteredschedulereports:
+    pattern: /ajax/report/getFilteredScheduleReports
+    defaults: { _controller: 'Controllers\Ajax\Report::getFilteredScheduleReports' }
+
+report_getfilteredreporthistory:
+    pattern: /ajax/report/getFilteredReportHistory
+    defaults: { _controller: 'Controllers\Ajax\Report::getFilteredReportHistory' }
+
+report_getschedulereportbyid:
+    pattern: /ajax/report/getScheduleReportById
+    defaults: { _controller: 'Controllers\Ajax\Report::getScheduleReportById' }
+
+report_updatescheduledreportinfo:
+    pattern: /ajax/report/updateScheduledReportInfo
+    defaults: { _controller: 'Controllers\Ajax\Report::updateScheduledReportInfo' }
+
+report_deletescheduledreport:
+    pattern: /ajax/report/deleteScheduledReport
+    defaults: { _controller: 'Controllers\Ajax\Report::deleteScheduledReport' }
+
+report_getnotreportedoptions:
+    pattern: /ajax/report/getNotReportedOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getNotReportedOptions' }
+
+report_getvehiclegroupoptions:
+    pattern: /ajax/report/getVehicleGroupOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getVehicleGroupOptions' }
+
+report_getvehicleoptions:
+    pattern: '/ajax/report/getVehicleOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Report::getVehicleOptions', placeholder: null, value: '' }
+
+report_getdayofweekoptions:
+    pattern: /ajax/report/getDayofWeekOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getDayofWeekOptions' }
+
+report_getformatoptions:
+    pattern: /ajax/report/getFormatOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getFormatOptions' }
+
+report_getsendhouroptions:
+    pattern: /ajax/report/getSendHourOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getSendHourOptions' }
+
+report_getdayofmonthoptions:
+    pattern: /ajax/report/getDayofMonthOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getDayofMonthOptions' }
+
+report_getmileageoptions:
+    pattern: /ajax/report/getMileageOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getMileageOptions' }
+
+report_gettimedurationoptions:
+    pattern: /ajax/report/getTimeDurationOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getTimeDurationOptions' }
+
+report_getoverspeedoptions:
+    pattern: /ajax/report/getOverSpeedOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getOverSpeedOptions' }
+
+report_getdaythresholdoptions:
+    pattern: /ajax/report/getDayThresholdOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getDayThresholdOptions' }
+
+report_gettimethresholdoptions:
+    pattern: /ajax/report/getTimeThresholdOptions
+    defaults: { _controller: 'Controllers\Ajax\Report::getTimeThresholdOptions' }
+
+system:
+    pattern: /system
+    defaults: { _controller: 'Controllers\Device::systemLogins' }
+
+system_airtime:
+    pattern: /system/airtime
+    defaults: { _controller: 'Controllers\Device::systemAirtime' }
+
+system_devices:
+    pattern: /system/devices
+    defaults: { _controller: 'Controllers\Device::systemMetrics' }
+
+system_library:
+    pattern: /system/library
+    defaults: { _controller: 'Controllers\Device::systemLibrary' }
+
+system_logins:
+    pattern: /system/logins
+    defaults: { _controller: 'Controllers\Device::systemLogins' }
+
+system_sales:
+    pattern: /system/sales
+    defaults: { _controller: 'Controllers\Device::systemSales' }
+
+system_ux:
+    pattern: /system/ux
+    defaults: { _controller: 'Controllers\Device::systemUx' }
+
+users_getfilteredusers:
+    pattern: /ajax/users/getFilteredUsers
+    defaults: { _controller: 'Controllers\Ajax\Users::getFilteredUsers' }
+
+users_getfilteredusertypelist:
+    pattern: /ajax/users/getFilteredUserTypeList
+    defaults: { _controller: 'Controllers\Ajax\Users::getFilteredUserTypeList' }
+
+users_exportfiltereduserslist:
+    pattern: '/ajax/users/exportFilteredUsersList/{filterType}/{filterValue1}'
+    defaults: { _controller: 'Controllers\Ajax\Users::exportFilteredUsersList' }
+
+users_adduser:
+    pattern: /ajax/users/addUser
+    defaults: { _controller: 'Controllers\Ajax\Users::addUser' }
+
+users_updateuserinfo:
+    pattern: /ajax/users/updateUserInfo
+    defaults: { _controller: 'Controllers\Ajax\Users::updateUserInfo' }
+
+users_deleteuser:
+    pattern: /ajax/users/deleteUser
+    defaults: { _controller: 'Controllers\Ajax\Users::deleteUser' }
+
+users_getuserbyid:
+    pattern: /ajax/users/getUserById
+    defaults: { _controller: 'Controllers\Ajax\Users::getUserById' }
+
+users_getusertypebyid:
+    pattern: /ajax/users/getUserTypeById
+    defaults: { _controller: 'Controllers\Ajax\Users::getUserTypeById' }
+
+users_addusertype:
+    pattern: /ajax/users/addUserType
+    defaults: { _controller: 'Controllers\Ajax\Users::addUserType' }
+
+users_deleteusertype:
+    pattern: /ajax/users/deleteUserType
+    defaults: { _controller: 'Controllers\Ajax\Users::deleteUserType' }
+
+users_updateusertypeinfo:
+    pattern: /ajax/users/updateUserTypeInfo
+    defaults: { _controller: 'Controllers\Ajax\Users::updateUserTypeInfo' }
+
+users_getusertypeoptions:
+    pattern: /ajax/users/getUserTypeOptions
+    defaults: { _controller: 'Controllers\Ajax\Users::getUserTypeOptions' }
+
+users_getuserinlinedropdownoptions:
+    pattern: '/ajax/users/getUserInlineDropdownOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Users::getUserInlineDropdownOptions', placeholder: null, value: '' }
+
+users_addusertypepermission:
+    pattern: /ajax/users/addUserTypePermission
+    defaults: { _controller: 'Controllers\Ajax\Users::addUserTypePermission' }
+
+utility_heartbeat:
+    pattern: /ajax/utility/heartbeat
+    defaults: { _controller: 'Controllers\Ajax\Utility::heartbeat' }
+
+utility_faketimeout:
+    pattern: /ajax/utility/fakeTimeout
+    defaults: { _controller: 'Controllers\Ajax\Utility::fakeTimeout' }
+
+vehicle_getallvehicles:
+    pattern: /ajax/vehicle/getAllVehicles
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getAllVehicles' }
+
+vehicle_getvehiclesbygroupids:
+    pattern: /ajax/vehicle/getVehiclesByGroupIds
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehiclesByGroupIds' }
+
+vehicle_getfilteredvehicles:
+    pattern: /ajax/vehicle/getFilteredVehicles
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getFilteredVehicles' }
+
+vehicle_getfilteredvehiclelist:
+    pattern: /ajax/vehicle/getFilteredVehicleList
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getFilteredVehicleList' }
+
+vehicle_searchvehiclebyname:
+    pattern: /ajax/vehicle/searchVehicleByName
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::searchVehicleByName' }
+
+vehicle_updatevehiclegroupids:
+    pattern: /ajax/vehicle/updateVehicleGroupIds
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::updateVehicleGroupIds' }
+
+vehicle_getvehicleinfo:
+    pattern: /ajax/vehicle/getVehicleInfo
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleInfo' }
+
+vehicle_updatevehicleinfo:
+    pattern: /ajax/vehicle/updateVehicleInfo
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::updateVehicleInfo' }
+
+vehicle_updateassignedvehiclegroup:
+    pattern: /ajax/vehicle/updateAssignedVehicleGroup
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::updateAssignedVehicleGroup' }
+
+vehicle_getlastreportedevent:
+    pattern: /ajax/vehicle/getLastReportedEvent
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getLastReportedEvent' }
+
+vehicle_geteventbyid:
+    pattern: /ajax/vehicle/getEventById
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getEventById' }
+
+vehicle_sendcommand:
+    pattern: /ajax/vehicle/sendCommand
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::sendCommand' }
+
+vehicle_getvehiclegroupoptions:
+    pattern: /ajax/vehicle/getVehicleGroupOptions
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleGroupOptions' }
+
+vehicle_getvehicleoptions:
+    pattern: '/ajax/vehicle/getVehicleOptions/{placeholder}/{value}'
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleOptions', placeholder: null, value: '' }
+
+vehicle_updatecustomerinfo:
+    pattern: /ajax/vehicle/updateCustomerInfo
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::updateCustomerInfo' }
+
+vehicle_getstatesoptions:
+    pattern: /ajax/vehicle/getStatesOptions
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getStatesOptions' }
+
+vehicle_getvehiclestatusoptions:
+    pattern: /ajax/vehicle/getVehicleStatusOptions
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleStatusOptions' }
+
+vehicle_getallvehiclemake:
+    pattern: /ajax/vehicle/getAllVehicleMake
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getAllVehicleMake' }
+
+vehicle_getallvehicleyear:
+    pattern: /ajax/vehicle/getAllVehicleYear
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getAllVehicleYear' }
+
+vehicle_fetchaddresscsvimporttemplate:
+    pattern: /ajax/vehicle/fetchAddressCSVImportTemplate
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::fetchAddressCSVImportTemplate' }
+
+vehicle_getvehiclequickhistory:
+    pattern: /ajax/vehicle/getVehicleQuickHistory
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleQuickHistory' }
+
+vehicle_addreferencelandmarktovehicle:
+    pattern: /ajax/vehicle/addReferenceLandmarkToVehicle
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::addReferenceLandmarkToVehicle' }
+
+vehicle_sendemailvehiclequickhistory:
+    pattern: /ajax/vehicle/sendEmailVehicleQuickHistory
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::sendEmailVehicleQuickHistory' }
+
+vehicle_getvehicleverificationdata:
+    pattern: /ajax/vehicle/getVehicleVerificationData
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleVerificationData' }
+
+vehicle_exportreferencelandmarks:
+    pattern: '/ajax/vehicle/exportReferenceLandmarks/{format}/{unit_id}'
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::exportReferenceLandmarks' }
+
+vehicle_exportvehiclequickhistory:
+    pattern: '/ajax/vehicle/exportVehicleQuickHistory/{format}/{unit_id}/{event_type}/{start_date}/{end_date}/{time}'
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::exportVehicleQuickHistory' }
+
+vehicle_uploadreferencelandmarks:
+    pattern: /ajax/vehicle/uploadReferenceLandmarks
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::uploadReferenceLandmarks' }
+
+vehicle_exportfilteredvehiclelist:
+    pattern: '/ajax/vehicle/exportFilteredVehicleList/{format}/{filterType}/{filterValue1}/{filterValue2}'
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::exportFilteredVehicleList' }
+
+vehicle_deletereferencelandmark:
+    pattern: /ajax/vehicle/deleteReferenceLandmark
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::deleteReferenceLandmark' }
+
+vehicle_updatereferencelandmark:
+    pattern: /ajax/vehicle/updateReferenceLandmark
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::updateReferenceLandmark' }
+
+vehicle_reversegeocode:
+    pattern: /ajax/vehicle/reverseGeocode
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::reverseGeocode' }
+
+vehicle_getvehiclequickhistoryformap:
+    pattern: /ajax/vehicle/getVehicleQuickHistoryForMap
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleQuickHistoryForMap' }
+
+vehicle_addvehicletogroup:
+    pattern: /ajax/vehicle/addVehicleToGroup
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::addVehicleToGroup' }
+
+vehicle_addvehiclegrouptouser:
+    pattern: /ajax/vehicle/addVehicleGroupToUser
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::addVehicleGroupToUser' }
+
+vehicle_removevehiclegroupfromuser:
+    pattern: /ajax/vehicle/removeVehicleGroupFromUser
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::removeVehicleGroupFromUser' }
+
+vehicle_getfilteredvehiclegrouplist:
+    pattern: /ajax/vehicle/getFilteredVehicleGroupList
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getFilteredVehicleGroupList' }
+
+vehicle_getvehiclegroupinfo:
+    pattern: /ajax/vehicle/getVehicleGroupInfo
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getVehicleGroupInfo' }
+
+vehicle_updatevehiclegroupinfo:
+    pattern: /ajax/vehicle/updateVehicleGroupInfo
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::updateVehicleGroupInfo' }
+
+vehicle_deletevehiclegroup:
+    pattern: /ajax/vehicle/deleteVehicleGroup
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::deleteVehicleGroup' }
+
+vehicle_addvehiclestogroup:
+    pattern: /ajax/vehicle/addVehiclesToGroup
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::addVehiclesToGroup' }
+
+vehicle_removevehiclesfromgroup:
+    pattern: /ajax/vehicle/removeVehiclesFromGroup
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::removeVehiclesFromGroup' }
+
+vehicle_addvehiclegroup:
+    pattern: /ajax/vehicle/addVehicleGroup
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::addVehicleGroup' }
+
+vehicle_getfilteredavailablevehicles:
+    pattern: /ajax/vehicle/getFilteredAvailableVehicles
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getFilteredAvailableVehicles' }
+
+vehicle_getusersbyvehiclegroupid:
+    pattern: /ajax/vehicle/getUsersByVehicleGroupId
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getUsersByVehicleGroupId' }
+
+vehicle_updatevehiclegroupusers:
+    pattern: /ajax/vehicle/updateVehicleGroupUsers
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::updateVehicleGroupUsers' }
+
+vehicle_decodevin:
+    pattern: /ajax/vehicle/decodeVin
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::decodeVin' }
+
+vehicle_getcommandstatus:
+    pattern: /ajax/vehicle/getCommandStatus
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::getCommandStatus' }
+
+alert_index:
+    pattern: /alert
+    defaults: { _controller: 'Controllers\Alert::index' }
+
+alert_list:
+    pattern: /alert/list
+    defaults: { _controller: 'Controllers\Alert::listview' }
+
+alert_listview:
+    pattern: /alert/listview
+    defaults: { _controller: 'Controllers\Alert::listview' }
+
+alert_history:
+    pattern: /alert/history
+    defaults: { _controller: 'Controllers\Alert::history' }
+
+alert_contact:
+    pattern: /alert/contact
+    defaults: { _controller: 'Controllers\Alert::contact' }
+
+logout:
+    pattern: /logout
+    defaults: { _controller: 'Controllers\Base::logoutAction' }
+
+base_logoutaction:
+    pattern: /base/logoutAction
+    defaults: { _controller: 'Controllers\Base::logoutAction' }
+
+aeris:
+    pattern: /dev/aeris
+    defaults: { _controller: 'Controllers\Dev::aeris' }
+
+dev_aeris:
+    pattern: /dev/aeris
+    defaults: { _controller: 'Controllers\Dev::aeris' }
+
+aeris_response:
+    pattern: /dev/aeris_response
+    defaults: { _controller: 'Controllers\Dev::aeris_response' }
+
+dev_aeris_response:
+    pattern: /dev/aeris_response
+    defaults: { _controller: 'Controllers\Dev::aeris_response' }
+
+error_index:
+    pattern: /error
+    defaults: { _controller: 'Controllers\Error::index' }
+
+error_pagenotfound:
+    pattern: /error/pagenotfound
+    defaults: { _controller: 'Controllers\Error::pagenotfound' }
+
+error_internalservererror:
+    pattern: /error/internalservererror
+    defaults: { _controller: 'Controllers\Error::internalservererror' }
+
+landmark_index:
+    pattern: /landmark
+    defaults: { _controller: 'Controllers\Landmark::index' }
+
+landmark_map:
+    pattern: /landmark/map
+    defaults: { _controller: 'Controllers\Landmark::map' }
+
+landmark_list:
+    pattern: /landmark/list
+    defaults: { _controller: 'Controllers\Landmark::listview' }
+
+landmark_listview:
+    pattern: /landmark/listview
+    defaults: { _controller: 'Controllers\Landmark::listview' }
+
+landmark_group:
+    pattern: /landmark/group
+    defaults: { _controller: 'Controllers\Landmark::group' }
+
+landmark_incomplete:
+    pattern: /landmark/incomplete
+    defaults: { _controller: 'Controllers\Landmark::incomplete' }
+
+landmark_verification:
+    pattern: /landmark/verification
+    defaults: { _controller: 'Controllers\Landmark::verification' }
+
+report_index:
+    pattern: /report
+    defaults: { _controller: 'Controllers\Report::index' }
+
+report_list:
+    pattern: /report/list
+    defaults: { _controller: 'Controllers\Report::listview' }
+
+report_listview:
+    pattern: /report/listview
+    defaults: { _controller: 'Controllers\Report::listview' }
+
+report_saved:
+    pattern: /report/saved
+    defaults: { _controller: 'Controllers\Report::saved' }
+
+report_history:
+    pattern: /report/history
+    defaults: { _controller: 'Controllers\Report::history' }
+
+report_scheduled:
+    pattern: /report/scheduled
+    defaults: { _controller: 'Controllers\Report::scheduled' }
+
+report_contact:
+    pattern: /report/contact
+    defaults: { _controller: 'Controllers\Report::contact' }
+
+users_index:
+    pattern: /users
+    defaults: { _controller: 'Controllers\Users::index' }
+
+users_list:
+    pattern: /users/list
+    defaults: { _controller: 'Controllers\Users::listview' }
+
+users_listview:
+    pattern: /users/listview
+    defaults: { _controller: 'Controllers\Users::listview' }
+
+users_type:
+    pattern: /users/type
+    defaults: { _controller: 'Controllers\Users::type' }
+
+vehicle_index:
+    pattern: /vehicle
+    defaults: { _controller: 'Controllers\Vehicle::index' }
+
+default:
+    pattern: /
+    defaults: { _controller: 'Controllers\Vehicle::map' }
+
+vehicle_map:
+    pattern: /vehicle/map
+    defaults: { _controller: 'Controllers\Vehicle::map' }
+
+vehicle_batch:
+    pattern: /vehicle/batch
+    defaults: { _controller: 'Controllers\Vehicle::batch' }
+
+vehicle_batchqueue:
+    pattern: /vehicle/batchqueue
+    defaults: { _controller: 'Controllers\Vehicle::batchqueue' }
+
+vehicle_commandhistory:
+    pattern: /vehicle/commandhistory
+    defaults: { _controller: 'Controllers\Vehicle::batch' }
+
+vehicle_commandqueue:
+    pattern: /vehicle/commandqueue
+    defaults: { _controller: 'Controllers\Vehicle::batchqueue' }
+
+vehicle_ajaxcommandbatch:
+    pattern: /ajax/vehicle/commandbatch
+    defaults: { _controller: 'Controllers\Ajax\Vehicle::commandbatch' }
+
+vehicle_demo:
+    pattern: /vehicle/demo
+    defaults: { _controller: 'Controllers\Vehicle::demo' }
+
+vehicle_list:
+    pattern: /vehicle/list
+    defaults: { _controller: 'Controllers\Vehicle::listview' }
+
+vehicle_listview:
+    pattern: /vehicle/listview
+    defaults: { _controller: 'Controllers\Vehicle::listview' }
+
+vehicle_group:
+    pattern: /vehicle/group
+    defaults: { _controller: 'Controllers\Vehicle::group' }
+
+vehicle_print:
+    pattern: '/vehicle/print/{unit_id}'
+    defaults: { _controller: 'Controllers\Vehicle::printview' }
+
+vehicle_printview:
+    pattern: '/vehicle/printview/{unit_id}'
+    defaults: { _controller: 'Controllers\Vehicle::printview' }

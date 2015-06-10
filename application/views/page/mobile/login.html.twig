@@ -1,0 +1,41 @@
+    <div class="vcenter">
+
+        <div class="clearfix">&nbsp;</div>
+
+        <img class="center logo" src="/assets_responsive/img/mobile.png">
+
+        <div class="clearfix">&nbsp;</div>
+
+        <form action="/mobile" method="post">
+
+            <div class="center login-element-container">
+                <input type="text" id="_username" name="_username" class="form-control input-lg" placeholder="Username" maxlength="{{ validation.username.maxlength }}">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="center login-element-container">
+                <input type="password" id="_password" name="_password" class="form-control input-lg" placeholder="Password" maxlength="{{ validation.password.maxlength }}">
+            </div>
+
+            <div class="clearfix"></div>
+            <div id="log-in-error-msg" class="center text-red">{{ message }}</div>
+            <div class="clearfix"></div>
+
+            <div class="center login-element-container">
+                <button type="submit" class="btn btn-primary btn-huge">Log In</button>
+            </div>
+
+        </form>
+
+        <div class="clearfix"></div>
+
+        <div class="center login-element-container">
+            <small>
+                <a href="javascript:void(0);" id="forgotusername" class="navigation">Forgot Username?</a>
+                &nbsp;|&nbsp;
+                <a href="javascript:void(0);" id="forgotpassword" class="navigation">Forgot Password?</a>
+            </small>
+        </div>
+
+    </div>

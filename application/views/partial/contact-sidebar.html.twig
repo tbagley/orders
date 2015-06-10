@@ -1,0 +1,59 @@
+    <div class="sidebar-content">
+    	<div style="padding:10px;">
+        	<a href="#">
+            	<img src="/assets_responsive/img/logo.png">
+			</a>
+    	</div>
+
+        <!-- Wrapper for scrolling functionality -->
+        <div class="sidebar-left-scroll">
+            
+{% if route == 'alert/contact' or route == 'report/contact'%}
+
+        <ul class="nav nav-tabs push" data-toggle="tabs">
+            <li class="active" style="font-size:10px;"><a href="#tab-search" id="tab-search-link" style="padding:5px;">Search</a></li>
+            <li style="font-size:10px;"><a href="#tab-filter" id="tab-filter-link" style="padding:5px;">Filter</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab-search">
+            	<form action="#" method="post" class="sidebar-search">
+                    <input type="text" id="sidebar-search-term" name="sidebar-search-term" placeholder="Search...">
+                </form>
+            </div>
+            <div class="tab-pane" id="tab-filter">
+            	<div class="col-sm-12">
+            		<small>Contact Method:</small>
+                    <select id="sidebar-contact-method" name="sidebar-contact-method" class="form-control" size="1">
+                        <option value="all">All</option>
+                        <option value="email">E-Mail</option>
+                        <option value="sms">SMS</option>
+                    </select>
+            	</div>
+
+                <div class="col-sm-12" style="display:none;margin-top:10px;">
+                    <small>Users:</small>
+                    <select id="sidebar-contact-single" name="sidebar-contact-single" class="form-control" size="1">
+                        <option value="all">All</option>
+                    {% for u in users %}
+                        <option value="{{ u.user_id }}">{{ u.firstname }} {{ u.lastname }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+
+            	<div class="col-sm-12" style="margin-top:10px;">
+            		<small>Contact Group:</small>
+                    <select id="sidebar-contact-group" name="sidebar-contact-group" class="form-control" size="1">
+                        <option value="all">All</option>
+                    {% for cg in contact_groups %}
+                        <option value="{{ cg.contactgroup_id }}">{{ cg.contactgroupname }}</option>
+                    {% endfor %}
+                    </select>
+            	</div>
+            </div>
+        </div>
+
+{% endif %}
+
+        </div>
+        <!-- END Wrapper for scrolling functionality -->
+    </div>

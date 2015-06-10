@@ -1,0 +1,128 @@
+{% extends "layout/layout-blank.html.twig" %}
+    {% block main_panel %}
+
+            <!-- Login Container -->
+        <div id="login-container" style="padding-top:50px;">
+            <!-- Page Content -->
+                <div id="page-content" class="block remove-margin">
+                    <!-- Login Title -->
+                    <div class="block-header">
+                        {% if whitelabel is defined %}
+                            <div class="white-label">
+                                <div class="clearfix row">&nbsp;</div>
+                                <div class="center"><img src="{{ logopath }}"></div>
+                                <div class="clearfix row">&nbsp;</div>
+                            </div>
+                            <div class="clearfix row">&nbsp;</div>
+                        {% endif %}
+                        <div class="header-section" style="height:50px; padding:10px; margin-bottom:10px;">
+                            <h1 class="text-center">Login</h1>
+                        </div>
+                    </div>
+                    <!-- END Login Title -->
+    
+                    <!-- Login Form -->
+
+                    {% if ((login_restriction is defined) and (login_restriction == 'already_logged_in')) %}
+        
+                        <div style="padding:20px">
+                            You are already logged into the system.<p>Please <a href="/vehicle/map">click here to continue</a> or <a href="/logout">click here to logout</a>.
+                        </div>
+        
+                    {% else %}
+                        {% if error is defined %}
+                            <div class="alert alert-danger">{{ error.message }}</div>
+                        {% endif %}
+        
+                        {% if success is defined %}
+                            <div class="alert alert-success">{{ success.message }}</div>
+                        {% endif %}
+                    
+
+                        <form action="" method="post" id="form-login" class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input type="text" id="username" name="_username" class="form-control input-lg" placeholder="Username" maxlength="{{ validation.username.maxlength }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input type="password" id="password" name="_password" class="form-control input-lg" placeholder="Password" maxlength="{{ validation.password.maxlength }}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-8">
+                                    <div class="btn-group">
+                                        <small>
+                                        <a href="/forgotusername">Forgot Username?</a><br/>
+                                        <a href="/forgotpassword">Forgot Password?</a>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 text-right">
+                                    <button type="submit" class="btn btn-md btn-primary"><i class="fa fa-angle-right"></i> Submit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    {% endif %}
+
+                    <!-- END Login Form -->
+                </div>
+                <!-- END Page Content -->
+
+                <div class="clearfix row">&nbsp;</div>
+                {% if whitelabel is defined %}
+                {% else %}
+                    <div class="clearfix row">&nbsp;</div>
+                    <div class="text-coal">
+                        <span class="center text-18">For Technical Support please contact our Help Desk</span>
+                        <p>
+                        <span class="center text-12">(844) 477-7587 x300 &#149; Customer_Service@PositionPlusGPS.com</span>
+                    </div>
+                {% endif %}
+                <div class="clearfix row">&nbsp;</div>
+                <div class="text-coal">
+                    <span class="center text-24">Approved Browsers</span>
+                    <p>
+                    <span class="center text-14">Chrome 36 &#149; FireFox 32 &#149; Internet Explorer 11</span>
+                    <br>
+                    <span class="center text-8">We Test Using These Browsers &#149; Latest Releases Always Recommended</span>
+                </div>
+                    
+        </div>
+        <!-- END Login Container -->
+        <script>
+/*
+            $(document).ready(function() {
+
+                var lastRoute = Core.Cookie.get('last-route');
+
+                if (lastRoute) {
+
+                    var $hiddenInput = $('<input type="hidden" id="last-route" name="_last-route" value="'+lastRoute+'" />');
+
+                    $('#login-form').append($hiddenInput);
+
+                    Core.Cookie.clear('last-route');
+                }
+
+            });
+*/
+        </script>
+
+        <!-- MAIN-PANEL BEGIN  -->
+        <!--div id="main-content">
+            <div id="content-1" class="active map-content panel-content">
+
+                Login
+
+            </div>
+        </div-->
+        <!-- MAIN-PANEL END  -->
+    {% endblock %}
+    {% block secondary_panel %}
+        <!-- SECONDARY-PANEL BEGIN  -->
+
+        <!-- SECONDARY-PANEL END  -->
+    {% endblock %}

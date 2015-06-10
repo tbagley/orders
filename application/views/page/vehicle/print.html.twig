@@ -1,0 +1,357 @@
+
+{% extends "layout/layout-print.html.twig" %}
+{% block main_panel %}
+    <div id="map-div" style="height: 500px !important"></div>
+    <div class="print-address-div">
+   		<div class="pull-left">
+   			<span class="print-address">{{ data.formatted_address }} ({{ data.latitude }} / {{ data.longitude }})</span>
+   		</div>
+   		<div class="pull-right">
+   			<span class="print-address">{{ data.unittime }}</span>
+   		</div>
+    </div>
+    <div class="row clearfix">&nbsp;</div>
+    <div class="row clearfix">
+	    <div class="col-info col-lg-12 col-md-12 col-sm-12 col-xs-12 col-bordered">
+	   		<h4>&nbsp;&nbsp;&nbsp;Vehicle Information</h4>
+	   	</div>
+	    <div class="row clearfix"></div>
+	    <div class="col-info col-lg-1 col-md-1 col-sm-1 col-xs-1 col-bordered">
+	   	</div>
+	    <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-name">Vehicle&nbsp;Name:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.unitname }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-serial">Serial:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.serialnumber }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-group">Vehicle&nbsp;Group:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.unitgroupname }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-status">Status:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.unitstatusname }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	    </div>
+	    <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-vin">Vin:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.vin }}
+	            </div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-make">Make:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.make }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-model">Model:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.model }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-vin">Year:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.year }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-color">Color:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.color }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-stock">Stock:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.stock }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-license-plate">Lic&nbsp;Plate:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.licenseplatenumber }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	    </div>
+	    <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-loan-id">Loan&nbsp;ID:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.loannumber }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-install-date">Install&nbsp;Date:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.installdate }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-installer">Installer:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.installer }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-install-mileage">Install&nbsp;Mileage:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.installmileage }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-driven-miles">Driven&nbsp;Miles:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.drivenmileage }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="vehicle-total-mileage">Total&nbsp;Mileage:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.totalmileage }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	    </div>
+	    <div class="row clearfix"></div>
+	    <div class="col-info col-lg-12 col-md-12 col-sm-12 col-xs-12 col-bordered">
+	   		<h4>&nbsp;&nbsp;&nbsp;Customer Information</h4>
+	   	</div>
+	    <div class="row clearfix"></div>
+	    <div class="col-info col-lg-1 col-md-1 col-sm-1 col-xs-1 col-bordered"></div>
+	    <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-first-name">First&nbsp;Name:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.firstname }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-last-name">Last&nbsp;Name:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.lastname }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	    </div>
+	    <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-address">Address:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.streetaddress }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-city">City:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.city }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-state">State:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.state }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-zipcode">Zip:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.zipcode }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	    </div>
+	    <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-mobile-phone">Mobile&nbsp;Phone:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.cellphone }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-home-phone">Home&nbsp;Phone:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.homephone }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	        <div class="row">
+	            <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+	                <label class="vertical-center pull-right text-12" for="customer-email">Email:</label>
+	            </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.email }}
+	            </div>
+	            <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+	        </div>
+	    </div>
+	    <div class="row clearfix"></div>
+	    <div class="col-info col-lg-12 col-md-12 col-sm-12 col-xs-12 col-bordered">
+	   		<h4>&nbsp;&nbsp;&nbsp;Device Information</h4>
+	   	</div>
+	    <div class="row clearfix"></div>
+	    <div class="col-info col-lg-1 col-md-1 col-sm-1 col-xs-1 col-bordered"></div>
+	    <div class="col-info col-lg-3 col-md-3 col-sm-3 col-xs-3 col-bordered">
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-serial">Serial:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.serialnumber }}
+	            </div>
+                <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-status">Status:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.unitstatusname }}
+	            </div>
+            </div>
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-plan">Plan:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.subscription }}
+	            </div>
+                <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+        </div>
+        <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-purchase-date">Purchase&nbsp;Date:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.purchasedate }}
+	            </div>
+                <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-activation-date">Activation&nbsp;Date:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.activatedate }}
+	            </div>
+                <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-renewal-date">Renewal&nbsp;Date:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.renewaldate }}
+	            </div>
+                <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+        </div>
+        <div class="col-info col-lg-4 col-md-4 col-sm-4 col-xs-4 col-bordered">
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-last-renewed">Last&nbsp;Renewed&nbsp;On:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.lastrenewaldate }}
+	            </div>
+                <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-label col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <label class="vertical-center pull-right text-12" for="device-deactivation-date">Deactivation&nbsp;Date:</label>
+                </div>
+	            <div class="col-control col-lg-7 col-md-7 col-sm-7 col-xs-7 wizard-div">
+	                {{ data.deactivatedate }}
+	            </div>
+                <div class="col-offset col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

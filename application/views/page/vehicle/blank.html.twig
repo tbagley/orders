@@ -1,0 +1,47 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    <!-- FX Container -->
+    <div id="fx-container" class="fx-opacity">
+        <!-- Page content -->
+        <!-- Block Tabs -->
+        <div class="block block-tabs full">
+            <!-- Block Tabs Title -->
+            <div class="block-title">
+                <ul id="secondaryNav" class="nav nav-tabs">
+                        <li>&nbsp;&nbsp;Sorry, Your Account Does Not Have Access to the VEHICLES Section</li>
+                </ul>
+            </div>
+            <!-- END Block Tabs Title -->
+
+            <!-- Tabs Content -->
+            <div class="tab-content" style="z-index: 1;">
+                <div class="tab-pane active" id="tab-home">
+                    <div id="map-div"> <!-- use this div for map hook --> </div>
+                </div>
+            <!-- END Tabs Content -->
+            </div>
+
+        <!-- END Block Tabs -->
+        <!-- END Page Content -->
+    </div>
+    <!-- END FX Container -->
+    <!-- MAIN-PANEL END  -->
+    
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/vehicle-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    {#<script src="/assets_responsive/js/vehicle.js"></script>#}                 
+    <script src="/assets/js/vehicle.js"></script>                 
+{% endblock %}
+
+    

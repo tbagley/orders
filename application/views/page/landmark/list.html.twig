@@ -1,0 +1,92 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+                <!-- Block Tabs Title -->
+                <div class="block-title">
+                    {% include 'partial/quickactions/landmark-list-map.html.twig' %}
+    
+                    <ul id="secondaryNav" class="nav nav-tabs">
+                        {% for item in secondary_navigation %}
+                            <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <!-- END Block Tabs Title -->
+                <!-- END Block Tabs -->
+
+                <div class="table-options clearfix">
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">
+                        <h3 class="heading1">Landmark List</h3>
+                    </div> 
+                    <div class="col-md-8 col-lg-8 col-sm-8 col-xs-6">
+                        <div class="btn-group btn-group-sm pull-right" style="display:none;">
+                            <a href="#modal-download-pdf" class="btn btn-primary" data-toggle="modal" data-placement="left" title="Export PDF" ><i class="fa fa-print"></i></a>                
+                            <a href="#modal-export-csv" class="btn btn-primary" data-toggle="modal" title="Export CSV"><i class="hi hi-export"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END Table Options -->
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="landmark-list-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+{#}
+                    <table id="landmark-list-example-datatable" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th style="font-size:14px;">Landmark</th>
+                                <th style="font-size:14px;">Group</th>
+                                <th style="font-size:14px;">Radius</th>
+                                <th style="font-size:14px;">Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#modal-edit-landmark" data-toggle="modal">ABC Impound</a></td>
+                                <td>Zone One</td>
+                                <td>1/8 Mile</td>
+                                <td>Spectrum Pointe Drive, Lake Forest, CA, USA</td>
+                            </tr>    
+                     
+                        </tbody>
+                    </table>
+{#}
+                        </div>
+                    </div>
+                </div>
+
+            <!-- END FX Container -->
+
+        </div>
+
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/landmark-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include 'partial/landmark-modals.html.twig' %}
+    <!-- MAP MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    <script src="/assets_responsive/js/landmark.js"></script>
+{% endblock %}
+
+

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+    <head>
+        <title>Position Plus Orders</title>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" href="/assets/media/icons/apple-touch-114-positionplus-mobile.png"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- jQuery Assets -->
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        
+    <!-- DataTables Assets -->
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script src="/assets/vendor/datatables/dataTables.bootstrap.js"></script>
+
+    <!-- Stylesheets -->
+        <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/bootstrap.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/mobile.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/map.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/plugins.css" />
+        <link rel="stylesheet" href="/assets_responsive/css/themes.css" />
+    <!-- END Stylesheets -->
+        
+        <script type="text/javascript" src="https://api.tiles.mapbox.com/mapbox.js/v1.4.0/mapbox.js"></script>
+        <script src="/assets/js/mapbox.js"></script>
+        <script src="/assets/js/gmap.js"></script>
+        <script src="/assets/js/map.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="/assets_responsive/js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
+        <script src="/assets_responsive/js/vendor/bootstrap.min.js"></script>
+        <script src="/assets_responsive/js/plugins.js"></script>
+        <script src="/assets/js/orders.js"></script>
+    </head>
+    <body data-environment="{{ environment }}" data-context="{{ context }}" data-map-api="{{ map_api }}" data-decarta-api-key="{{ decarta_api_key }}" data-session-timeout="{{ session_timeout }}">
+
+        <div class="pull-left" style="padding:10px;">
+            <a class="center" href="#">
+                <img src="/assets_responsive/img/logo.png" style="width:132px;">
+            </a>
+        </div>
+
+        <div class="pull-right" style="display:none;padding:10px;">
+            <a class="navigation" href="javascript:void(0);" id="rep">Rep</a>
+            |
+            <a class="navigation" href="javascript:void(0);" id="customer">Customer</a>
+            |
+            <a class="navigation" href="javascript:void(0);" id="orderform">Orderform</a>
+            |
+            <a class="navigation" href="javascript:void(0);" id="preview">Preview</a>
+            |
+            <a class="navigation" href="javascript:void(0);" id="confirmation">Confirmation</a>
+        </div>
+
+        <div id="div-rep" class="div-navigation active" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                {% include('page/orders/rep.html.twig') %}
+            </div>
+        </div>
+
+        <div id="div-customer" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div class="pull-right">
+                    <a class="navigation" href="javascript:void(0);" id="confirmation">Order History</a>
+                </div>
+                {% include('page/orders/customer.html.twig') %}
+                <br>&nbsp;
+            </div>
+        </div>
+
+        <div id="div-orderform" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div class="pull-right">
+                    <a class="navigation" href="javascript:void(0);" id="customer">Customer</a>
+                    |
+                    <a class="navigation" href="javascript:void(0);" id="confirmation">Order History</a>
+                </div>
+                {% include('page/orders/orderform.html.twig') %}
+                <br>&nbsp;
+            </div>
+        </div>
+
+        <div id="div-preview" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div class="pull-right">
+                    <a class="navigation" href="javascript:void(0);" id="customer">Customer</a>
+                    |
+                    <a class="navigation" href="javascript:void(0);" id="confirmation">Order History</a>
+                </div>
+                {% include('page/orders/preview.html.twig') %}
+                <br>&nbsp;
+            </div>
+        </div>
+
+        <div id="div-confirmation" class="div-navigation" style="padding:3%;">
+            <div class="block center width-100" style="padding:3%;">
+                <div class="pull-right">
+                    <a class="navigation" href="javascript:void(0);" id="customer">Customer</a>
+                </div>
+                {% include('page/orders/confirmation.html.twig') %}
+                <div class="clearfix row" style="width:100%;"></div>
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline" role="grid">
+                        <div id="orders-submitted-table" class="noborder report-master">
+                            {% include('partial/report-table.html.twig') %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

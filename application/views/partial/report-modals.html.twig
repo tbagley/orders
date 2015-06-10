@@ -1,0 +1,521 @@
+{% if route == 'report/list'%}
+<!-- REPORT MODAL -->
+
+    <!-- Schedule Modal -->F
+    <div id="modal-schedule-report" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+                <div class="modal-pronounce">
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        				<h4 class="modal-title clearfix">Schedule Report</h4>
+        			</div>
+        			<div class="modal-body" style="min-height:220px;">
+        				<form action="page_forms_general.html" method="post" enctype="multipart/form-data" class="form-horizontal" onsubmit="return false;">
+
+{% include('partial/report-modals-config.html.twig') %}
+
+        				</form>
+        			</div>
+        			<div class="modal-footer">
+        				<div class="btn-group">
+        					<button type="button" class="btn btn-default" id="report-schedule-popup-cancel" data-dismiss="modal">Cancel</button>
+        					<button type="button" class="btn btn-primary" id="report-schedule-popup-save">Save</button>
+        				</div>
+        			</div>
+                </div>
+    		</div>
+    	</div>
+    </div>
+    <!-- END Schedule Modal -->
+
+{% endif %}
+
+
+{% if route == 'report/scheduled' %}
+<!-- REPORT LIST MODAL -->
+
+        <!-- Edit Scheduled Report Modal -->
+        <div id="modal-edit-scheduled-report" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        	<div class="modal-dialog">
+        		<div class="modal-content">
+                    <div class="modal-pronounce">
+            			<div class="modal-header">
+                            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
+            				<table>
+                                <tr>
+                                    <td><h4 class="modal-title">Scheduled Report:&nbsp;&nbsp;</h4></td>
+                                    <td><h4 id="scheduled-report-edit-title">[Failing Units]</h4></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-12 clearfix row">&nbsp;</div>
+            			<div class="modal-body">
+        					<div class="col-md-12">
+
+                                <div class="col-md-1">
+                                    <label class="control-label pull-right" for="" style="margin-top:7px;">Name:</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text" id="scheduled-report-edit-name" name="scheduled-report-edit-name" class="form-control scheduled-report-edit-name scheduled-report-edit-save" value="[Falling Units]">
+                                </div>
+                                <div class="col-md-1"></div>
+
+                                <div class="col-md-12 clearfix row">&nbsp;</div>
+
+                                <div class="col-md-6">
+
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="" style="margin-top:7px;">Report Type:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="scheduled-report-edit-reporttype" name="scheduled-report-edit-reporttype" class="form-control scheduled-report-edit-save" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            {% for row in reporttypes %}
+                                                <option value="{{ row.reporttype_id }}">{{ row.reporttypename }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-verification">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Verification:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-verification" name="scheduled-report-edit-verification" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="All">All</option>
+                                                <option value="Full">Full</option>
+                                                <option value="Partial">Partial</option>
+                                                <option value="None">None</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-alerttype">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Alert Type:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-alerttype" name="scheduled-report-edit-alerttype" class="form-control scheduled-report-edit-save" size="1">
+                                                {% for row in alerttypes %}
+                                                    <option value="{{ row.alerttype_id }}">{{ row.alerttypename }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-duration">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Avg. Duration Threshold:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-duration" name="scheduled-report-edit-duration" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="30">&gt; 30 Minutes</option>
+                                                <option value="60">&gt; 1 Hour</option>
+                                                <option value="90">&gt; 1 Hour 30 Minutes</option>
+                                                <option value="120">&gt; 2 Hours</option>
+                                                <option value="150">&gt; 2 Hours 30 Minutes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-landmarkmode">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Landmark Mode:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-landmarkmode" name="scheduled-report-edit-landmarkmode" class="form-control scheduled-report-edit-save" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                                <option value="all">All Landmarks</option>
+                                                <option value="single">Single Landmark</option>
+                                                <option value="group">Landmark Group</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-landmarks">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Landmark:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-landmark" name="scheduled-report-edit-landmark" class="form-control scheduled-report-edit-save" size="1">
+                                            {% for r in landmarks %}
+                                                <option value="{{ r.territory_id }}">{{ r.territoryname }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-landmarkgroups">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Landmark Group:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-landmarkgroup" name="scheduled-report-edit-landmarkgroup" class="form-control scheduled-report-edit-save" size="1">
+                                            {% for r in landmark_groups %}
+                                                <option value="{{ r.territorygroup_id }}">{{ r.territorygroupname }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-mile">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Total Miles Filter:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-mile" name="scheduled-report-edit-mile" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="0">None</option>
+                                                <option value="50000">&gt; 50,000</option>
+                                                <option value="75000">&gt; 75,000</option>
+                                                <option value="100000">&gt; 100,000</option>
+                                                <option value="150000">&gt; 150,000</option>
+                                                <option value="200000">&gt; 200,000</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-not-reported">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Not Reported In:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-not-reported" name="scheduled-report-edit-not-reported" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="7">7 Days</option>
+                                                <option value="14">14 Days</option>
+                                                <option value="30">30 Days</option>
+                                                <option value="60">60 Days</option>
+                                                <option value="90">90 Days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-mph">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Speed Filter:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-mph" name="scheduled-report-edit-mph" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="75">&gt; 75 MPH</option>
+                                                <option value="80">&gt; 80 MPH</option>
+                                                <option value="85">&gt; 85 MPH</option>
+                                                <option value="90">&gt; 90 MPH</option>
+                                                <option value="95">&gt; 95 MPH</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-day">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Stationary Filter:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-day" name="scheduled-report-edit-day" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="3">&gt; 3 Days</option>
+                                                <option value="7">&gt; 7 Days</option>
+                                                <option value="14">&gt; 14 Days</option>
+                                                <option value="30">&gt; 30 Days</option>
+                                                <option value="60">&gt; 60 Days</option>
+                                                <option value="90">&gt; 90 Days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-minute">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Stop Threshold:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-minute" name="scheduled-report-edit-minute" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="30">&gt; 30 Minutes</option>
+                                                <option value="60">&gt; 1 Hour</option>
+                                                <option value="720">&gt; 12 Hours</option>
+                                                <option value="1440">&gt; 1 Day</option>
+                                                <option value="10080">&gt; 7 Days</option>
+                                                <option value="20160">&gt; 14 Days</option>
+                                                <option value="43200">&gt; 30 Days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-vehiclemode">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Vehicle Mode:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-vehiclemode" name="scheduled-report-edit-vehiclemode" class="form-control scheduled-report-edit-save" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                                <option value="all">All Vehicles</option>
+                                                <option value="single">Single Vehicle</option>
+                                                <option value="group">Vehicle Group</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-vehicles">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Vehicle:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-vehicle" name="scheduled-report-edit-vehicle" class="form-control scheduled-report-edit-save" size="1">
+                                            {% for r in vehicles %}
+                                                <option value="{{ r.unit_id }}">{{ r.unitname }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-vehiclegroups">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Vehicle Group:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-vehiclegroup" name="scheduled-report-edit-vehiclegroup" class="form-control scheduled-report-edit-save" size="1">
+                                            {% for r in vehicle_groups %}
+                                                <option value="{{ r.unitgroup_id }}">{{ r.unitgroupname }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-date">
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Date Range:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-range" name="scheduled-report-edit-range" class="form-control scheduled-report-edit-save" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                                <option value="Today">Today</option>
+                                                <option value="Yesterday">Yesterday</option>
+                                                <option value="Last 7 Days">Last 7 Days</option>
+                                                <option value="Last 30 Days">Last 30 Days</option>
+                                                <option value="Last 60 Days">Last 60 Days</option>
+                                                <option value="Last 90 Days">Last 90 Days</option>
+                                                <option value="This Month">This Month</option>
+                                                <option value="Last Month">Last Month</option>
+                                                <option value="Custom Range">Custom Range</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-range">
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td><input class="input-datepicker form-control scheduled-report-edit-save" id="scheduled-report-edit-range-start" /></td>
+                                                    <td>&nbsp;</td>
+                                                    <td><input class="input-datepicker form-control scheduled-report-edit-save" id="scheduled-report-edit-range-end" /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="" style="margin-top:7px;">Recurrence:</label>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <select id="scheduled-report-edit-recurrence" name="scheduled-report-edit-recurrence" class="form-control scheduled-report-edit-save" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            <option value="Daily" selected>Daily</option>
+                                            <option value="Weekly">Weekly</option>
+                                            <option value="Monthly">Monthly</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-scheduleday">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Day of Week:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-scheduleday" name="scheduled-report-edit-scheduleday" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="Everyday">Everyday</option>
+                                                <option value="Weekdays">Weekdays</option>
+                                                <option value="Weekends">Weekends</option>
+                                                <option value="Monday">Monday</option>
+                                                <option value="Tuesday">Tuesday</option>
+                                                <option value="Wednesday">Wednesday</option>
+                                                <option value="Thursday">Thursday</option>
+                                                <option value="Friday">Friday</option>
+                                                <option value="Saturday">Saturday</option>
+                                                <option value="Sunday">Sunday</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-monthly">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Day of Month:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-monthly" name="scheduled-report-edit-monthly" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="1">1st</option>
+                                                <option value="2">2nd</option>
+                                                <option value="3">3rd</option>
+                                                <option value="4">4th</option>
+                                                <option value="5">5th</option>
+                                                <option value="6">6th</option>
+                                                <option value="7">7th</option>
+                                                <option value="8">8th</option>
+                                                <option value="9">9th</option>
+                                                <option value="10">10th</option>
+                                                <option value="11">11th</option>
+                                                <option value="12">12th</option>
+                                                <option value="13">13th</option>
+                                                <option value="14">14th</option>
+                                                <option value="15">15th</option>
+                                                <option value="16">16th</option>
+                                                <option value="17">17th</option>
+                                                <option value="18">18th</option>
+                                                <option value="19">19th</option>
+                                                <option value="20">20th</option>
+                                                <option value="21">21st</option>
+                                                <option value="22">22nd</option>
+                                                <option value="23">23rd</option>
+                                                <option value="24">24th</option>
+                                                <option value="25">25th</option>
+                                                <option value="26">26th</option>
+                                                <option value="27">27th</option>
+                                                <option value="28">28th</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-time">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Time To Send:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-time" name="scheduled-report-edit-time" class="form-control scheduled-report-edit-save" size="1">
+                                                <option value="00" selected>12:00 am (midnight)</option>
+                                                <option value="01">1:00am</option>
+                                                <option value="02">2:00am</option>
+                                                <option value="03">3:00am</option>
+                                                <option value="04">4:00am</option>
+                                                <option value="05">5:00am</option>
+                                                <option value="06">6:00am</option>
+                                                <option value="07">7:00am</option>
+                                                <option value="08">8:00am</option>
+                                                <option value="09">9:00am</option>
+                                                <option value="10">10:00am</option>
+                                                <option value="11">11:00am</option>
+                                                <option value="12">12:00pm (noon)</option>
+                                                <option value="13">1:00pm</option>
+                                                <option value="14">2:00pm</option>
+                                                <option value="15">3:00pm</option>
+                                                <option value="16">4:00pm</option>
+                                                <option value="17">5:00pm</option>
+                                                <option value="18">6:00pm</option>
+                                                <option value="19">7:00pm</option>
+                                                <option value="20">8:00pm</option>
+                                                <option value="21">9:00pm</option>
+                                                <option value="22">10:00pm</option>
+                                                <option value="23">11:00pm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 clearfix row">&nbsp;</div>
+
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="" style="margin-top:7px;">Format:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="scheduled-report-edit-format" name="scheduled-report-edit-format" class="form-control scheduled-report-edit-save" size="1">
+                                            <option value="CSV" selected>CSV</option>
+                                            <option value="PDF">PDF</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12 clearfix row">&nbsp;</div>
+
+                                    <div class="col-md-4">
+                                        <label class="control-label pull-right" for="" style="margin-top:7px;">Contact Mode:</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select id="scheduled-report-edit-contactmode" name="scheduled-report-edit-contactmode" class="form-control scheduled-report-edit-save" size="1" onChange="Core.DivControl(this.id,this.value);">
+                                            <option value="all">All Contacts</option>
+                                            <option value="single">Single Contact</option>
+                                            <option value="group">Contact Group</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-contacts">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Contact:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-contact" name="scheduled-report-edit-contact" class="form-control scheduled-report-edit-save" size="1">
+                                            {% for r in contacts %}
+                                                <option value="{{ r.contact_id }}">{{ r.contactname }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12" id="div-scheduled-report-edit-contactgroups">
+                                        <div class="col-md-12 clearfix row">&nbsp;</div>
+                                        <div class="col-md-4">
+                                            <label class="control-label pull-right" for="" style="margin-top:7px;">Contact Group:</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="scheduled-report-edit-contactgroup" name="scheduled-report-edit-contactgroup" class="form-control scheduled-report-edit-save" size="1">
+                                            {% for r in contact_groups %}
+                                                <option value="{{ r.contactgroup_id }}">{{ r.contactgroupname }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-12 clearfix row">&nbsp;</div>
+
+                            </div>
+            			</div>
+                        <div class="clearfix"></div>
+            			<div class="modal-footer clearfix">
+                            <div class="col-md-12 pull-right">
+                                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        	</div>
+        </div>
+        <!-- END Edit Alert Modal -->
+
+{% endif %}
+
+
+<!-- REPORT CONTACT MODAL -->
+{% if route == 'report/contact' %}
+
+
+
+{% endif %}
+
+
+
+

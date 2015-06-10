@@ -1,0 +1,81 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+    <!-- FX Container -->
+    <div id="fx-container" class="fx-opacity">
+        <!-- Page content -->
+        <!-- Block Tabs -->
+        <div class="block block-tabs full">
+            <!-- Block Tabs Title -->
+            <div class="block-title">
+                {% include 'partial/quickactions/vehicle-list-map.html.twig' %}
+
+                <ul id="secondaryNav" class="nav nav-tabs">
+                    {% for item in secondary_navigation %}
+                        <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- END Block Tabs Title -->
+
+            <!-- Tabs Content -->
+            <div class="tab-content" style="z-index: 1;">
+                <div class="tab-pane active" id="tab-home">
+                    <div id="map-div"> <!-- use this div for map hook --> </div>
+                </div>
+            <!-- END Tabs Content -->
+            </div>
+            <section id="detail-panel" style="display: none;">
+                <div class="panel panel-default panel-bottomless">
+                    <div class="block">
+                        <div class="block-title">
+                            {% if context == 'vehicle/map' %}
+                                {% include('page/vehicle/detail-nav.html.twig') %}
+                                <table>
+                                    <tr>
+                                        <td><h2 class="text-center">&nbsp;<i class="gi gi-car"></i>&nbsp;<span id="vehicle-map-html-modal-device">[Tundra]</span></h2></td>
+                                        <td>
+                                            <div id="detail-landmark-dashboard">
+                                                <small><span id="vehicle-map-html-modal-landmark" class="text-grey">[California]</span></small>
+                                            </div>
+                                            <div>
+                                                <small><span id="vehicle-map-html-modal-details">[Stop (1d 4h 9m)]</span></small>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            {% endif %}
+                        </div>
+                        {% include ('page/vehicle/detail.html.twig') %}
+                    </div>
+                </div>
+            </section>
+
+        <!-- END Block Tabs -->
+        <!-- END Page Content -->
+    </div>
+    <!-- END FX Container -->
+    <!-- MAIN-PANEL END  -->
+    
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/vehicle-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/vehicle-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+{% block scripts_panel %}
+    {#<script src="/assets_responsive/js/vehicle.js"></script>#}                 
+    <script src="/assets/js/vehicle.js"></script>                 
+{% endblock %}
+
+    

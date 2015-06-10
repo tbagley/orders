@@ -1,0 +1,37 @@
+
+parameters:
+  # unit is in seconds; defaults to 2 hours
+  session_timeout: 7200
+  default_route: '/vehicle/map'
+  default_theme: crossbones
+  standard_timestamp: 'm/d/Y h:i A'
+
+  # Map API (switch to use one map or the other)
+  map_api: mapbox
+  decarta_api_key: f3d14f93bd32df23a749d016b554912c
+
+  email_host: 172.31.28.254
+  email_port: 25
+  # email_from_domain: positionplusgps.com
+  email_from_domain: gpsdevicealerts.com
+  
+  user_registration_expiry: 172800
+
+  server_timezone: UTC
+
+database:
+  master:
+      host: crossbones.c0panuo9xxrt.us-west-2.rds.amazonaws.com
+      user: crossbones
+      password: cherrycoke
+      dbname: crossbones
+      driver: pdo_mysql
+
+  slave:
+      host: crossbones.c0panuo9xxrt.us-west-2.rds.amazonaws.com
+      user: crossbones
+      password: cherrycoke
+      dbname: crossbones
+      driver: pdo_mysql
+
+security:

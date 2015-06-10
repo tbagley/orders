@@ -1,0 +1,30 @@
+<div id="quick-actions" class="block-options pull-right">
+
+{#}
+    <!--ul>
+        {% for filtername,  count in quick_filters %}
+            {% set formattedfiltername     = filtername|lower|replace({'_': '-'}) %}
+            {% set friendlyformattedfilter = filtername|replace({'_': ' '}) %}
+            {% set classformattedfilter    = filtername|lower|replace({'_': '-'}) %}
+            <li>
+                <a class="has-tooltip" data-label="{{ friendlyformattedfilter }}" data-value="{{ formattedfiltername }}" data-title="{{ friendlyformattedfilter }} ({{ count }})" data-placement="bottom">
+                    <span class="icon16 icon16-quick-filter-{{ classformattedfilter }}"></span><span class="filter-count">{{ count }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul-->
+{#}
+
+    <a class="quick-icon" href="#" id="metric-installed" data-toggle="tooltip" data-placement="bottom" title="Installed" style="margin-right:15px;"><i class="gi gi-check"></i>&nbsp;<span>0</span></a>
+    <a class="quick-icon" href="#" id="metric-inventory" data-toggle="tooltip" data-placement="bottom" title="Inventory" style="margin-right:15px;"><i class="gi gi-list"></i>&nbsp;<span>0</span></a>
+    <a class="quick-icon" href="#" id="metric-landmark" data-toggle="tooltip" data-placement="bottom" title="In a Landmark" style="margin-right:15px;"><i class="gi gi-flag"></i>&nbsp;<span>0</span></a>
+    <a class="quick-icon" href="#" id="metric-starter" data-toggle="tooltip" data-placement="bottom" title="Starters Disabled" style="margin-right:15px;"><i class="gi gi-keys"></i>&nbsp;<span>0</span></a>
+    <a class="quick-icon" href="#" id="metric-reminder" data-toggle="tooltip" data-placement="bottom" title="Payment Reminders" style="margin-right:15px;"><i class="gi gi-usd"></i>&nbsp;<span>0</span></a>
+    <a class="quick-icon" href="#" id="metric-repossession" data-toggle="tooltip" data-placement="bottom" title="Repossession" style="margin-right:15px;"><i class="gi gi-user"></i>&nbsp;<span>0</span></a>
+    <div style="display:none;">
+        <a class="quick-icon" href="#" id="metric-movement" data-toggle="tooltip" data-placement="bottom" title="No Movement in 7 Days" style="margin-right:15px;"><i class="gi gi-car"></i>&nbsp;<span>0</span></a>
+        <a class="quick-icon" href="#" id="metric-nonreporting" data-toggle="tooltip" data-placement="bottom" title="Not Reported in 7 Days" style="margin-right:15px;"><i class="gi gi-warning_sign"></i>&nbsp;<span>0</span></a>
+    </div>
+    <div class="pull-right" style="width:50px;"></div>
+
+</div>

@@ -1,0 +1,54 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+    <div id="main-content">
+        <div id="content-1" class="active panel-content modal-pronounce">
+            <div class="secondary-bar clearfix">
+                <div id="secondary-nav" class="pull-left">
+                    <ul>
+                        {% for item in secondary_navigation %}
+                            <li><a class="{% if route == item.route  %} active{% endif %} transition" href="/{{ item.route }}">{{ item.label }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {#{% include 'partial/quickactions/account-users.html.twig' %}#}
+            </div>
+
+            <div class="container">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4><span class="icon account"></span>&nbsp;My Account</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        <!--nav>
+            <a id="nav-1"  href="/vehicle"><span class="icon map"></span>Map</a>
+            <a id="nav-2" class="active"><span class="icon list"></span>List</a>
+        </nav-->
+        <section id="sub-panel" class="collapsed">
+            <div class="container">
+                <div class="tab-content">
+                    <section id="vehicles-tab" class="tab-pane active">
+                        {#{% include('partial/secondaryfilter/account-user-list.html.twig') %}#}
+                    </section>
+                </div>
+
+            </div>
+        </section>
+        <div class="clear"></div>
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+{% block modals %}
+<!-- MODAL BEGIN -->
+<!-- MODAL END -->
+{% endblock %}

@@ -1,0 +1,217 @@
+/* COMMON CSS */
+.info_window table th
+{
+	color:#b3b3b3;
+	font-size: 10px;
+	text-align: left;
+	vertical-align: top;
+	padding: 1px;
+	margin: 2px;
+}
+
+.info_window table td
+{
+	font-size: 15px;
+	text-align: left;
+	vertical-align: top;
+	padding: 1px;
+	margin: 2px;
+}
+
+.info_window
+{
+	width: 400px;
+	min-height: 85px;
+	overflow: auto;
+	line-height: normal;
+}
+
+#info_window_street_view_div {
+	display: none;
+}
+
+.info_window_link {
+	font-size: 12px;
+	cursor: pointer;
+	color: #0871ac;
+}
+
+.leaflet-popup-content {
+	z-index: 99999 !important;
+}
+
+.leaflet-popup-tip-container {
+	/*display:none !important;*/
+	box-sizing: none !important;
+    position: fixed;	
+	left:-12px !important;
+	top: 50px !important;
+	height: 30px !important;
+	width: 40px !important;
+	z-index: 4 !important;
+}
+
+.leaflet-popup-tip {
+	box-sizing: none !important;
+	background: #ffffff !important;
+	height: 40px !important;
+	width: 20px !important;
+	z-index: 3 !important;
+}
+
+.leaflet-popup-tip {
+	box-shadow: none !important;
+}
+
+table.map-bubble {
+	margin: 0px 0px 0px 0px !important;
+	padding: 0px 0px 0px 0px !important;
+	width: 300px !important;
+}
+
+.map-bubble td {
+	/*border: 1px solid #000 !important;*/
+	color: #000000 !important;
+	font-size: 12px !important;
+	font-style: normal !important;
+	font-weight: 300 !important;
+	margin: 0px 0px 0px 0px !important;
+	padding: 4px 5px 2px 0px !important;
+	text-align: left !important;
+}
+
+.map-bubble th {
+	color: #808080 !important;
+	font-size: 10px !important;
+	font-style: bold !important;
+	font-weight: 700 !important;
+	margin: 0px 0px 0px 0px !important;
+	padding: 5px 0px 0px 5px !important;
+	text-align: right !important;
+	/*width: 80px !important;*/
+}
+
+th.map-bubble-title {
+	color: #000000 !important;
+	font-size: 14px !important;
+	font-style: bold !important;
+	font-weight: 700 !important;
+	margin: 0px 0px 0px 0px !important;
+	padding: 0px 0px 0px 0px !important;
+	text-align: left !important;
+}
+
+/* GOOGLE MAPS CSS */
+.google_marker_label
+{
+	left: 40px;
+	top: -5px;
+}
+
+.google_map_labels 
+{
+	background-color: #fbfbfb;
+	border:  1px solid #0871ac;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	color: #090B0C;
+	font-size: 1em;
+	padding: 5px;
+	padding: 5px;
+	padding: 5px;
+	padding: 5px;
+	top: 1px;
+	left: 10px;
+	white-space: nowrap;
+}
+
+/* MAPBOX MAPS CSS */
+.mapbox_marker_label {
+    background-color: #fbfbfb;
+    padding-left: 3px;
+    padding-right: 2px;
+    white-space: nowrap;
+    border: #333 solid 1px;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: black;
+	filter: alpha(opacity=60);
+	opacity: 1;
+	margin-left: 2em;
+	float: left;
+	margin-top: 5px;
+}
+
+.mapbox_marker_icon {
+	display: inline-block;
+	width: 26px;
+	height: 26px;
+	margin-right: 5px;
+	cursor: pointer;
+	background: transparent url('../media/icons/map-marker-icon.png') no-repeat;
+}
+
+.mapbox_temp_landmark_icon {
+	background: transparent url('../media/icons/stop-16.png') no-repeat;    
+}
+
+.mapbox_temp_landmark_icon_active {
+	background: transparent url('../media/icons/markers/map-marker-icon-blue.png') no-repeat;
+    background-size: 16px 24px !important;
+	/*margin: 0px 0px 0px 0px !important;*/
+	z-index: 999;
+/*
+	background: transparent url('../media/icons/stop-active-16.png') no-repeat;    
+*/
+}
+
+.mapbox_marker_icon_cluster {
+	background: transparent url('../media/icons/markers/map-marker-icon-cluster.png') no-repeat;
+}
+
+.mapbox_marker_icon_unit {
+	background: transparent url('../media/icons/markers/map-marker-icon-unit.png') no-repeat;
+}
+
+.mapbox_marker_icon_blue {
+	background: transparent url('../media/icons/markers/map-marker-icon-blue.png') no-repeat;
+}
+
+.mapbox_marker_icon_red {
+	background: transparent url('../media/icons/markers/map-marker-icon-red.png') no-repeat;
+}
+
+.mapbox_marker_icon_green {
+	background: transparent url('../media/icons/markers/map-marker-icon-green.png') no-repeat;
+}
+
+.mapbox_marker_icon_black {
+	background: transparent url('../media/icons/markers/map-marker-icon-black.png') no-repeat;
+}
+
+.mapbox_marker_icon_grey {
+	background: transparent url('../media/icons/markers/map-marker-icon-grey.png') no-repeat;
+}
+
+.mapbox_marker_icon_orange {
+	background: transparent url('../media/icons/markers/map-marker-icon-orange.png') no-repeat;
+}
+
+.mapbox_marker_icon_purple {
+	background: transparent url('../media/icons/markers/map-marker-icon-purple.png') no-repeat;
+}
+
+.mapbox_marker_icon_teal {
+	background: transparent url('../media/icons/markers/map-marker-icon-teal.png') no-repeat;
+}
+
+.mapbox_marker_icon_yellow {
+	background: transparent url('../media/icons/markers/map-marker-icon-yellow.png') no-repeat;
+}
+
+@name: '[name_en]';
+
+#country_label {
+	text-name: @name;
+}

@@ -1,0 +1,484 @@
+                    {% set half_col       = 'col-lg-6 col-md-6 col-sm-6 col-xs-6' %}
+                    {% set third_col       = 'col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set info_col       = 'col-info col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# outer/main columns #}
+                    {% set label_col      = 'col-label col-lg-4 col-md-4 col-sm-4 col-xs-4' %} {# label columns #}
+                    {% set control_col    = 'col-control col-lg-6 col-md-6 col-sm-6 col-xs-6' %} {# input/control columns #}
+                    {% set control_offset = 'col-offset col-lg-2 col-md-2 col-sm-2 col-xs-2' %} {# allows spacing for x-editable button #}
+                    {% set command_col    = 'col-lg-12 col-md-12 col-sm-12 col-xs-12' %} {# allows spacing for x-editable button #}
+                    {% set report_editable = (access.report.write) ? 'form-editable' : 'form-noneditable form-control-static disabled' %}
+
+                    <div class="panel-body clearfix hook-editable-keys" data-report-pk="" data-report-type-id="" data-schedule=""  data-schedule-day=""  data-month-day=""  data-send-hour="">
+                        <div class="row">
+                            <div class="{{ half_col }}">
+                                <h5>Report Details</h5>
+                                <div class="row" style="margin-bottom: 15px">
+                                    <div class="{{ label_col }}">
+                                        <label for="report-schedule-name">Name:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+
+                                        <a class="{{ report_editable }}" id="report-schedule-name" data-type="text" data-url="/ajax/report/updateScheduledReportInfo" data-maxlength="{{ validation.report_name.maxlength }}"></a>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                {# Report Type #}
+                                <div class="row">
+                                    <div class="{{ label_col }}">
+                                        <label for="report-schedule-type">Report Type:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <div class="btn-group">
+                                            <button type="button" id="report-schedule-type" class="btn btn-default btn-dropdown btn-xs btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-report-type" value="1">
+                                                <span class="filter-label">Alert</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                            
+                                                    {% for rt in reporttypes %}
+                                                        <li><a data-value="{{ rt.reporttype_id }}" data-report-type="{{rt.url}}" data-toggle-target="report-params-{{rt.dom_id}}">{{ rt.reporttypename }}</a></li>
+                                                    {% endfor %}                                            
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                {# Alert Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-alert">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-alert">Alert Type:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-alert-type" data-type="select" data-source="/ajax/alert/getAlertTypeOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                                {# Landmark Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-landmark">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-landmark-mode">Landmark Mode:</label><br />
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <div class="btn-group">
+                                                <button type="button" id="report-landmark-mode" class="btn btn-default btn-dropdown btn-xs btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-report-landmark-mode" value="all">
+                                                    <span class="filter-label">All Vehicles</span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a data-value="all" data-toggle-target="report-landmark-mode-all">All Landmarks</a></li>
+                                                    <li><a data-value="single" data-toggle-target="report-landmark-mode-single">Single Landmark</a></li>
+                                                    <li><a data-value="group" data-toggle-target="report-landmark-mode-group">Landmark Group</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-report-landmark-mode-single toggle-panel-report-landmark-mode">
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="{{ label_col }}">
+                                                <label for="report-landmark-single">Landmark:</label><br />
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <a class="form-editable" id="report-landmark-single" data-type="select" data-source="/ajax/landmark/getLandmarkOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                            </div>
+                                            <div class="{{ control_offset }}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-report-landmark-mode-group toggle-panel-report-landmark-mode">
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="{{ label_col }}">
+                                                <label for="report-landmark-group">Landmark Group:</label><br />
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <a class="form-editable" id="report-landmark-group" data-type="select" data-source="/ajax/landmark/getLandmarkGroupOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                            </div>
+                                            <div class="{{ control_offset }}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {# Boundary Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-boundary">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-boundary-mode">Boundary Mode:</label><br />
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <div class="btn-group">
+                                                <button type="button" id="report-boundary-mode" class="btn btn-default btn-dropdown btn-xs btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-report-boundary-mode" value="all">
+                                                    <span class="filter-label">All Boundaries</span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a data-value="all" data-toggle-target="report-boundary-mode-all">All Boundaries</a></li>
+                                                    <li><a data-value="single" data-toggle-target="report-boundary-mode-single">Single Boundary</a></li>
+                                                    <li><a data-value="group" data-toggle-target="report-boundary-mode-group">Boundary Group</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-report-boundary-mode-single toggle-panel-report-boundary-mode">
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="{{ label_col }}">
+                                                <label for="report-boundary-single">Boundary:</label><br />
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <a class="form-editable" id="report-boundary-single" data-type="select" data-source="/ajax/landmark/getBoundaryOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                            </div>
+                                            <div class="{{ control_offset }}"></div>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-toggle-panel dropdown-toggle-panel-report-boundary-mode-group toggle-panel-report-boundary-mode">
+                                        <div class="row" style="margin-bottom: 15px;">
+                                            <div class="{{ label_col }}">
+                                                <label for="report-boundary-group">Boundary Group:</label><br />
+                                            </div>
+                                            <div class="{{ control_col }}">
+                                                <a class="form-editable" id="report-boundary-group" data-type="select" data-source="/ajax/landmark/getLandmarkBoundaryOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                            </div>
+                                            <div class="{{ control_offset }}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {# Frequent Stops Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-frequent-stops">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-frequent-stops-duration-threshold">Avg. Duration Threshold:</label><br />
+                                        </div>
+
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-frequent-stops-duration-threshold" data-type="select" data-source="/ajax/report/getTimeDurationOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+
+                                    </div>
+
+                                </div>
+                                {# Reference Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-reference">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-reference">Verification:</label><br />
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-reference" data-type="select" data-source="/ajax/landmark/getReferenceOptions/All/All" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                                {# Not Reporting Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-non-reporting">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-not-reporting">Not Reported In:</label><br />
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-not-reporting" data-type="select" data-source="/ajax/report/getNotReportedOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                                {# Mileage Summary Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-mileage-summary">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-mileage-filter">Total Miles Filter:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-mileage-filter" data-type="select" data-source="/ajax/report/getMileageOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+
+                                    </div>
+                                </div>
+                                {# Speed Summary Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-speed-summary">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-speed-filter">Speed Filter:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-speed-filter" data-type="select" data-source="/ajax/report/getOverSpeedOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+
+                                    </div>
+                                </div>
+                                {# Stationary Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-stationary">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-stationary-filter">Stationary Filter:</label><br />
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-stationary-filter" data-type="select" data-source="/ajax/report/getDayThresholdOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+
+                                    </div>
+                                </div>
+                                {# Stop Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-stop">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-stop-threshold">Stop Threshold:</label><br />
+                                        </div>
+
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-stop-threshold" data-type="select" data-source="/ajax/report/getTimeThresholdOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+
+                                    </div>
+                                </div>
+                                {# Verification of Reference Report #}
+                                <div class="dropdown-toggle-panel toggle-panel-report-type dropdown-toggle-panel-report-params-user-command">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-user-command-user">User:</label><br />
+                                        </div>
+
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-user-command-user" data-type="select" data-source="/ajax/users/getUserInlineDropdownOptions/All/0" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>                                        
+
+                                    </div>
+                                </div>
+                                <hr />
+                                <h5>Vehicle Details</h5>
+                                <div class="form-group">
+                                <div class="row" style="margin-bottom: 15px;">
+
+                                    <div class="{{ label_col }}">
+                                        <label for="report-vehicle-mode">Vehicle Mode:</label>
+                                    </div>
+                                    <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                        <div class="btn-group">
+                                            <button type="button" id="report-vehicle-mode" class="btn btn-default btn-dropdown btn-xs btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-report-vehicle-mode" value="all">
+                                                <span class="filter-label">All Vehicles</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a data-value="all" data-toggle-target="report-vehicle-mode-all">All Vehicles</a></li>
+                                                <li><a data-value="single" data-toggle-target="report-vehicle-mode-single">Single Vehicle</a></li>
+                                                <li><a data-value="group" data-toggle-target="report-vehicle-mode-group">Vehicle Group</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                </div>
+                                {# Single Vehicle #}
+                                <div class="dropdown-toggle-panel dropdown-toggle-panel-report-vehicle-mode-single toggle-panel-report-vehicle-mode">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-vehicle-single">Vehicle:</label><br />
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-vehicle-single" data-type="select" data-source="/ajax/report/getVehicleOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="dropdown-toggle-panel dropdown-toggle-panel-report-vehicle-mode-group toggle-panel-report-vehicle-mode">
+                                    <div class="form-group">
+                                    <div class="row" style="margin-bottom: 15px;">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-vehicle-group">Vehicle Group:</label><br />
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="report-vehicle-group" data-type="select" data-source="/ajax/report/getVehicleGroupOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ command_col }}">
+                                        <a id="report-more-options-toggle" href="#">
+                                            <small>Show More Options</small>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="report-more-options" class="container">
+                                    <div class="clearfix">
+                                        <div class="pull-left">
+                                            <h5>Delete Report</h5>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button type="button" id="popover-report-delete" class="btn btn-default has-tooltip has-popover" title="Delete Report" data-placement="bottom" data-popover-placement="left" data-popover-title-id="popover-head-report-delete" data-popover-content-id="popover-content-report-delete">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="{{ half_col }}">
+                                <h5>Schedule Details</h5>
+                                
+                                <div class="form-group">
+                                <div class="row" style="margin-bottom: 15px;">
+                                    <div class="{{ label_col }}">
+                                        <label for="report-dates">Date Range:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <input type="text" id="report-dates" class="form-control input-sm has-datepicker" data-datepicker-opens="right" />
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                </div>
+                                
+                                <div class="row" style="/*margin-bottom: 15px;*/">
+                                    <div class="{{ label_col }}">
+                                        <label for="scheduled-recurrence">Recurrence:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <div class="btn-group">
+                                            <button type="button" id="scheduled-recurrence" class="btn btn-default btn-dropdown btn-xs btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-scheduled-recurrence" value="Daily">
+                                                <span class="filter-label">Daily</span>
+                                            </button>
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a data-value="Daily" data-toggle-target="scheduled-recurrence-daily">Daily</a></li>
+                                                <li><a data-value="Weekly" data-toggle-target="scheduled-recurrence-weekly">Weekly</a></li>
+                                                <li><a data-value="Monthly" data-toggle-target="scheduled-recurrence-monthly">Monthly</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <div class="dropdown-toggle-panel dropdown-toggle-panel-scheduled-recurrence-weekly toggle-panel-scheduled-recurrence">
+                                    <div class="row">
+                                        <div class="{{ label_col }}">
+                                            <label for="scheduled-day">Day of Week:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="scheduled-day" data-type="select" data-source="/ajax/report/getDayofWeekOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+
+                                </div>
+                                <div class="dropdown-toggle-panel dropdown-toggle-panel-scheduled-recurrence-monthly toggle-panel-scheduled-recurrence">
+                                    <div class="row">
+                                        <div class="{{ label_col }}">
+                                            <label for="scheduled-monthly">Day of Month:</label>
+                                        </div>
+                                        <div class="{{ control_col }}">
+                                            <a class="form-editable" id="scheduled-monthly" data-type="select" data-source="/ajax/report/getDayofMonthOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ label_col }}">
+                                        <label for="scheduled-time">Time to Send:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <a class="form-editable" id="scheduled-time" data-type="select" data-source="/ajax/report/getSendHourOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="{{ label_col }}">
+                                        <label for="scheduled-format">Format:</label>
+                                    </div>
+                                    <div class="{{ control_col }}">
+                                        <a class="form-editable" id="scheduled-format" data-type="select" data-source="/ajax/report/getFormatOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                                <hr />
+                                <h5>Contact Details</h5>
+                                <div class="row">
+                                    <div class="{{ label_col }}">
+                                        <label for="report-contact-mode">Contact Mode:</label>
+                                    </div>
+                                    <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                        <div class="btn-group">
+                                            <button type="button" id="report-contact-mode" class="btn btn-default btn-dropdown btn-xs btn-dropdown-toggle-panels" data-toggle="dropdown" data-panel-targets="toggle-panel-contact-mode" value="single"><span class="filter-label">Single Contact</span></button>
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a data-value="single" data-toggle-target="report-contact-single">Single Contact</a></li>
+                                                <li><a data-value="group" data-toggle-target="report-contact-group">Contact Group</a></li>
+                                                <li><a data-value="reportonly">Report Only</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="{{ control_offset }}"></div>
+                                </div>
+                            {# SINGLE CONTACT #}
+                                <div class="dropdown-toggle-panel dropdown-toggle-panel-default dropdown-toggle-panel-report-contact-single toggle-panel-contact-mode">
+                                    <div class="row">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-contact-single">Contact:</label>
+                                        </div>
+                                        <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                            <a class="form-editable" id="report-contact-single" data-type="select" data-source="/ajax/contact/getContactOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                            {# CONTACT GROUP #}
+                                <div class="dropdown-toggle-panel dropdown-toggle-panel-report-contact-group toggle-panel-contact-mode">
+                                    <div class="row">
+                                        <div class="{{ label_col }}">
+                                            <label for="report-contact-group">Contact Group:</label>
+                                        </div>
+                                        <div class="{{ control_col }} has-tooltip" data-placement="top">
+                                            <a class="form-editable" id="report-contact-group" data-type="select" data-source="/ajax/contact/getContactGroupOptions" data-url="/ajax/report/updateScheduledReportInfo"></a>
+                                        </div>
+                                        <div class="{{ control_offset }}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {# POPOVERS #}
+                {# Saved Report - Delete #}
+                    {% if route == 'report/scheduled' %}
+                    <div id="popover-head-report-delete" class="hide">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                Remove Scheduled Report
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" class="close">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="popover-content-report-delete" class="hide">
+                        <p>Are you sure you want remove this Scheduled Report?</p>
+                        <div class="well well-sm">
+                            <p>This action will remove the scheduling of this report <em>(does not delete the report)</em>.</p>
+                        </div>
+                        <hr />
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <button type="button" id="popover-report-delete-confirm" class="btn btn-sm btn-default">Remove Scheduling</button>
+                            </div>
+                            <div class="pull-right">
+                                <button type="button" id="popover-report-delete-cancel" class="btn btn-sm btn-primary popover-cancel">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+

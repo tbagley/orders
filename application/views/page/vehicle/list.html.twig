@@ -1,0 +1,109 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block main_panel %}
+    <!-- MAIN-PANEL BEGIN  -->
+
+        <!-- FX Container -->
+        <div id="fx-container" class="fx-opacity">
+            <!-- Page content -->
+            <!-- Block Tabs -->
+            <div class="block block-tabs full">
+            <!-- Block Tabs Title -->
+            <div class="block-title">
+                {% include 'partial/quickactions/vehicle-list-map.html.twig' %}
+
+                <ul id="secondaryNav" class="nav nav-tabs">
+                    {% for item in secondary_navigation %}
+                        <li {% if route == item.route  %}class="active"{% endif %}><a href="/{{ item.route }}">{{ item.label }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- END Block Tabs Title -->
+
+            <div class="table-options clearfix">
+            	<div class="col-md-4 col-lg-4 col-sm-4 col-xs-6">  <h3 class="heading1">Vehicle List</h3></div> 
+            	<div class="col-md-8 col-lg-8 col-sm-8 col-xs-6">
+            		<div class="btn-group btn-group-sm pull-right" style="display:block;">
+            			<a href="#modal-download-pdf" class="btn btn-primary" data-toggle="modal" data-placement="left" title="Export PDF" ><i class="fa fa-print"></i></a>
+            	
+            			<a href="#modal-export-csv" class="btn btn-primary" data-toggle="modal" title="Export CSV"><i class="hi hi-export"></i></a>
+            		</div>
+            	</div>
+            </div>
+            <!-- END Table Options -->
+
+            <div class="table-responsive">
+                <div class="dataTables_wrapper form-inline" role="grid">
+                    <div id="vehicle-list-table" class="noborder report-master">
+                        {% include('partial/report-table.html.twig') %}
+{#}
+                <table id="vehicle-list-example-datatable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th style="font-size:14px;">Vehicle</th>
+                            <th style="font-size:14px;">Group</th>
+                            <th style="font-size:14px;">Status</th>
+                            <th style="font-size:14px;">Duration</th>
+                            <th style="font-size:14px;">Address</th>
+                            <th style="font-size:14px;">Last Event</th>
+                            <th style="font-size:14px;">Date & Time</th>
+                            <th style="font-size:14px;">Mileage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="#modal-edit-vehicle-list" data-toggle="modal">Demo One - A</a></td>
+                            <td>Default</td>
+                            <td>Stopped</td>
+                            <td>9 Days, 5 Hours, 30 Minutes</td>
+                            <td>24825 Great Lakes Cir, Lake Forest, CA, 92630</td>
+                            <td>Stop</td>
+                            <td>10:48 AM 05/07/2014</td>
+                            <td>115</td>
+                        </tr>    
+                           <tr>
+                            <td><a href="#modal-edit-vehicle-list" data-toggle="modal">Demo One - A</a></td>
+                            <td>Default</td>
+                            <td>Stopped</td>
+                            <td>9 Days, 5 Hours, 30 Minutes</td>
+                            <td>24825 Great Lakes Cir, Lake Forest, CA, 92630</td>
+                            <td>Stop</td>
+                            <td>10:48 AM 05/07/2014</td>
+                            <td>115</td>
+                        </tr>
+                    </tbody>
+                </table>
+{#}
+                    </div>
+                </div>
+            </div>
+
+            <!-- END Block Tabs -->
+            <!-- END Page Content -->
+        </div>
+        <!-- END FX Container -->
+
+    <!-- MAIN-PANEL END  -->
+{% endblock %}
+
+
+{% block secondary_panel %}
+    <!-- SECONDARY-PANEL BEGIN  -->
+        {% include('partial/vehicle-sidebar.html.twig') %}
+    <!-- SECONDARY-PANEL END  -->
+{% endblock %}
+
+
+{% block modals %}
+    <!-- MODAL BEGIN -->
+        {% include('partial/vehicle-modals.html.twig') %}
+    <!-- MODAL END -->
+{% endblock %}
+
+
+{% block scripts_panel %}
+    {#<script src="/assets_responsive/js/vehicle.js"></script>#}
+    <script src="/assets/js/vehicle.js"></script>
+{% endblock %}
+
+
